@@ -17,19 +17,21 @@ export default function ProjectLayout({ slug, children }: Props) {
       className="min-h-screen project-body"
       style={{ paddingTop: "calc(var(--header-h) + 3rem)" }}
     >
-      <div className="max-w-[1100px] mx-auto px-6 pb-16">
+      <div className="max-w-[1100px] mx-auto px-6 pb-32">
         {children}
       </div>
 
       {/* Case study footer */}
       <footer
+        className="px-6 md:px-[120px]"
         style={{
           position: "fixed",
           bottom: 0,
           left: 0,
           right: 0,
           zIndex: 50,
-          padding: "10px 120px",
+          paddingTop: "10px",
+          paddingBottom: "10px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",

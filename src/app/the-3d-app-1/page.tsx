@@ -16,8 +16,8 @@ export default function The3DApp() {
         </div>
 
         {/* Title row below image */}
-        <div className="grid grid-cols-2 gap-0 mt-6 mb-10">
-          <div className="pr-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mt-6 mb-10">
+          <div className="md:pr-8">
             <h1 style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4 }}>
               Perfecting the Pitch: AI Virtual Staging for the Modern Agent
             </h1>
@@ -36,7 +36,7 @@ export default function The3DApp() {
               ))}
             </div>
           </div>
-          <div className="pl-8">
+          <div className="md:pl-8 mt-6 md:mt-0">
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               An ongoing product redesign for a 3D marketplace platform. Research-driven UX improvements to core browsing, discovery, and onboarding flows.
             </p>
@@ -44,14 +44,14 @@ export default function The3DApp() {
         </div>
 
         {/* Problem / Solution row */}
-        <div className="grid grid-cols-2 gap-0 pt-2 mb-10">
-          <div className="pr-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 pt-2 mb-10">
+          <div className="md:pr-8">
             <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Problem</p>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               Real estate agents need high-quality staging, but AI is often a "black box"—unpredictable and hard to control.
             </p>
           </div>
-          <div className="pl-8">
+          <div className="md:pl-8 mt-6 md:mt-0">
             <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Solution</p>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               Design a "Control Deck" that gives agents the ability to guide AI imagery with precision, speed, and creative flexibility.

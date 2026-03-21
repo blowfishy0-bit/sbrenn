@@ -32,8 +32,8 @@ export default function ClimateCollective() {
         </div>
 
         {/* Title row below image */}
-        <div className="grid grid-cols-2 gap-0 mt-6 mb-10">
-          <div className="pr-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mt-6 mb-10">
+          <div className="md:pr-8">
             <h1 style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4 }}>
               Climate Collective: From Skepticism to Community
             </h1>
@@ -52,7 +52,7 @@ export default function ClimateCollective() {
               ))}
             </div>
           </div>
-          <div className="pl-8">
+          <div className="md:pl-8 mt-6 md:mt-0">
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               Driving conversion for the Mosambi platform by replacing the "Black Box" login with value-first onboarding.
             </p>
@@ -60,14 +60,14 @@ export default function ClimateCollective() {
         </div>
 
         {/* Problem / Goal row */}
-        <div className="grid grid-cols-2 gap-0 pt-2 mb-10">
-          <div className="pr-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 pt-2 mb-10">
+          <div className="md:pr-8">
             <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Problem</p>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               For a new social ecosystem like Mosambi, the primary hurdle was converting guests into members without losing them to a tedious signup process — especially when users hit a wall trying to access high-value features like event registration.
             </p>
           </div>
-          <div className="pl-8">
+          <div className="md:pl-8 mt-6 md:mt-0">
             <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Goal</p>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               Design a high-speed, frictionless onboarding sequence with a persistent status indicator to maximize signup conversion and reduce user drop-off.

@@ -21,6 +21,7 @@ export default function Cursor() {
 
   return (
     <div
+      className="hidden md:block"
       style={{
         position: "fixed",
         left: pos.x,

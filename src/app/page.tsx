@@ -14,15 +14,14 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
 
   return (
     <main
+      className="px-6 md:px-[120px]"
       style={{
         paddingTop: "calc(var(--header-h) + 2rem)",
         paddingBottom: "4rem",
-        paddingLeft: "120px",
-        paddingRight: "120px",
       }}
     >
-      <section id="work">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10">
+      <section id="work" style={{ scrollMarginTop: "var(--header-h)" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
           {featuredProjects.map((p) => (
             <div
               key={p.slug}

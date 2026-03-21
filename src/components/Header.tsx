@@ -64,9 +64,8 @@ export default function Header() {
         }}
       >
         <div
-          className="h-full grid items-center"
+          className="h-full grid items-center px-6 md:px-[120px]"
           style={{
-            padding: "0 120px",
             gridTemplateColumns: "1fr auto 1fr",
             gap: "24px",
           }}
