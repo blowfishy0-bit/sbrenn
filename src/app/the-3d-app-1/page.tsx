@@ -10,6 +10,11 @@ export default function The3DApp() {
 
       {/* ── Hero ── */}
       <section className="mb-16">
+        {/* Hero image — full bleed, flush to top */}
+        <div style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw", background: "#f0f0f0", marginTop: "calc(-3rem)" }} className="mb-10">
+          <img src="/slide2.svg" alt="The 3D App virtual tour viewer" className="w-full block" />
+        </div>
+
         <p className="text-xs tracking-widest uppercase mb-6" style={{ color: "var(--text-muted)" }}>
           UX Case Study · Client Work
         </p>
@@ -24,24 +29,36 @@ export default function The3DApp() {
 
         {/* Overview row */}
         <div
-          className="grid grid-cols-3 gap-0 pt-10 mb-14"
+          className="grid grid-cols-3 gap-0 pt-10 mb-0"
           style={{ borderTop: "1px solid var(--border)" }}
         >
-          <div className="pr-8" style={{ borderRight: "1px solid var(--border)" }}>
+          <div className="pr-8 pb-8" style={{ borderRight: "1px solid var(--border)" }}>
+            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Client</p>
+            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>The3DApp</p>
+          </div>
+          <div className="px-8 pb-8" style={{ borderRight: "1px solid var(--border)" }}>
+            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Timeline</p>
+            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>Ongoing</p>
+          </div>
+          <div className="pl-8 pb-8">
+            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Team</p>
+            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>Solo Lead Designer</p>
+          </div>
+          <div className="pr-8 pt-8 mb-14" style={{ borderTop: "1px solid var(--border)", borderRight: "1px solid var(--border)" }}>
             <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Problem</p>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               Real estate agents need high-quality staging, but AI is often a
               "black box"—unpredictable and hard to control.
             </p>
           </div>
-          <div className="px-8" style={{ borderRight: "1px solid var(--border)" }}>
+          <div className="px-8 pt-8 mb-14" style={{ borderTop: "1px solid var(--border)", borderRight: "1px solid var(--border)" }}>
             <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Goal</p>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               Design a "Control Deck" that gives agents the ability to guide AI
               imagery with precision, speed, and creative flexibility.
             </p>
           </div>
-          <div className="pl-8">
+          <div className="pl-8 pt-8 mb-14" style={{ borderTop: "1px solid var(--border)" }}>
             <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>My Role</p>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               Lead UX/UI Designer — Research, Interaction Logic, and Prototyping.
@@ -49,10 +66,6 @@ export default function The3DApp() {
           </div>
         </div>
 
-        {/* Hero image — slide 2 */}
-        <div className="rounded-2xl overflow-hidden" style={{ background: "#f0f0f0" }}>
-          <img src="/slide2.svg" alt="The 3D App virtual tour viewer" className="w-full block" />
-        </div>
       </section>
 
       <hr style={{ borderColor: "var(--border)", marginBottom: "5rem" }} />
