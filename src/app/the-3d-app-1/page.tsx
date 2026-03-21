@@ -11,57 +11,50 @@ export default function The3DApp() {
       {/* ── Hero ── */}
       <section className="mb-16">
         {/* Hero image — full bleed, flush to top */}
-        <div style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw", background: "#f0f0f0", marginTop: "calc(-3rem)" }} className="mb-10">
+        <div style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw", background: "#f0f0f0", marginTop: "calc(-3rem)" }}>
           <img src="/slide2.svg" alt="The 3D App virtual tour viewer" className="w-full block" />
         </div>
 
-        <p className="text-xs tracking-widest uppercase mb-6" style={{ color: "var(--text-muted)" }}>
-          UX Case Study · Client Work
-        </p>
-        <h1
-          className="font-light leading-[1.05] tracking-tight mb-10"
-          style={{ fontSize: "clamp(2.4rem, 6vw, 4.5rem)", color: "var(--text)" }}
-        >
-          Perfecting the Pitch:<br />
-          AI Virtual Staging<br />
-          for the Modern Agent
-        </h1>
+        {/* Title row below image */}
+        <div className="grid grid-cols-2 gap-0 mt-6 mb-10">
+          <div className="pr-8">
+            <h1 style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4 }}>
+              Perfecting the Pitch: AI Virtual Staging for the Modern Agent
+            </h1>
+            <p className="text-sm mt-1" style={{ color: "#BCBAA9" }}>Figma, UX Research (Ongoing)</p>
 
-        {/* Overview row */}
-        <div
-          className="grid grid-cols-3 gap-0 pt-10 mb-0"
-          style={{ borderTop: "1px solid var(--border)" }}
-        >
-          <div className="pr-8 pb-8" style={{ borderRight: "1px solid var(--border)" }}>
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Client</p>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>The3DApp</p>
+            <div className="flex flex-col gap-3 mt-8">
+              {[
+                { label: "Timeline", value: "Ongoing" },
+                { label: "Team", value: "Solo Lead Designer" },
+                { label: "My Role", value: "Lead UX/UI Designer — Research, Interaction Logic, and Prototyping." },
+              ].map(({ label, value }) => (
+                <div key={label} className="flex gap-6">
+                  <p className="text-sm w-20 shrink-0 pt-[2px]" style={{ color: "var(--text-muted)" }}>{label}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "#444" }}>{value}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="px-8 pb-8" style={{ borderRight: "1px solid var(--border)" }}>
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Timeline</p>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>Ongoing</p>
-          </div>
-          <div className="pl-8 pb-8">
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Team</p>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>Solo Lead Designer</p>
-          </div>
-          <div className="pr-8 pt-8 mb-14" style={{ borderTop: "1px solid var(--border)", borderRight: "1px solid var(--border)" }}>
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Problem</p>
+          <div className="pl-8">
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              Real estate agents need high-quality staging, but AI is often a
-              "black box"—unpredictable and hard to control.
+              An ongoing product redesign for a 3D marketplace platform. Research-driven UX improvements to core browsing, discovery, and onboarding flows.
             </p>
           </div>
-          <div className="px-8 pt-8 mb-14" style={{ borderTop: "1px solid var(--border)", borderRight: "1px solid var(--border)" }}>
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Goal</p>
+        </div>
+
+        {/* Problem / Solution row */}
+        <div className="grid grid-cols-2 gap-0 pt-2 mb-10">
+          <div className="pr-8">
+            <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Problem</p>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              Design a "Control Deck" that gives agents the ability to guide AI
-              imagery with precision, speed, and creative flexibility.
+              Real estate agents need high-quality staging, but AI is often a "black box"—unpredictable and hard to control.
             </p>
           </div>
-          <div className="pl-8 pt-8 mb-14" style={{ borderTop: "1px solid var(--border)" }}>
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>My Role</p>
+          <div className="pl-8">
+            <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Solution</p>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              Lead UX/UI Designer — Research, Interaction Logic, and Prototyping.
+              Design a "Control Deck" that gives agents the ability to guide AI imagery with precision, speed, and creative flexibility.
             </p>
           </div>
         </div>

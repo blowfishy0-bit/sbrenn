@@ -28,11 +28,11 @@ export default function Cursor() {
         width: 22,
         height: 22,
         borderRadius: "50%",
-        background: hovered ? "#BCBAA9" : "#111",
+        background: "#BCBAA9",
+        mixBlendMode: "difference",
         transform: "translate(-50%, -50%)",
         pointerEvents: "none",
         zIndex: 99999,
-        transition: "background 0.2s ease",
       }}
     />
   );
