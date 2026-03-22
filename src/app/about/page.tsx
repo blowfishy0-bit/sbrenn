@@ -26,7 +26,7 @@ export default function About() {
         <p>
           My journey (so far) has been:
           <br />
-          <strong>Fine Art → Interaction Design → User Experience Design</strong>
+          <strong>Interaction Design → User Experience Design</strong>
         </p>
       </div>
 
@@ -38,7 +38,7 @@ export default function About() {
             className="transition-colors"
             style={{ color: "var(--teal)" }}
           >
-            sbren156@pratt.edu
+            sbren156@pratt.edu ↗
           </a>
           <a
             href="https://www.linkedin.com/in/sophiebrenner000/"

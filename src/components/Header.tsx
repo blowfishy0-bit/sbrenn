@@ -106,7 +106,7 @@ export default function Header() {
           </nav>
 
           {/* Hamburger (mobile only) */}
-          <div className="md:hidden flex justify-end">
+          <div className="md:hidden flex justify-end col-start-3">
             <button
               className="flex flex-col gap-[5px] p-1"
               onClick={() => setMenuOpen((o) => !o)}

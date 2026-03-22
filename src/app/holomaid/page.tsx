@@ -26,7 +26,7 @@ export default function HoloMaid() {
       <div className="grid md:grid-cols-[1fr_auto] gap-10 mb-14">
         <div>
           <div
-            className="relative overflow-hidden rounded-xl"
+            className="relative overflow-hidden"
             style={{ paddingBottom: "56.25%", height: 0 }}
           >
             <iframe
@@ -63,7 +63,7 @@ export default function HoloMaid() {
       {/* 4-image grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
         {[imgs.img1, imgs.img2, imgs.img3, imgs.img4].map((src, i) => (
-          <div key={i} className="relative rounded-xl overflow-hidden" style={{ aspectRatio: "4/3" }}>
+          <div key={i} className="relative overflow-hidden" style={{ aspectRatio: "4/3" }}>
             <Image src={src} alt="" fill className="object-cover" sizes="25vw" />
           </div>
         ))}
@@ -86,7 +86,7 @@ export default function HoloMaid() {
             </li>
           </ul>
         </div>
-        <div className="relative rounded-xl overflow-hidden" style={{ aspectRatio: "16/9" }}>
+        <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
           <video autoPlay muted loop playsInline className="w-full h-full object-cover">
             <source src={imgs.video} />
           </video>
@@ -95,7 +95,7 @@ export default function HoloMaid() {
 
       {/* Diagram */}
       <div className="mb-14 flex justify-center">
-        <div className="relative w-full max-w-2xl rounded-xl overflow-hidden">
+        <div className="relative w-full max-w-2xl overflow-hidden">
           <Image src={imgs.diagram} alt="HoloMaid system diagram" width={727} height={385} className="w-full" />
         </div>
       </div>

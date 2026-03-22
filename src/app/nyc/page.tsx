@@ -7,14 +7,14 @@ export const metadata = {
 function VimeoEmbed({ id, title }: { id: string; title: string }) {
   return (
     <div
-      className="relative overflow-hidden rounded-xl"
+      className="relative overflow-hidden"
       style={{ paddingBottom: "56.25%", height: 0 }}
     >
       <iframe
-        src={`https://player.vimeo.com/video/${id}?autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0`}
+        src={`https://player.vimeo.com/video/${id}?autoplay=1&loop=1&background=1&muted=1&title=0&byline=0&portrait=0`}
         className="absolute top-0 left-0 w-full h-full"
         frameBorder="0"
-        allow="autoplay; fullscreen"
+        allow="autoplay; fullscreen; picture-in-picture"
         allowFullScreen
         title={title}
       />

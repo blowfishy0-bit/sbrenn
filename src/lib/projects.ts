@@ -9,6 +9,7 @@ export interface Project {
   category: "ux" | "immersive" | "3d" | "art";
   thumb: string;          // URL for homepage card thumbnail
   hoverThumb?: string;    // optional alternate image shown on hover
+  hoverThumbs?: string[]; // optional array of images to cycle through on hover
   thumbIsGif?: boolean;
   thumbWhiteBg?: boolean;
 }
@@ -30,7 +31,8 @@ export const projects: Project[] = [
     subtitle: "LLM, Arduino, Blender, Hologram",
     tags: ["Immersive", "AI", "Hardware"],
     category: "immersive",
-    thumb: cargoImg("R2729844835170339095110134164734", "ezgif-7dad45e8612b45a7.jpg"),
+    thumb: "/holomaid-1.png",
+    hoverThumbs: ["/holomaid-1.png", "/holomaid-2.png", "/holomaid-3.png", "/holomaid-4.png"],
   },
   {
     slug: "ui-redesign-1",
@@ -67,6 +69,7 @@ export const projects: Project[] = [
     tags: ["Spatial", "Unity"],
     category: "immersive",
     thumb: cargoImg("K2721659513700584660664435764478", "3_sophie_interaction.jpg"),
+    hoverThumbs: [cargoImg("K2721659513700584660664435764478", "3_sophie_interaction.jpg"), "/nyc-hover.png"],
   },
   {
     slug: "sketches",

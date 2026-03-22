@@ -31,7 +31,7 @@ export default function ClimateCollective() {
           <img src="/mosambi-final.svg" alt="Mosambi overview" className="w-full block" />
         </div>
 
-        {/* Title row below image */}
+        {/* Title row */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mt-6 mb-10">
           <div className="md:pr-8">
             <h1 style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4 }}>
@@ -54,12 +54,12 @@ export default function ClimateCollective() {
           </div>
           <div className="md:pl-8 mt-6 md:mt-0">
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              Driving conversion for the Mosambi platform by replacing the "Black Box" login with value-first onboarding.
+              Driving conversion for the Mosambi platform by replacing the &ldquo;Black Box&rdquo; login with value-first onboarding.
             </p>
           </div>
         </div>
 
-        {/* Problem / Goal row */}
+        {/* Problem / Solution row */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 pt-2 mb-10">
           <div className="md:pr-8">
             <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Problem</p>
@@ -68,9 +68,12 @@ export default function ClimateCollective() {
             </p>
           </div>
           <div className="md:pl-8 mt-6 md:mt-0">
-            <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Goal</p>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
+            <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Solution</p>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: "#444" }}>
               Design a high-speed, frictionless onboarding sequence with a persistent status indicator to maximize signup conversion and reduce user drop-off.
+            </p>
+            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
+              We shifted the onboarding philosophy from &ldquo;Ask then Show&rdquo; to <strong>Show then Invite</strong>. Users start on the home or events page and can access some content freely. In order to register for events — or take any action that requires an account — they are sent to my onboarding screens. Users are far more motivated to complete a task when they can see exactly how close they are to the finish line.
             </p>
           </div>
         </div>
@@ -89,164 +92,68 @@ export default function ClimateCollective() {
         </div>
       </section>
 
-      <hr style={{ borderColor: "var(--border)", marginBottom: "5rem" }} />
-
-      {/* ── The Friction ── */}
-      <section className="mb-20">
-        <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>The Friction</p>
-        <h2 className="font-light tracking-tight mb-10" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
-          Where Users Got Lost
-        </h2>
-        <div className="grid md:grid-cols-3 gap-0">
-          {[
-            {
-              title: "The Black Box",
-              body: "Users hit a wall when trying to access high-value features like event registration — forced into a signup with no sense of what they were committing to or how long it would take.",
-            },
-            {
-              title: "Signup Fatigue",
-              body: "Traditional forms front-load every question at once. The cognitive weight of a long form caused users to abandon before they reached a single field.",
-            },
-            {
-              title: "No Progress Anchor",
-              body: "Without a visible indicator of how far along they were, users had no motivation to push through. The end never felt close, so they stopped.",
-            },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="py-8 pr-8"
-              style={{
-                borderTop: "1px solid var(--border)",
-                paddingLeft: i > 0 ? "2rem" : "0",
-                borderLeft: i > 0 ? "1px solid var(--border)" : "none",
-              }}
-            >
-              <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>0{i + 1}</p>
-              <h3 className="font-medium mb-3 text-base">{item.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: "#444" }}>{item.body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <hr style={{ borderColor: "var(--border)", marginBottom: "5rem" }} />
-
-      {/* ── 01 The Strategy ── */}
-      <section className="mb-14 max-w-[700px]">
-        <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>01 — The Strategy</p>
-        <h2 className="font-light tracking-tight mb-6" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
-          Value-First Entry
-        </h2>
-        <p className="body-text mb-6">
-          We shifted the onboarding philosophy from "Ask then Show" to <strong>Show then Invite</strong>.
-          Rather than demanding commitment upfront, users start on the Home or Events pages with
-          partial access. When they try to perform a high-value action — like registering for a
-          climate event — they are seamlessly transitioned into the onboarding screens.
+      {/* ── Research ── */}
+      <section className="mb-16">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>Research</p>
+        <p className="text-sm leading-relaxed mb-10" style={{ color: "#444" }}>
+          We conducted a competitive analysis beginning with Mosambi, mapping how comparable platforms approach user acquisition, community building, and onboarding within the climate and professional networking space.
         </p>
-        <blockquote
-          className="font-light leading-snug my-10"
-          style={{
-            fontSize: "clamp(1.2rem, 2.2vw, 1.5rem)",
-            borderLeft: "3px solid #111",
-            paddingLeft: "1.5rem",
-            color: "#222",
-          }}
-        >
-          Users are far more motivated to complete a task when they can see exactly how close they are to the finish line.
-        </blockquote>
+
+        {(() => {
+          const items = [
+            {
+              name: "Mosambi",
+              users: "Climate tech professionals and startups in the Global South",
+              value: "Search & match services and talent for startups in the climate tech space",
+            },
+            {
+              name: "Sayuj",
+              users: "Entrepreneurs and startups in India",
+              value: "India's exclusive startup community network",
+            },
+            {
+              name: "LinkedIn",
+              users: "Working professionals and job-seekers across the globe",
+              value: "Networking and hiring for professionals across the world",
+            },
+            {
+              name: "Climatebase",
+              users: "Climate professionals and job-seekers across the globe",
+              value: "Hiring platform for the climate industry",
+            },
+          ];
+          return (
+            <div className="grid md:grid-cols-4 gap-10">
+              {items.map((item) => (
+                <div key={item.name}>
+                  <p className="font-medium text-base mb-3">{item.name}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "#444" }}>{item.users} — {item.value}</p>
+                </div>
+              ))}
+            </div>
+          );
+        })()}
       </section>
 
-      {/* Strategy features */}
-      <section className="mb-20">
-        <div className="grid md:grid-cols-[1fr_2fr] gap-10 mb-10 items-start">
-          <div>
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Feature 01</p>
-            <h3 className="font-medium text-xl mb-4">The "Guest to Member" Hook</h3>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              Users begin with partial access — enough to feel the platform's value. The moment they
-              want more (registering for an event, joining a discussion), the onboarding flow
-              activates seamlessly in context, rather than as an interruption.
-            </p>
-          </div>
-          <div className="rounded-2xl overflow-hidden">
-            <video autoPlay muted loop playsInline poster={imgs.video2Poster} className="w-full block">
-              <source src={imgs.video2} type="video/quicktime" />
-              <source src={imgs.video2} type="video/mp4" />
-            </video>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-[1fr_2fr] gap-10 mb-10 items-start">
-          <div>
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Feature 02</p>
-            <h3 className="font-medium text-xl mb-4">The Digital Host</h3>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              The 3-step sequence acts as a digital host — walking the user through the front door
-              so they never feel lost or abandoned during the transition from guest to member.
-              Each screen has one purpose, one icon, and one clear action.
-            </p>
-          </div>
-          <div className="rounded-2xl overflow-hidden">
-            <video autoPlay muted loop playsInline poster={imgs.video3Poster} className="w-full block">
-              <source src={imgs.video3} type="video/quicktime" />
-              <source src={imgs.video3} type="video/mp4" />
-            </video>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-[1fr_2fr] gap-10 items-start">
-          <div>
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Feature 03</p>
-            <h3 className="font-medium text-xl mb-4">The Direct Return Logic</h3>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              Once the host completes the walkthrough, the user is returned to exactly where they
-              started — with all features now fully unlocked. No generic dashboard dump.
-              The transition feels like a natural progression, not a detour.
-            </p>
-          </div>
-          <Image
-            src={imgs.design1}
-            alt="Design overview"
-            width={1200}
-            height={800}
-            className="w-full h-auto rounded-2xl"
-          />
-        </div>
-      </section>
-
-      <hr style={{ borderColor: "var(--border)", marginBottom: "5rem" }} />
-
-      {/* ── 02 The Digital Host Workflow ── */}
-      <section className="mb-20">
-        <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>02 — The Digital Host Workflow</p>
-        <h2 className="font-light tracking-tight mb-10" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
-          Designing for Intuition
-        </h2>
-        <div className="grid md:grid-cols-3 gap-0">
+      {/* ── The Problem ── */}
+      <section className="mb-16">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>The Problem</p>
+        <div className="grid md:grid-cols-3 gap-10">
           {[
             {
-              title: "The 3-Dot Status Indicator",
-              body: "Positioned at the top of every screen, these dots act as a Progress Anchor. By showing the user exactly how little is left to do, we eliminate the ambiguity of the Black Box signup.",
+              title: "The \u201cLeap of Faith\u201d Barrier",
+              body: "Forcing a login before showing value creates a high bounce rate; the \u201ccost\u201d of data entry often outweighs the \u201cperceived benefit\u201d of an unproven platform.",
             },
             {
-              title: "The \"Who Am I\" Visual Icons",
-              body: "Instead of a tedious dropdown menu, I used intuitive icons for user roles — reducing cognitive load and making the choice feel instantaneous and tactile rather than administrative.",
+              title: "The Momentum Kill",
+              body: "Hitting a multi-field signup form at the moment of registration creates a jarring experience that kills user intent and lead conversion.",
             },
             {
-              title: "The Seamless Login Switch",
-              body: "For returning users, a clear \"I already have an account\" path is integrated within the flow — ensuring they can bypass onboarding and return to their task immediately.",
+              title: "The Ambiguity Gap",
+              body: "Without a clear \u201cDigital Host\u201d or status indicator, users feel lost and abandoned, leading to high abandonment rates mid-transition.",
             },
           ].map((item, i) => (
-            <div
-              key={i}
-              className="py-8 pr-8"
-              style={{
-                borderTop: "1px solid var(--border)",
-                paddingLeft: i > 0 ? "2rem" : "0",
-                borderLeft: i > 0 ? "1px solid var(--border)" : "none",
-              }}
-            >
-              <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>0{i + 1}</p>
+            <div key={i}>
               <h3 className="font-medium mb-3 text-base">{item.title}</h3>
               <p className="text-sm leading-relaxed" style={{ color: "#444" }}>{item.body}</p>
             </div>
@@ -254,72 +161,68 @@ export default function ClimateCollective() {
         </div>
       </section>
 
-      {/* Design system + flows */}
-      <section className="mb-20">
-        <div className="flex flex-col gap-6">
-          <Image
-            src={imgs.design2}
-            alt="Design system"
-            width={1200}
-            height={800}
-            className="w-full h-auto rounded-2xl"
-          />
-          <Image
-            src={imgs.flow}
-            alt="User flow"
-            width={1738}
-            height={718}
-            className="w-full h-auto rounded-2xl"
-          />
-          <Image
-            src={imgs.comp}
-            alt="Component overview"
-            width={1620}
-            height={986}
-            className="w-full h-auto rounded-2xl"
-          />
+      {/* ── The Solution ── */}
+      <section className="mb-16">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>The Solution</p>
+
+        <div className="flex flex-col gap-10">
+          {[
+            {
+              num: "01",
+              title: "3-Dot Progress Indicator",
+              body: "3 dots at the top of every screen tell the user exactly how much of the signup is left — removing ambiguity and keeping them moving forward.",
+              img: "/group-16.svg",
+            },
+            {
+              num: "02",
+              title: "\u201cWho Am I\u201d Icons",
+              body: "Instead of a long dropdown, I used visual icons for user roles — making the choice feel instant and intuitive rather than administrative.",
+              img: "/group-12.svg",
+            },
+            {
+              num: "03",
+              title: "Already Have an Account?",
+              body: "A clear login path is built into the flow for returning users, so they can bypass signup entirely and get straight back to what they came for.",
+              img: "/sign-in.svg",
+            },
+          ].map((item) => (
+            <div key={item.num} className="grid md:grid-cols-[1fr_2fr] gap-10 items-start">
+              <div>
+                <h3 className="font-medium text-base mb-3">{item.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "#444" }}>{item.body}</p>
+              </div>
+              <img src={item.img} alt={item.title} className="w-full h-auto max-w-sm mx-auto block" style={{ filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.12))" }} />
+            </div>
+          ))}
         </div>
       </section>
 
-      <hr style={{ borderColor: "var(--border)", marginBottom: "5rem" }} />
-
-      {/* ── 03 Outcomes ── */}
-      <section className="mb-20">
-        <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>03 — Outcomes</p>
-        <h2 className="font-light tracking-tight mb-12" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
-          Proving the Value
-        </h2>
-        <div className="grid md:grid-cols-3 gap-0">
+      {/* ── The Impact ── */}
+      <section className="mb-16">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>The Impact</p>
+        <p className="text-sm leading-relaxed mb-10" style={{ color: "#444" }}>
+          We validated this approach with 12 users through high-fidelity usability testing. The data confirmed that transparency leads to higher engagement.
+        </p>
+        <div className="grid md:grid-cols-3 gap-10">
           {[
             {
               stat: "81%",
               label: "Completion rate",
-              body: "12 users navigated the entire sequence and successfully unlocked the features they were seeking — without frustration or prompting.",
+              body: "The vast majority of users navigated the entire sequence and successfully unlocked the features they were seeking.",
             },
             {
               stat: "92.9s",
               label: "Guest → Member",
-              body: "Users moved from the initial signup prompt to their fully unlocked state in under two minutes — a record speed for community onboarding.",
+              body: "Users moved from the initial prompt to their unlocked state in under two minutes.",
             },
             {
               stat: "Community",
               label: "#1 most exciting feature",
-              body: "Post-test feedback revealed Community as the feature users were most excited about — confirming the Digital Host approach converted skeptics into active members.",
+              body: "Post-test feedback revealed Community as the feature users were most excited about — skeptics converted into members before the first form field.",
             },
           ].map((item, i) => (
-            <div
-              key={i}
-              className="py-8 pr-8"
-              style={{
-                borderTop: "1px solid var(--border)",
-                paddingLeft: i > 0 ? "2rem" : "0",
-                borderLeft: i > 0 ? "1px solid var(--border)" : "none",
-              }}
-            >
-              <p
-                className="font-light tracking-tight mb-1"
-                style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", lineHeight: 1.1 }}
-              >
+            <div key={i}>
+              <p className="font-light tracking-tight mb-1" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", lineHeight: 1.1 }}>
                 {item.stat}
               </p>
               <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>{item.label}</p>
@@ -327,19 +230,6 @@ export default function ClimateCollective() {
             </div>
           ))}
         </div>
-      </section>
-
-      {/* ── The Impact ── */}
-      <section className="mb-20 max-w-[700px]">
-        <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>The Impact</p>
-        <h2 className="font-light tracking-tight mb-6" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
-          Scaling the Movement
-        </h2>
-        <p className="body-text">
-          By prioritizing the user's current task over a generic dashboard dump, the onboarding
-          process became a retention hook. Users didn't just sign up — they gained immediate access
-          to the value they came for, ensuring they stayed active within the community from minute one.
-        </p>
       </section>
 
     </ProjectLayout>

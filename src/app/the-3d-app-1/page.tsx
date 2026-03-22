@@ -19,7 +19,7 @@ export default function The3DApp() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mt-6 mb-10">
           <div className="md:pr-8">
             <h1 style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4 }}>
-              Perfecting the Pitch: AI Virtual Staging for the Modern Agent
+              The3DApp
             </h1>
             <p className="text-sm mt-1" style={{ color: "#BCBAA9" }}>Figma, UX Research (Ongoing)</p>
 
@@ -38,7 +38,7 @@ export default function The3DApp() {
           </div>
           <div className="md:pl-8 mt-6 md:mt-0">
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              An ongoing product redesign for a 3D marketplace platform. Research-driven UX improvements to core browsing, discovery, and onboarding flows.
+              An ongoing redesign for a virtual 3D property viewer. Research-driven UX improvements empowering listing agents to virtually stage and present properties to prospective buyers.
             </p>
           </div>
         </div>
@@ -53,23 +53,23 @@ export default function The3DApp() {
           </div>
           <div className="md:pl-8 mt-6 md:mt-0">
             <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Solution</p>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: "#444" }}>
+              I moved away from &ldquo;Open Prompting&rdquo; and toward a <strong>System of Constraints</strong>—
+              a structured set of tools that ensure speed and accuracy without requiring the user to
+              think like a prompt engineer.
+            </p>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              Design a "Control Deck" that gives agents the ability to guide AI imagery with precision, speed, and creative flexibility.
+              Design a &ldquo;Control Deck&rdquo; that gives agents the ability to guide AI imagery with precision, speed, and creative flexibility.
             </p>
           </div>
         </div>
 
       </section>
 
-      <hr style={{ borderColor: "var(--border)", marginBottom: "5rem" }} />
-
       {/* ── 01 The Discovery ── */}
-      <section className="mb-20 max-w-[700px]">
-        <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>01 — The Discovery</p>
-        <h2 className="font-light tracking-tight mb-6" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
-          Beyond the "Pretty Picture"
-        </h2>
-        <p className="body-text mb-6">
+      <section className="mb-16 max-w-[700px]">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>Research</p>
+        <p className="body-text mb-4">
           When I began research with listing agents like Brian, I realized the problem wasn't a lack
           of images—it was a lack of <em>trust</em> and <em>speed</em>. Industry tools like Matterport
           lacked the high-def photography required for premium listings, while open-ended AI tools
@@ -82,7 +82,7 @@ export default function The3DApp() {
       </section>
 
       {/* ── User Interview Card ── */}
-      <section className="mb-20">
+      <section className="mb-16">
         <div className="rounded-2xl p-8 md:p-12" style={{ background: "#f5f5f5" }}>
           <p className="text-xs tracking-widest uppercase mb-8" style={{ color: "var(--text-muted)" }}>
             UX Research — User Interview: Brian
@@ -111,19 +111,16 @@ export default function The3DApp() {
       </section>
 
       {/* Slide 7 */}
-      <section className="mb-20">
+      <section className="mb-16">
         <div className="rounded-2xl overflow-hidden" style={{ background: "#f0f0f0" }}>
           <img src="/slide%207.svg" alt="Research findings" className="w-full block" style={{ clipPath: "inset(3px round 13px)" }} />
         </div>
       </section>
 
       {/* ── The Friction ── */}
-      <section className="mb-20">
-        <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>The Friction</p>
-        <h2 className="font-light tracking-tight mb-10" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
-          The "Control" Gap
-        </h2>
-        <div className="grid md:grid-cols-3 gap-0">
+      <section className="mb-16">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>The Problem</p>
+        <div className="grid md:grid-cols-3 gap-10">
           {[
             {
               title: "The \u201cBlank Page\u201d Anxiety",
@@ -138,16 +135,7 @@ export default function The3DApp() {
               body: "Agents need to fix specific issues like \u201cugly mirrors\u201d or clutter, but text-only prompts are too blunt to handle surgical edits.",
             },
           ].map((item, i) => (
-            <div
-              key={i}
-              className="py-8 pr-8"
-              style={{
-                borderTop: "1px solid var(--border)",
-                paddingLeft: i > 0 ? "2rem" : "0",
-                borderLeft: i > 0 ? "1px solid var(--border)" : "none",
-              }}
-            >
-              <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>0{i + 1}</p>
+            <div key={i}>
               <h3 className="font-medium mb-3 text-base">{item.title}</h3>
               <p className="text-sm leading-relaxed" style={{ color: "#444" }}>{item.body}</p>
             </div>
@@ -155,45 +143,18 @@ export default function The3DApp() {
         </div>
       </section>
 
-      <hr style={{ borderColor: "var(--border)", marginBottom: "5rem" }} />
-
-      {/* ── 02 The Strategy ── */}
-      <section className="mb-14 max-w-[700px]">
-        <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>02 — The Strategy</p>
-        <h2 className="font-light tracking-tight mb-6" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
-          Constraint as a Catalyst
-        </h2>
-        <p className="body-text mb-6">
-          I moved away from "Open Prompting" and toward a <strong>System of Constraints</strong>—
+      {/* ── 02 The Solutions ── */}
+      <section className="mb-16">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>The Solution</p>
+        <p className="text-sm leading-relaxed mb-10 max-w-[700px]" style={{ color: "#444" }}>
+          I moved away from &ldquo;Open Prompting&rdquo; and toward a <strong>System of Constraints</strong>—
           a structured set of tools that ensure speed and accuracy without requiring the user to
           think like a prompt engineer.
         </p>
-        <blockquote
-          className="font-light leading-snug my-10"
-          style={{
-            fontSize: "clamp(1.2rem, 2.2vw, 1.5rem)",
-            borderLeft: "3px solid #111",
-            paddingLeft: "1.5rem",
-            color: "#222",
-          }}
-        >
-          Rather than giving agents more power over text, I gave them more power over space.
-        </blockquote>
-      </section>
-
-      <hr style={{ borderColor: "var(--border)", marginBottom: "5rem" }} />
-
-      {/* ── 03 The Solutions ── */}
-      <section className="mb-20">
-        <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>03 — The Solutions</p>
-        <h2 className="font-light tracking-tight mb-14" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
-          Redesigning Access to AI Features
-        </h2>
 
         {/* Feature 01 */}
-        <div className="grid md:grid-cols-[1fr_2fr] gap-10 mb-6 items-start">
+        <div className="grid md:grid-cols-[1fr_2fr] gap-10 mb-10 items-start">
           <div>
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Feature 01</p>
             <h3 className="font-medium text-xl mb-4">The Style Gallery</h3>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               I replaced the empty text box with high-intent Style Tags. By selecting
@@ -205,9 +166,8 @@ export default function The3DApp() {
         </div>
 
         {/* Feature 02 */}
-        <div className="grid md:grid-cols-[1fr_2fr] gap-10 mb-6 items-start">
+        <div className="grid md:grid-cols-[1fr_2fr] gap-10 mb-10 items-start">
           <div>
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Feature 02</p>
             <h3 className="font-medium text-xl mb-4">The AI Paintbrush</h3>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               Instead of telling the AI where to go with words, the agent "paints" their intent
@@ -219,9 +179,8 @@ export default function The3DApp() {
         </div>
 
         {/* Feature 03 */}
-        <div className="grid md:grid-cols-[1fr_2fr] gap-10 mb-6 items-start">
+        <div className="grid md:grid-cols-[1fr_2fr] gap-10 mb-10 items-start">
           <div>
-            <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "var(--text-muted)" }}>Feature 03</p>
             <h3 className="font-medium text-xl mb-4">The Action Bar</h3>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
               A control deck featuring: an Attach Photo tool for styling from inspiration photos,
@@ -234,21 +193,16 @@ export default function The3DApp() {
         </div>
 
         {/* Slide 11 + 11 part 2 — side by side */}
-        <div className="grid grid-cols-2 gap-4 mt-6 items-end">
+        <div className="grid grid-cols-2 gap-10">
           <img src="/slide11.svg" alt="Action Bar detail" className="w-full block rounded-2xl" />
           <img src="/slide11%20part%202.svg" alt="Action Bar detail 2" className="w-full block rounded-2xl" />
         </div>
       </section>
 
-      <hr style={{ borderColor: "var(--border)", marginBottom: "5rem" }} />
-
       {/* ── The Impact ── */}
-      <section className="mb-20">
-        <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>The Impact</p>
-        <h2 className="font-light tracking-tight mb-12" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
-          Results
-        </h2>
-        <div className="grid md:grid-cols-3 gap-0">
+      <section className="mb-16">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>The Impact</p>
+        <div className="grid md:grid-cols-3 gap-10">
           {[
             {
               stat: "48h → 30s",
@@ -266,15 +220,7 @@ export default function The3DApp() {
               body: "Serves as a pitching asset, demonstrating a custom high-tech marketing suite that shows sellers a staged 3D tour directly on their phone.",
             },
           ].map((item, i) => (
-            <div
-              key={i}
-              className="py-8 pr-8"
-              style={{
-                borderTop: "1px solid var(--border)",
-                paddingLeft: i > 0 ? "2rem" : "0",
-                borderLeft: i > 0 ? "1px solid var(--border)" : "none",
-              }}
-            >
+            <div key={i}>
               <p
                 className="font-light tracking-tight mb-1"
                 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", lineHeight: 1.1 }}

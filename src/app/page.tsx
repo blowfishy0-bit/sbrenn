@@ -9,6 +9,7 @@ const FEATURED_SLUGS = CASE_STUDY_SLUGS;
 
 export default function Home() {
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  const [hoverIndices, setHoverIndices] = useState<Record<string, number>>({});
 
 const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug === s)!);
 
@@ -31,11 +32,29 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
                 <div
                   className="relative overflow-hidden w-full"
                   style={{ aspectRatio: "3/2", background: p.thumbWhiteBg ? "#fff" : "#f0f0f0" }}
-                  onMouseEnter={() => p.hoverThumb && setHoveredSlug(p.slug)}
-                  onMouseLeave={() => setHoveredSlug(null)}
+                  onMouseEnter={() => {
+                    if (p.hoverThumbs) {
+                      setHoveredSlug(p.slug);
+                      setHoverIndices((prev) => ({ ...prev, [p.slug]: ((prev[p.slug] ?? 0) + 1) % p.hoverThumbs!.length }));
+                    } else if (p.hoverThumb) {
+                      setHoveredSlug(p.slug);
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    setHoveredSlug(null);
+                    if (p.hoverThumbs) {
+                      setHoverIndices((prev) => ({ ...prev, [p.slug]: ((prev[p.slug] ?? 0) + 1) % p.hoverThumbs!.length }));
+                    }
+                  }}
                 >
                   <Image
-                    src={p.hoverThumb && hoveredSlug === p.slug ? p.hoverThumb : p.thumb}
+                    src={
+                      p.hoverThumbs
+                        ? p.hoverThumbs[hoverIndices[p.slug] ?? 0]
+                        : hoveredSlug === p.slug && p.hoverThumb
+                        ? p.hoverThumb
+                        : p.thumb
+                    }
                     alt={p.title}
                     fill
                     className={p.thumbWhiteBg ? "object-contain p-6" : "object-cover"}
