@@ -35,7 +35,7 @@ export default function ClimateCollective() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mt-6 mb-10">
           <div className="md:pr-8">
             <h1 style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4 }}>
-              Climate Collective: From Skepticism to Community
+              Climate Collective Mosambi
             </h1>
             <p className="text-sm mt-1" style={{ color: "#BCBAA9" }}>Figma, UX Research, UI Design System</p>
 
