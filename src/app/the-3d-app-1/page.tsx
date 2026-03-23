@@ -10,9 +10,12 @@ export default function The3DApp() {
 
       {/* ── Hero ── */}
       <section className="mb-16">
-        {/* Hero image — full bleed, flush to top */}
-        <div style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw", background: "#f0f0f0", marginTop: "calc(-3rem)" }}>
-          <img src="/slide2.svg" alt="The 3D App virtual tour viewer" className="w-full block" />
+        {/* Hero video — full bleed, flush to top */}
+        <div style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw", marginTop: "calc(-3rem)" }}>
+          <video autoPlay muted loop playsInline className="w-full block" style={{ marginBottom: "-2px" }}>
+            <source src="/banner.mp4" type="video/mp4" />
+            <source src="/banner.mov" type="video/quicktime" />
+          </video>
         </div>
 
         {/* Title row below image */}
