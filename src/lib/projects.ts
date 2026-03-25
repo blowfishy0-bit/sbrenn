@@ -61,6 +61,7 @@ export const projects: Project[] = [
     category: "ux",
     thumb: "/group-20.svg",
     hoverThumb: "/mosambi.svg",
+    thumbWhiteBg: true,
   },
   {
     slug: "playground",
