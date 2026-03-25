@@ -310,7 +310,7 @@ export default function StyloPrototype() {
         {/* room image with optional hotspots */}
         <div style={{ height: 210, flexShrink:0, overflow:"hidden", position:"relative" }}>
           <img src={roomImg} alt="room" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
-          {HOTSPOTS.map((h, i) => {
+          {tab === "shop" && HOTSPOTS.map((h, i) => {
             const dark = i === activeHotspot;
             return (
             <div key={i} onClick={(e) => { e.stopPropagation(); setActiveHotspot(i); }} style={{ position:"absolute", left:`${h.x}%`, top:`${h.y}%`, transform:"translate(-50%,-50%)", cursor:"pointer", zIndex:5 }}>
@@ -322,8 +322,19 @@ export default function StyloPrototype() {
           })}
         </div>
 
-        {/* content — all in one */}
+        {/* tabs */}
+        <div style={{ padding:"12px 20px 0", flexShrink:0, display:"flex", justifyContent:"center" }}>
+          <div style={{ position:"relative", display:"inline-flex", background:C.cream, borderRadius:999, padding:3 }}>
+            <div style={{ position:"absolute", top:3, left:3, width:"calc(50% - 3px)", height:"calc(100% - 6px)", borderRadius:999, background:C.fg, transform: tab==="shop" ? "translateX(100%)" : "translateX(0)", transition:"transform 0.2s cubic-bezier(0.25,1,0.5,1)" }}/>
+            <button onClick={() => setTab("style")} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="style"?"#fff":C.muted, transition:"color 0.2s" }}>Style</button>
+            <button onClick={() => setTab("shop")} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="shop"?"#fff":C.muted, transition:"color 0.2s" }}>Shop</button>
+          </div>
+        </div>
+
+        {/* content */}
         <div style={{ flex:1, overflowY:"auto", padding:"14px 16px 24px" }}>
+          {tab === "style" ? (
+          <>
           <p style={{ fontFamily:SANS, fontSize:13, color:C.muted, marginBottom:14, paddingLeft:2 }}>Choose a style for this room</p>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10, marginBottom:20 }}>
             {STYLES.map(s => (
@@ -345,7 +356,9 @@ export default function StyloPrototype() {
               </button>
             ))}
           </div>
-
+          </>
+          ) : (
+          <>
           <p style={{ fontFamily:SANS, fontSize:11, fontWeight:600, letterSpacing:"0.07em", color:C.muted, marginBottom:14, paddingLeft:2 }}>{(ROOM_PRODUCTS[selectedRoom.id] ?? ROOM_PRODUCTS.master).length} ITEMS</p>
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10 }}>
             {(ROOM_PRODUCTS[selectedRoom.id] ?? ROOM_PRODUCTS.master).map(p => (
@@ -373,6 +386,8 @@ export default function StyloPrototype() {
               </div>
             ))}
           </div>
+          </>
+          )}
         </div>
       </div>
     );
