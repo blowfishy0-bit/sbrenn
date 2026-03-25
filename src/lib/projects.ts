@@ -29,7 +29,7 @@ export const projects: Project[] = [
   {
     slug: "stylo-app",
     title: "STYLO app",
-    subtitle: "Placeholder subtitle",
+    subtitle: "Interactive Prototype, UX/UI",
     tags: ["UX/UI"],
     category: "ux",
     thumb: "/banner.png",

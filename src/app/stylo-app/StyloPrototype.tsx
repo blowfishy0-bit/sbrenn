@@ -472,7 +472,7 @@ export default function StyloPrototype() {
   const PW = 450, PH = 920;
 
   return (
-    <div style={{ display:"flex", justifyContent:"center", alignItems:"flex-start", gap:20, padding:"0 0 16px", fontFamily:SANS }}>
+    <div className="stylo-proto-wrap" style={{ display:"flex", justifyContent:"center", alignItems:"flex-start", gap:20, padding:"0 0 16px", fontFamily:SANS }}>
       {/* Left label */}
       <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", gap:6, paddingTop: PH*SCALE*0.4, flexShrink:0, maxWidth:100 }}>
         <span style={{ fontFamily:SANS, fontSize:10, color:"#999", fontWeight:600, letterSpacing:"0.04em", textTransform:"uppercase" }}>Interactive prototype</span>

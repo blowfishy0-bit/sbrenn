@@ -19,7 +19,7 @@ function ULine({
     <a
       href={href}
       className={`relative inline-block ${className}`}
-      style={{ ...style, width: "150px" }}
+      style={{ ...style, width: "170px" }}
     >
       {children}
       <span
@@ -46,7 +46,11 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  useEffect(() => {
+    setMenuOpen(false);
+    setHidden(false);
+    lastY.current = 0;
+  }, [pathname]);
 
   const isHome = pathname === "/";
 
@@ -75,13 +79,9 @@ export default function Header() {
             <ULine href="/" style={{ fontSize: "15px", fontWeight: 500, color: "#111", lineHeight: 1.4 }}>
               Sophie Brenner
             </ULine>
-            <span
-              className="relative inline-block"
-              style={{ fontSize: "15px", fontWeight: 400, color: "#111", lineHeight: 1.4, width: "150px" }}
-            >
-              Product Designer
-              <span className="absolute left-0 bottom-0 w-full h-px" style={{ background: "#111" }} />
-            </span>
+            <ULine href="/" style={{ fontSize: "15px", fontWeight: 400, color: "#111", lineHeight: 1.4 }}>
+              Product Designer, NYC
+            </ULine>
           </div>
 
           {/* Center — hidden on mobile */}
@@ -130,7 +130,7 @@ export default function Header() {
             { label: "Work ↗", href: isHome ? "#work" : "/#work" },
             { label: "About ↗", href: "/about" },
           ].map(({ label, href }) => (
-            <a key={label} href={href} style={{ fontSize: "15px", color: "#111" }} onClick={() => setMenuOpen(false)}>
+            <a key={label} href={href} style={{ fontSize: "15px", color: "#111" }} onClick={() => { setMenuOpen(false); setHidden(false); lastY.current = window.scrollY; }}>
               {label}
             </a>
           ))}

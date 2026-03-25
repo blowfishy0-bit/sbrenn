@@ -72,3 +72,19 @@ video {
   font-size: 1rem;
   color: #333;
 }
+
+/* Mobile: shift prototype section right, reduce poop padding, enlarge flow */
+@media (max-width: 767px) {
+  .stylo-proto-wrap {
+    padding-left: 24px;
+  }
+  .poop-svg {
+    height: 35vh !important;
+    margin-top: -1rem;
+    margin-bottom: -1rem;
+  }
+  .flow-wrap img {
+    transform: scale(1.15);
+    transform-origin: center;
+  }
+}

@@ -22,7 +22,7 @@ export default function StyloApp() {
             <h1 style={{ fontSize: "1.5rem", fontWeight: 700, color: "#111", lineHeight: 1.4, fontFamily: '-apple-system, BlinkMacSystemFont, "DM Sans", "Helvetica Neue", sans-serif', letterSpacing: "-0.01em" }}>
               Stylo
             </h1>
-            <p className="text-sm mt-1" style={{ color: "#BCBAA9" }}>Computer Vision, Generative AI, UX/UI</p>
+            <p className="text-sm mt-1" style={{ color: "#BCBAA9" }}>Interactive Prototype, UX/UI</p>
             <div className="flex flex-col gap-3 mt-8">
               {[
                 { label: "Timeline",  value: "Concept / Ongoing" },
@@ -62,6 +62,7 @@ export default function StyloApp() {
 
         {/* poop svg */}
         <div
+          className="poop-svg"
           style={{
             width: "100%",
             height: "70vh",
@@ -129,7 +130,7 @@ export default function StyloApp() {
           ))}
         </div>
 
-        <div className="rounded-2xl overflow-hidden" style={{ background: "#f0f0f0" }}>
+        <div className="rounded-2xl overflow-hidden flow-wrap" style={{ background: "#f0f0f0" }}>
           <Image
             src="/flow.png"
             alt="Stylo user flow diagram"
