@@ -326,14 +326,20 @@ export default function StyloPrototype() {
               <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
                 {STYLES.map(s => (
                   <button key={s.id} onClick={() => pickStyle(s.id)} style={{ background:"none", border:"none", padding:0, cursor:"pointer", textAlign:"center" }}>
-                    <div style={{ borderRadius:14, overflow:"hidden", aspectRatio:"1/1", outline: selectedStyle===s.id ? `2.5px solid ${C.fg}` : `2px solid ${C.border}`, outlineOffset:"1px", background:C.cream, display:"flex", alignItems:"center", justifyContent:"center" }}>
-                      {s.id === "custom"
-                        ? <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke={C.muted} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        : s.id === "upload"
-                        ? <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 4v14M4 11h14" stroke={C.muted} strokeWidth="1.6" strokeLinecap="round"/></svg>
-                        : <img src={s.thumb!} alt={s.label} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
-                      }
-                    </div>
+                    {(s.id === "upload" || s.id === "custom") ? (
+                      <div style={{ borderRadius:14, overflow:"hidden", aspectRatio:"1/1", background:"rgba(255,255,255,0.4)", backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)", border:"1.5px solid rgba(180,175,170,0.45)", boxShadow:"0 2px 16px rgba(0,0,0,0.05)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6 }}>
+                        <div style={{ width:28, height:28, borderRadius:"50%", background:"rgba(0,0,0,0.25)", border:"none", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                          {s.id === "upload"
+                            ? <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="#fff" strokeWidth="1.8" strokeLinecap="round"/></svg>
+                            : <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          }
+                        </div>
+                      </div>
+                    ) : (
+                      <div style={{ borderRadius:14, overflow:"hidden", aspectRatio:"1/1", outline: selectedStyle===s.id ? `2.5px solid ${C.fg}` : `2px solid ${C.border}`, outlineOffset:"1px", background:C.cream, display:"flex", alignItems:"center", justifyContent:"center" }}>
+                        <img src={s.thumb!} alt={s.label} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
+                      </div>
+                    )}
                     <span style={{ display:"block", fontFamily:SANS, fontSize:10, color: selectedStyle===s.id ? C.fg : C.muted, marginTop:5, fontWeight: selectedStyle===s.id ? 600 : 400 }}>{s.label}</span>
                   </button>
                 ))}
