@@ -231,10 +231,10 @@ export default function StyloPrototype() {
           </div>
           {[{ icon:"cam", label:"Take photo from camera" }, { icon:"gal", label:"Choose from gallery" }].map(o => (
             <button key={o.icon} onClick={e => e.stopPropagation()} style={{ display:"flex", alignItems:"center", gap:14, width:"100%", background:C.cream, border:"none", borderRadius:20, padding:"14px 16px", cursor:"pointer", marginBottom:10, fontFamily:SANS, fontSize:15, color:C.fg, textAlign:"left" }}>
-              <div style={{ width:42, height:42, background:C.border, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+              <div style={{ width:42, height:42, background:"rgba(0,0,0,0.25)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
                 {o.icon === "cam"
-                  ? <svg width="20" height="18" viewBox="0 0 20 18" fill="none"><rect x="2" y="5" width="16" height="11" rx="2.5" stroke={C.muted} strokeWidth="1.3"/><circle cx="10" cy="10.5" r="3" stroke={C.muted} strokeWidth="1.3"/><path d="M7 5l1-2h4l1 2" stroke={C.muted} strokeWidth="1.3" strokeLinejoin="round"/></svg>
-                  : <svg width="20" height="18" viewBox="0 0 20 18" fill="none"><rect x="2" y="2" width="16" height="14" rx="2.5" stroke={C.muted} strokeWidth="1.3"/><path d="M2 12l4-4 3 3 3-3 6 5" stroke={C.muted} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><circle cx="6" cy="7" r="1.5" fill={C.muted}/></svg>
+                  ? <svg width="20" height="18" viewBox="0 0 20 18" fill="none"><rect x="2" y="5" width="16" height="11" rx="2.5" stroke="#fff" strokeWidth="1.3"/><circle cx="10" cy="10.5" r="3" stroke="#fff" strokeWidth="1.3"/><path d="M7 5l1-2h4l1 2" stroke="#fff" strokeWidth="1.3" strokeLinejoin="round"/></svg>
+                  : <svg width="20" height="18" viewBox="0 0 20 18" fill="none"><rect x="2" y="2" width="16" height="14" rx="2.5" stroke="#fff" strokeWidth="1.3"/><path d="M2 12l4-4 3 3 3-3 6 5" stroke="#fff" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><circle cx="6" cy="7" r="1.5" fill="#fff"/></svg>
                 }
               </div>
               {o.label}
