@@ -80,8 +80,8 @@ video {
   }
   .poop-svg {
     height: 35vh !important;
-    margin-top: -1rem;
-    margin-bottom: -1rem;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   .flow-wrap img {
     transform: scale(1.15);

@@ -45,7 +45,7 @@ export default function StyloApp() {
         </div>
 
         {/* Problem / Solution summary */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 pt-2 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 pt-2 mb-14">
           <div className="md:pr-8">
             <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Problem</p>
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
@@ -65,11 +65,13 @@ export default function StyloApp() {
           className="poop-svg"
           style={{
             width: "100%",
-            height: "70vh",
+            height: "45vh",
             backgroundImage: "url('/poop.svg')",
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
+            margin: 0,
+            padding: 0,
           }}
         />
       </section>
@@ -107,7 +109,7 @@ export default function StyloApp() {
       </section>
 
       {/* ── Research / User Flow ── */}
-      <section className="mb-16">
+      <section className="mb-8">
         <p style={{ fontSize: "1.5rem", fontWeight: 700, color: "#111", lineHeight: 1.4, fontFamily: '-apple-system, BlinkMacSystemFont, "DM Sans", "Helvetica Neue", sans-serif', letterSpacing: "-0.01em", marginBottom: "1.5rem" }}>Research</p>
         <p className="text-sm leading-relaxed mb-10 max-w-[700px]" style={{ color: "#444" }}>
           Stylo utilizes a high-intelligence, low-effort user flow that leverages Computer Vision and
@@ -166,11 +168,10 @@ export default function StyloApp() {
       {/* ── Impact ── */}
       <section className="mb-16">
         <p style={{ fontSize: "1.5rem", fontWeight: 700, color: "#111", lineHeight: 1.4, fontFamily: '-apple-system, BlinkMacSystemFont, "DM Sans", "Helvetica Neue", sans-serif', letterSpacing: "-0.01em", marginBottom: "1.5rem" }}>Impact</p>
-        <div className="grid md:grid-cols-4 gap-10">
+        <div className="grid md:grid-cols-3 gap-10">
           {[
-            { stat: "< 60s",    label: "Room to Design",      body: "Users move from a messy room to a curated design in under 60 seconds, drastically reducing bounce rate." },
-            { stat: "↑ AOV",    label: "Order Value",         body: "Room Bundle checkout encourages multi-item purchases rather than single-product sales." },
-            { stat: "Viral",    label: "Social Proof",        body: "Auto-generated Transformation Videos (Original → New Style) drive organic growth and social sharing." },
+            { stat: "$24B",     label: "Returned Furniture",    body: "The furniture industry loses $24B annually to returns — the #1 reason: \"it didn't look right in my space.\" Stylo eliminates that guesswork before purchase." },
+            { stat: "1 Photo",   label: "Zero Setup",           body: "No room scanning, no measurements, no LiDAR — one standard phone photo is all it takes to generate a fully styled, shoppable room." },
             { stat: "100%",     label: "Hardware Inclusive",  body: "Standard JPEG processing instead of LiDAR — reach includes nearly every smartphone user globally." },
           ].map((item, i) => (
             <div key={i}>

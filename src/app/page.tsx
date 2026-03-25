@@ -31,36 +31,41 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
               <Link href={`/${p.slug}`} data-cursor-hover="true">
                 <div
                   className="relative overflow-hidden w-full"
-                  style={{ aspectRatio: "3/2", background: p.thumbWhiteBg ? "#fff" : "#f0f0f0" }}
+                  style={{ aspectRatio: "3/2", background: p.thumbWhiteBg ? "#fff" : (hoveredSlug === p.slug && p.hoverThumbs && p.hoverThumbs[hoverIndices[p.slug] ?? 0]?.endsWith(".svg") ? "#fff" : "#f0f0f0") }}
                   onMouseEnter={() => {
                     if (p.hoverThumbs) {
                       setHoveredSlug(p.slug);
-                      setHoverIndices((prev) => ({ ...prev, [p.slug]: ((prev[p.slug] ?? 0) + 1) % p.hoverThumbs!.length }));
+                      setHoverIndices((prev) => {
+                        const cur = prev[p.slug] ?? 0;
+                        return { ...prev, [p.slug]: (cur + 1) % p.hoverThumbs!.length };
+                      });
                     } else if (p.hoverThumb) {
                       setHoveredSlug(p.slug);
                     }
                   }}
                   onMouseLeave={() => {
                     setHoveredSlug(null);
-                    if (p.hoverThumbs) {
-                      setHoverIndices((prev) => ({ ...prev, [p.slug]: ((prev[p.slug] ?? 0) + 1) % p.hoverThumbs!.length }));
-                    }
                   }}
                 >
-                  <Image
-                    src={
-                      p.hoverThumbs
-                        ? p.hoverThumbs[hoverIndices[p.slug] ?? 0]
-                        : hoveredSlug === p.slug && p.hoverThumb
-                        ? p.hoverThumb
-                        : p.thumb
-                    }
-                    alt={p.title}
-                    fill
-                    className={p.thumbWhiteBg ? "object-contain p-6" : p.thumbContain ? "object-contain" : "object-cover"}
-                    unoptimized
-                    sizes="50vw"
-                  />
+                  {(() => {
+                    const isHovered = hoveredSlug === p.slug;
+                    const currentSrc = isHovered && p.hoverThumbs
+                      ? p.hoverThumbs[hoverIndices[p.slug] ?? 0]
+                      : isHovered && p.hoverThumb
+                      ? p.hoverThumb
+                      : p.thumb;
+                    const useContain = p.thumbWhiteBg || p.thumbContain || currentSrc.endsWith(".svg");
+                    return (
+                      <Image
+                        src={currentSrc}
+                        alt={p.title}
+                        fill
+                        className={p.thumbWhiteBg ? "object-contain p-6" : useContain ? "object-contain" : "object-cover"}
+                        unoptimized
+                        sizes="50vw"
+                      />
+                    );
+                  })()}
                 </div>
               </Link>
 
