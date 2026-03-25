@@ -474,7 +474,7 @@ export default function StyloPrototype() {
   return (
     <div className="stylo-proto-wrap" style={{ display:"flex", justifyContent:"center", alignItems:"flex-start", gap:20, padding:"0 0 16px", fontFamily:SANS }}>
       {/* Left label */}
-      <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", gap:6, paddingTop: PH*SCALE*0.4, flexShrink:0, maxWidth:100 }}>
+      <div className="stylo-proto-label" style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", gap:6, paddingTop: PH*SCALE*0.4, flexShrink:0, maxWidth:100 }}>
         <span style={{ fontFamily:SANS, fontSize:10, color:"#999", fontWeight:600, letterSpacing:"0.04em", textTransform:"uppercase" }}>Interactive prototype</span>
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ animation:"cursor-float 2s ease-in-out infinite" }}>
           <style>{`@keyframes cursor-float { 0%,100%{transform:translate(0,0)} 30%{transform:translate(4px,-4px)} 60%{transform:translate(2px,3px)} }`}</style>

@@ -76,7 +76,11 @@ video {
 /* Mobile: shift prototype section right, reduce poop padding, enlarge flow */
 @media (max-width: 767px) {
   .stylo-proto-wrap {
-    padding-left: 24px;
+    gap: 4px !important;
+  }
+  .stylo-proto-label {
+    align-items: flex-end !important;
+    text-align: right;
   }
   .poop-svg {
     height: 35vh !important;
