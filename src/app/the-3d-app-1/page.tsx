@@ -195,11 +195,6 @@ export default function The3DApp() {
           <img src="/slide10.svg" alt="The Action Bar" className="w-full block" style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.10))" }} />
         </div>
 
-        {/* Slide 11 + 11 part 2 — side by side */}
-        <div className="grid grid-cols-2 gap-10">
-          <img src="/slide11.svg" alt="Action Bar detail" className="w-full block rounded-2xl" />
-          <img src="/slide11%20part%202.svg" alt="Action Bar detail 2" className="w-full block rounded-2xl" />
-        </div>
       </section>
 
       {/* ── The Impact ── */}

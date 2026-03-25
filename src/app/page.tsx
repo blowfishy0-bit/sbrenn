@@ -57,7 +57,7 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
                     }
                     alt={p.title}
                     fill
-                    className={p.thumbWhiteBg ? "object-contain p-6" : "object-cover"}
+                    className={p.thumbWhiteBg ? "object-contain p-6" : p.thumbContain ? "object-contain" : "object-cover"}
                     unoptimized
                     sizes="50vw"
                   />

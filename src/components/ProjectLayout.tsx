@@ -41,7 +41,7 @@ export default function ProjectLayout({ slug, children }: Props) {
           color: "#111",
         }}
       >
-        <span style={{ color: "#111" }}>©2026 Sophie Brenner</span>
+        <span style={{ color: "#111" }}>Sophie Brenner</span>
 
         <div style={{ display: "flex", gap: "32px", alignItems: "center" }}>
           {prev ? (

@@ -12,6 +12,7 @@ export interface Project {
   hoverThumbs?: string[]; // optional array of images to cycle through on hover
   thumbIsGif?: boolean;
   thumbWhiteBg?: boolean;
+  thumbContain?: boolean;
 }
 
 export const projects: Project[] = [
@@ -24,6 +25,14 @@ export const projects: Project[] = [
     category: "ux",
     thumb: "/the3dapp-logo.png",
     thumbWhiteBg: true,
+  },
+  {
+    slug: "stylo-app",
+    title: "STYLO app",
+    subtitle: "Placeholder subtitle",
+    tags: ["UX/UI"],
+    category: "ux",
+    thumb: "/banner.png",
   },
   {
     slug: "holomaid",
@@ -89,7 +98,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const CASE_STUDY_SLUGS = ["the-3d-app-1", "climate-collective", "holomaid", "nyc"];
+export const CASE_STUDY_SLUGS = ["stylo-app", "the-3d-app-1", "climate-collective", "holomaid", "nyc"];
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
