@@ -31,7 +31,7 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
               <Link href={`/${p.slug}`} data-cursor-hover="true">
                 <div
                   className="relative overflow-hidden w-full"
-                  style={{ aspectRatio: "3/2", background: p.thumbWhiteBg ? "#fff" : (hoveredSlug === p.slug && p.hoverThumbs && p.hoverThumbs[hoverIndices[p.slug] ?? 0]?.endsWith(".svg") ? "#fff" : "#f0f0f0") }}
+                  style={{ aspectRatio: "3/2", background: p.thumbWhiteBg || p.slug === "stylo-app" ? "#fff" : (hoveredSlug === p.slug && p.hoverThumbs && p.hoverThumbs[hoverIndices[p.slug] ?? 0]?.endsWith(".svg") ? "#fff" : "#f0f0f0") }}
                   onMouseEnter={() => {
                     if (p.hoverThumbs) {
                       setHoveredSlug(p.slug);
@@ -60,7 +60,8 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
                         src={currentSrc}
                         alt={p.title}
                         fill
-                        className={p.thumbWhiteBg ? "object-contain p-6" : useContain ? "object-contain" : "object-cover"}
+                        className={p.thumbWhiteBg ? "object-contain p-2" : useContain ? "object-contain" : "object-cover"}
+                        style={p.slug === "stylo-app" && !currentSrc.endsWith(".svg") ? { objectFit: "contain", transform: "scale(1.15)", objectPosition: "center" } : undefined}
                         unoptimized
                         sizes="50vw"
                       />

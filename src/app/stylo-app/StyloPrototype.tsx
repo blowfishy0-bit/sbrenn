@@ -24,27 +24,35 @@ const C = {
 
 const STYLES = [
   { id: "custom",   label: "Custom",       thumb: null },
-  { id: "bbitalia", label: "B&B Italia",   thumb: "/stylo/bbitalia.png" },
-  { id: "artefacto",label: "Artefacto",    thumb: "/stylo/artefacto.jpg" },
-  { id: "boho",     label: "Modern Boho",  thumb: "/stylo/modern-boho-style.jpg" },
+  { id: "boho",     label: "Boho",         thumb: "/stylo/modern-boho-style.jpg" },
   { id: "industrial",label:"Industrial",   thumb: "/stylo/industrial-image.webp" },
-  { id: "scandi",   label: "Scandi",       thumb: "/stylo/scandi.jpg" },
+  { id: "scandi",   label: "Scandinavian", thumb: "/stylo/scandi.jpg" },
 ];
 
-const STYLE_IMG: Record<string,string> = {
-  bbitalia:   "/stylo/bbitalia.png",
-  artefacto:  "/stylo/artefacto.jpg",
-  boho:       "/stylo/modern-boho-style.jpg",
-  industrial: "/stylo/industrial-image.webp",
-  scandi:     "/stylo/scandi.jpg",
+const STYLE_IMG: Record<string, Record<string, string>> = {
+  master: {
+    boho:       "/stylo/boho-hero.jpg",
+    industrial: "/stylo/industrial-hero.jpg",
+    scandi:     "/stylo/scandi-hero.jpg",
+  },
+  kitchen: {
+    boho:       "/stylo/aviv-boho.jpg",
+    industrial: "/stylo/aviv-industrial.jpg",
+    scandi:     "/stylo/aviv-scandi.jpg",
+  },
+  living: {
+    boho:       "/stylo/living-boho.jpg",
+    industrial: "/stylo/living-industrial.jpg",
+    scandi:     "/stylo/living-scandi.jpg",
+  },
 };
 
 const ROOM_PRODUCTS: Record<string, Product[]> = {
   master: [
-    { id:"p1", name:"Walnut Platform Bed",   brand:"B&B Italia",  size:"200 x 100 cm", price:1299, image:"/stylo/walnut-bed.jpg",    category:"BEDS" },
-    { id:"p2", name:"Oak Platform Bed",      brand:"Artefacto",   size:"200 x 100 cm", price:1149, image:"/stylo/oak-bed.jpg",       category:"BEDS" },
-    { id:"p3", name:"Linen Upholstered Bed", brand:"Restoration Hardware", size:"200 x 100 cm", price:1899, image:"/stylo/linen-bed.jpg", category:"BEDS" },
-    { id:"p4", name:"Maple Sleigh Bed",      brand:"Ethan Allen", size:"180 x 90 cm",  price:1399, image:"/stylo/sleigh-bed2.jpg",   category:"BEDS" },
+    { id:"p1", name:"Walnut Platform Bed",   brand:"B&B Italia",  size:"200 x 100 cm", price:1299, image:"/stylo/oak-bed.png",       category:"BEDS" },
+    { id:"p2", name:"Oak Platform Bed",      brand:"Artefacto",   size:"200 x 100 cm", price:1149, image:"/stylo/oak-bed.png",       category:"BEDS" },
+    { id:"p3", name:"Linen Upholstered Bed", brand:"Restoration Hardware", size:"200 x 100 cm", price:1899, image:"/stylo/oak-bed.png", category:"BEDS" },
+    { id:"p4", name:"Maple Sleigh Bed",      brand:"Ethan Allen", size:"180 x 90 cm",  price:1399, image:"/stylo/oak-bed.png",   category:"BEDS" },
   ],
   kitchen: [
     { id:"p1", name:"Rattan Bar Stool",      brand:"CB2",         size:"45 x 45 x 75 cm", price:349, image:"/stylo/rattan-stool.jpg",  category:"STOOLS" },
@@ -59,32 +67,17 @@ const ROOM_PRODUCTS: Record<string, Product[]> = {
     { id:"p4", name:"Boucle Cloud Sofa",     brand:"Restoration Hardware", size:"240 x 140 cm", price:2899, image:"/stylo/cloud-sofa.jpg", category:"SOFAS" },
   ],
   industrial: [
-    { id:"p1", name:"Iron Frame Bed",        brand:"West Elm",    size:"200 x 100 cm", price:899,  image:"/stylo/walnut-bed.jpg",     category:"BEDS" },
-    { id:"p2", name:"Steel Platform Bed",    brand:"CB2",         size:"200 x 100 cm", price:1049, image:"/stylo/oak-bed.jpg",        category:"BEDS" },
-    { id:"p3", name:"Reclaimed Wood Bed",    brand:"Pottery Barn", size:"200 x 100 cm", price:1299, image:"/stylo/linen-bed.jpg",     category:"BEDS" },
-    { id:"p4", name:"Metal Pipe Bed Frame",  brand:"Article",     size:"180 x 90 cm",  price:749,  image:"/stylo/sleigh-bed2.jpg",    category:"BEDS" },
-  ],
-  modern: [
-    { id:"p1", name:"Floating Platform Bed", brand:"Modloft",     size:"200 x 100 cm", price:1599, image:"/stylo/floating-bed.jpg",   category:"BEDS" },
-    { id:"p2", name:"Low Profile Bed Frame", brand:"Article",     size:"200 x 100 cm", price:1199, image:"/stylo/low-bed.jpg",        category:"BEDS" },
-    { id:"p3", name:"Upholstered Panel Bed", brand:"West Elm",    size:"200 x 100 cm", price:1399, image:"/stylo/panel-bed.jpg",      category:"BEDS" },
-    { id:"p4", name:"Minimalist Oak Bed",    brand:"Muji",        size:"180 x 90 cm",  price:999,  image:"/stylo/minimal-bed2.jpg",   category:"BEDS" },
-  ],
-  boho: [
-    { id:"p1", name:"Rattan Canopy Bed",     brand:"Anthropologie", size:"200 x 100 cm", price:1799, image:"/stylo/floating-bed.jpg",  category:"BEDS" },
-    { id:"p2", name:"Woven Jute Bed Frame",  brand:"Urban Outfitters", size:"200 x 100 cm", price:899, image:"/stylo/low-bed.jpg",    category:"BEDS" },
-    { id:"p3", name:"Macramé Headboard Bed", brand:"Free People",  size:"200 x 100 cm", price:1299, image:"/stylo/panel-bed.jpg",     category:"BEDS" },
-    { id:"p4", name:"Bamboo Platform Bed",   brand:"CB2",         size:"180 x 90 cm",  price:1099, image:"/stylo/minimal-bed2.jpg",   category:"BEDS" },
+    { id:"p1", name:"Iron Frame Bed",        brand:"West Elm",    size:"200 x 100 cm", price:899,  image:"/stylo/oak-bed.png",        category:"BEDS" },
+    { id:"p2", name:"Steel Platform Bed",    brand:"CB2",         size:"200 x 100 cm", price:1049, image:"/stylo/oak-bed.png",        category:"BEDS" },
+    { id:"p3", name:"Reclaimed Wood Bed",    brand:"Pottery Barn", size:"200 x 100 cm", price:1299, image:"/stylo/oak-bed.png",       category:"BEDS" },
+    { id:"p4", name:"Metal Pipe Bed Frame",  brand:"Article",     size:"180 x 90 cm",  price:749,  image:"/stylo/oak-bed.png",        category:"BEDS" },
   ],
 };
 
 const ROOMS = [
-  { id:"master",     name:"Master Bedroom",         img:"/stylo/room-original.jpg" },
-  { id:"kitchen",    name:"Boho Kitchen",          img:"/stylo/boho-kitchen.webp" },
-  { id:"living",     name:"Living Room",            img:"/stylo/stylo4.png" },
-  { id:"industrial", name:"Industrial Bedroom",     img:"/stylo/industrial-bedroom.webp" },
-  { id:"modern",     name:"Modern Bedroom",         img:"/stylo/modern-bedroom.webp" },
-  { id:"boho",       name:"Boho Bedroom",           img:"/stylo/boho-bedroom.webp" },
+  { id:"master",     name:"Master Bedroom",         img:"/stylo/splash-bedroom.jpg" },
+  { id:"kitchen",    name:"Kitchen",               img:"/stylo/aviv.png" },
+  { id:"living",     name:"Living Room",            img:"/stylo/living-room.png" },
 ];
 
 // Hotspot positions (% x, % y) for shop overlay
@@ -131,7 +124,7 @@ export default function StyloPrototype() {
   const [activeHotspot, setActiveHotspot] = useState(2);
 
   const n = cart.length;
-  const roomImg = selectedRoom.img;
+  const roomImg = selectedStyle && STYLE_IMG[selectedRoom.id]?.[selectedStyle] ? STYLE_IMG[selectedRoom.id][selectedStyle] : selectedRoom.img;
 
   function go(s: Screen) { setPrev(screen); setScreen(s); }
   function back() { setScreen(prev); }
@@ -139,13 +132,13 @@ export default function StyloPrototype() {
   function removeFromCart(uid: string) { setCart(c => c.filter(i => i.uid !== uid)); }
 
   function pickStyle(id: string) {
-    if (id === "custom") return;
     setSelectedStyle(id);
   }
   function enterRoom(returning: boolean, room?: typeof ROOMS[number]) {
     if (room) setSelectedRoom(room);
     setIsReturning(returning);
-    if (!returning) { setSelectedStyle(null); setLoading(false); }
+    setSelectedStyle(null);
+    if (!returning) { setLoading(false); }
     setTab("style");
     setTabMoved(false);
     setPrev("home");
@@ -175,7 +168,7 @@ export default function StyloPrototype() {
           @keyframes sspin { to { transform: rotate(360deg); } }
           @keyframes pulse-dot { 0%,100%{transform:scale(1);opacity:0.8} 50%{transform:scale(1.15);opacity:1} }
         `}</style>
-        <img src="/stylo/splash-bedroom.jpg" alt="bedroom" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:0.8 }}/>
+        <img src="/stylo/living-scandi.jpg" alt="bedroom" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:0.8 }}/>
         <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,1) 100%)" }}/>
         <StatusBar light />
         <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", textAlign:"center", padding:"0 28px 52px", paddingTop:"calc(50px + 22px)" }}>
@@ -325,7 +318,7 @@ export default function StyloPrototype() {
         {/* tabs */}
         <div style={{ padding:"12px 20px 0", flexShrink:0, display:"flex", justifyContent:"center" }}>
           <div style={{ position:"relative", display:"inline-flex", background:C.cream, borderRadius:999, padding:3 }}>
-            <div style={{ position:"absolute", top:3, left:3, width:"calc(50% - 3px)", height:"calc(100% - 6px)", borderRadius:999, background:C.fg, transform: tab==="shop" ? "translateX(100%)" : "translateX(0)", transition:"transform 0.2s cubic-bezier(0.25,1,0.5,1)" }}/>
+            <div style={{ position:"absolute", top:3, left:3, width:"calc(50% - 3px)", height:"calc(100% - 6px)", borderRadius:999, background:C.fg, transform: tab==="shop" ? "translateX(100%)" : "translateX(0)", transition:"transform 0.4s cubic-bezier(0.34,1.56,0.64,1)" }}/>
             <button onClick={() => setTab("style")} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="style"?"#fff":C.muted, transition:"color 0.2s" }}>Style</button>
             <button onClick={() => setTab("shop")} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="shop"?"#fff":C.muted, transition:"color 0.2s" }}>Shop</button>
           </div>
@@ -340,7 +333,7 @@ export default function StyloPrototype() {
             {STYLES.map(s => (
               <button key={s.id} onClick={() => pickStyle(s.id)} style={{ background:"none", border:"none", padding:0, cursor:"pointer", textAlign:"center" }}>
                 {(s.id === "custom") ? (
-                  <div style={{ borderRadius:14, overflow:"hidden", aspectRatio:"1/1", background:"rgba(255,255,255,0.4)", backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)", border:"1.5px solid rgba(180,175,170,0.45)", boxShadow:"0 2px 16px rgba(0,0,0,0.05)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", position:"relative" }}>
+                  <div style={{ borderRadius:14, overflow:"hidden", aspectRatio:"1/1", background:"rgba(255,255,255,0.4)", backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)", outline: selectedStyle===s.id ? `2.5px solid ${C.fg}` : "1.5px solid rgba(180,175,170,0.45)", outlineOffset:"1px", boxShadow:"0 2px 16px rgba(0,0,0,0.05)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", position:"relative" }}>
                     <div style={{ width:28, height:28, borderRadius:"50%", background:"rgba(0,0,0,0.25)", border:"none", display:"flex", alignItems:"center", justifyContent:"center" }}>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </div>

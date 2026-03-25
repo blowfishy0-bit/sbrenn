@@ -32,7 +32,7 @@ export const projects: Project[] = [
     subtitle: "Interactive Prototype, UX/UI",
     tags: ["UX/UI"],
     category: "ux",
-    thumb: "/banner.png",
+    thumb: "/bannerreal.png",
   },
   {
     slug: "holomaid",
