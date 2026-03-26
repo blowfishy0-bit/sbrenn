@@ -79,12 +79,15 @@ video {
     gap: 0px !important;
   }
   .poop-svg {
-    height: 35vh !important;
+    height: auto !important;
+    aspect-ratio: 3086 / 882;
     margin: 0 !important;
     padding: 0 !important;
   }
-  .flow-wrap img {
-    transform: scale(1.15);
-    transform-origin: center;
+  .flow-wrap {
+    margin-left: -24px !important;
+    margin-right: -24px !important;
+    width: calc(100% + 48px) !important;
+    border-radius: 0 !important;
   }
 }

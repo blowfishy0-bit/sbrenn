@@ -1,6 +1,8 @@
 import Image from "next/image";
 import ProjectLayout from "@/components/ProjectLayout";
 import StyloPrototype from "./StyloPrototype";
+import ScreenCarousel from "./ScreenCarousel";
+import FlowImage from "./FlowImage";
 
 export const metadata = {
   title: "STYLO app — Sophie Brenner",
@@ -27,7 +29,7 @@ export default function StyloApp() {
               {[
                 { label: "Timeline",  value: "Concept / Ongoing" },
                 { label: "Team",      value: "Solo Designer" },
-                { label: "My Role",   value: "Lead UX/UI Designer — Research, Product Strategy, Interaction Design & Prototyping." },
+                { label: "My Role",   value: "Lead UX/UI Designer — Research, Interaction Design & Prototyping." },
               ].map(({ label, value }) => (
                 <div key={label} className="flex gap-6">
                   <p className="text-sm w-20 shrink-0 pt-[2px]" style={{ color: "var(--text-muted)" }}>{label}</p>
@@ -60,20 +62,8 @@ export default function StyloApp() {
           </div>
         </div>
 
-        {/* poop svg */}
-        <div
-          className="poop-svg"
-          style={{
-            width: "100%",
-            height: "45vh",
-            backgroundImage: "url('/poop.svg')",
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            margin: 0,
-            padding: 0,
-          }}
-        />
+        {/* Screen gallery */}
+        <ScreenCarousel />
       </section>
 
       {/* ── Problem ── */}
@@ -115,6 +105,9 @@ export default function StyloApp() {
           Stylo utilizes a high-intelligence, low-effort user flow that leverages Computer Vision and
           Generative AI to restyle a room in-place.
         </p>
+        <div className="mb-14">
+          <FlowImage />
+        </div>
         <div className="grid md:grid-cols-3 gap-10 mb-14">
           {[
             { step: "01", title: "Capture",  body: "User takes a standard 2D photo. CV detects perspective lines and segments the architecture — floor, walls, ceiling." },
@@ -131,17 +124,6 @@ export default function StyloApp() {
             </div>
           ))}
         </div>
-
-        <div className="rounded-2xl overflow-hidden flow-wrap" style={{ background: "#f0f0f0" }}>
-          <Image
-            src="/flow.png"
-            alt="Stylo user flow diagram"
-            width={1200}
-            height={600}
-            style={{ width: "100%", height: "auto", display: "block" }}
-            unoptimized
-          />
-        </div>
       </section>
 
       {/* ── Solution ── */}
@@ -153,7 +135,7 @@ export default function StyloApp() {
         </p>
         <div className="grid md:grid-cols-3 gap-10">
           {[
-            { title: "Instant Room Restyling",       body: "Unlike traditional tools that require a \"reset,\" Stylo allows users to see an immediate transformation of their current environment." },
+            { title: "Instant Room Restyling",       body: "Stylo allows users to see an immediate transformation of their current environment." },
             { title: "Contextual Sourcing",          body: "Every \"dream\" image generated is backed by real, available inventory, turning inspiration into an immediate purchase path." },
             { title: "Frictionless Fulfillment",     body: "Eliminates the need to visit multiple product pages or enter shipping info four different times." },
           ].map((item, i) => (
@@ -170,7 +152,7 @@ export default function StyloApp() {
         <p style={{ fontSize: "1.5rem", fontWeight: 700, color: "#111", lineHeight: 1.4, fontFamily: '-apple-system, BlinkMacSystemFont, "DM Sans", "Helvetica Neue", sans-serif', letterSpacing: "-0.01em", marginBottom: "1.5rem" }}>Impact</p>
         <div className="grid md:grid-cols-3 gap-10">
           {[
-            { stat: "$24B",     label: "Returned Furniture",    body: "The furniture industry loses $24B annually to returns — the #1 reason: \"it didn't look right in my space.\" Stylo eliminates that guesswork before purchase." },
+            { stat: "1 App",    label: "All-in-One",            body: "Style, visualize, shop, and checkout — all in a single app. No tab-hopping, no separate tools, no friction between inspiration and purchase." },
             { stat: "1 Photo",   label: "Zero Setup",           body: "No room scanning, no measurements, no LiDAR — one standard phone photo is all it takes to generate a fully styled, shoppable room." },
             { stat: "100%",     label: "Hardware Inclusive",  body: "Standard JPEG processing instead of LiDAR — reach includes nearly every smartphone user globally." },
           ].map((item, i) => (

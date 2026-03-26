@@ -122,6 +122,7 @@ export default function StyloPrototype() {
   const [showMedia, setShowMedia]         = useState(false);
   const [selectedRoom, setSelectedRoom]   = useState(ROOMS[0]);
   const [activeHotspot, setActiveHotspot] = useState(2);
+  const [menuRoom, setMenuRoom]           = useState<string|null>(null);
 
   const n = cart.length;
   const roomImg = selectedStyle && STYLE_IMG[selectedRoom.id]?.[selectedStyle] ? STYLE_IMG[selectedRoom.id][selectedStyle] : selectedRoom.img;
@@ -182,7 +183,7 @@ export default function StyloPrototype() {
               Your room,<br/>reimagined.
             </p>
             <p style={{ fontFamily:SANS, fontSize:14, color:"rgba(255,255,255,0.75)", marginBottom:28, lineHeight:1.5, fontWeight:300 }}>
-              Point. Style. Shop — in under 60 seconds.
+              Upload. Style. Shop.
             </p>
             <style>{`@keyframes breathe { 0%,100%{transform:scale(1)} 50%{transform:scale(1.025)} }`}</style>
             <button
@@ -221,9 +222,16 @@ export default function StyloPrototype() {
               <img src={r.img} alt={r.name} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
               <div style={{ position:"absolute", inset:0, background:"linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 30%)" }}/>
               <span style={{ position:"absolute", bottom:11, left:12, color:"#fff", fontFamily:SANS, fontSize:12, fontWeight:700, lineHeight:1.3 }}>{r.name}</span>
-              <button onClick={e => e.stopPropagation()} style={{ position:"absolute", top:8, right:8, width:28, height:28, borderRadius:"50%", background:"rgba(0,0,0,0.3)", border:"none", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer" }}>
+              <button onClick={e => { e.stopPropagation(); setMenuRoom(menuRoom === r.id ? null : r.id); }} style={{ position:"absolute", top:8, right:8, width:28, height:28, borderRadius:"50%", background:"rgba(0,0,0,0.3)", border:"none", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer", zIndex:3 }}>
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="3" cy="7" r="1.2" fill="#fff"/><circle cx="7" cy="7" r="1.2" fill="#fff"/><circle cx="11" cy="7" r="1.2" fill="#fff"/></svg>
               </button>
+              {menuRoom === r.id && (
+                <div onClick={e => e.stopPropagation()} style={{ position:"absolute", top:40, right:8, background:"#fff", borderRadius:12, boxShadow:"0 4px 16px rgba(0,0,0,0.15)", overflow:"hidden", zIndex:4, minWidth:120 }}>
+                  <button onClick={() => setMenuRoom(null)} style={{ display:"block", width:"100%", padding:"10px 16px", border:"none", background:"none", fontFamily:SANS, fontSize:13, fontWeight:500, color:C.fg, cursor:"pointer", textAlign:"left" }}>Rename</button>
+                  <div style={{ height:1, background:C.border }}/>
+                  <button onClick={() => setMenuRoom(null)} style={{ display:"block", width:"100%", padding:"10px 16px", border:"none", background:"none", fontFamily:SANS, fontSize:13, fontWeight:500, color:"#e53e3e", cursor:"pointer", textAlign:"left" }}>Delete</button>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -318,9 +326,13 @@ export default function StyloPrototype() {
         {/* tabs */}
         <div style={{ padding:"12px 20px 0", flexShrink:0, display:"flex", justifyContent:"center" }}>
           <div style={{ position:"relative", display:"inline-flex", background:C.cream, borderRadius:999, padding:3 }}>
-            <div style={{ position:"absolute", top:3, left:3, width:"calc(50% - 3px)", height:"calc(100% - 6px)", borderRadius:999, background:C.fg, transform: tab==="shop" ? "translateX(100%)" : "translateX(0)", transition:"transform 0.4s cubic-bezier(0.34,1.56,0.64,1)" }}/>
-            <button onClick={() => setTab("style")} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="style"?"#fff":C.muted, transition:"color 0.2s" }}>Style</button>
-            <button onClick={() => setTab("shop")} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="shop"?"#fff":C.muted, transition:"color 0.2s" }}>Shop</button>
+            <style>{`
+              @keyframes slide-right { 0%{transform:translateX(0) scaleX(1)} 40%{transform:translateX(35%) scaleX(1.3)} 100%{transform:translateX(100%) scaleX(1)} }
+              @keyframes slide-left { 0%{transform:translateX(100%) scaleX(1)} 40%{transform:translateX(65%) scaleX(1.3)} 100%{transform:translateX(0) scaleX(1)} }
+            `}</style>
+            <div key={tabMoved ? tab : "init"} style={{ position:"absolute", top:3, left:3, width:"calc(50% - 3px)", height:"calc(100% - 6px)", borderRadius:999, background:C.fg, transform: tab==="shop" ? "translateX(100%)" : "translateX(0)", animation: tabMoved ? (tab==="shop" ? "slide-right 0.18s cubic-bezier(0.25,1,0.5,1) forwards" : "slide-left 0.18s cubic-bezier(0.25,1,0.5,1) forwards") : "none" }}/>
+            <button onClick={() => { setTabMoved(true); setTab("style"); }} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="style"?"#fff":C.muted, transition:"color 0.2s" }}>Style</button>
+            <button onClick={() => { setTabMoved(true); setTab("shop"); }} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="shop"?"#fff":C.muted, transition:"color 0.2s" }}>Shop</button>
           </div>
         </div>
 

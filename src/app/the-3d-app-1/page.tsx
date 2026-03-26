@@ -213,9 +213,9 @@ export default function The3DApp() {
               body: "Eliminated the need for $1,000+ staging fees, democratizing high-end marketing for every property—from rentals to luxury condos.",
             },
             {
-              stat: "Win more",
-              label: "listings",
-              body: "Serves as a pitching asset, demonstrating a custom high-tech marketing suite that shows sellers a staged 3D tour directly on their phone.",
+              stat: "Secure more",
+              label: "Listings",
+              body: "A pitching asset that demonstrates a custom high-tech marketing suite, showing sellers a staged 3D tour directly on their phone.",
             },
           ].map((item, i) => (
             <div key={i}>
