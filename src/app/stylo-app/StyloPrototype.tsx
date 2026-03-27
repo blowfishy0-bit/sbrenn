@@ -1,5 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense, useMemo, useEffect, useRef } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
+import { OrbitControls, useGLTF, Stage } from "@react-three/drei";
+import { Box3, Vector3 } from "three";
 
 type Screen = "splash" | "home" | "media" | "room" | "product" | "cart";
 type Tab = "style" | "shop";
@@ -49,10 +52,10 @@ const STYLE_IMG: Record<string, Record<string, string>> = {
 
 const ROOM_PRODUCTS: Record<string, Product[]> = {
   master: [
-    { id:"p1", name:"Walnut Platform Bed",   brand:"B&B Italia",  size:"200 x 100 cm", price:1299, image:"/stylo/oak-bed.png",       category:"BEDS" },
-    { id:"p2", name:"Oak Platform Bed",      brand:"Artefacto",   size:"200 x 100 cm", price:1149, image:"/stylo/oak-bed.png",       category:"BEDS" },
-    { id:"p3", name:"Linen Upholstered Bed", brand:"Restoration Hardware", size:"200 x 100 cm", price:1899, image:"/stylo/oak-bed.png", category:"BEDS" },
-    { id:"p4", name:"Maple Sleigh Bed",      brand:"Ethan Allen", size:"180 x 90 cm",  price:1399, image:"/stylo/oak-bed.png",   category:"BEDS" },
+    { id:"p1", name:"Walnut Platform Bed",   brand:"B&B Italia",  size:"200 x 100 cm", price:1299, image:"/stylo/bedframe1.jpg",     category:"BEDS" },
+    { id:"p2", name:"Oak Platform Bed",      brand:"Artefacto",   size:"200 x 100 cm", price:1149, image:"/stylo/bedframe2.jpg",     category:"BEDS" },
+    { id:"p3", name:"Linen Upholstered Bed", brand:"Restoration Hardware", size:"200 x 100 cm", price:1899, image:"/stylo/bedframe3.jpg", category:"BEDS" },
+    { id:"p4", name:"Maple Sleigh Bed",      brand:"Ethan Allen", size:"180 x 90 cm",  price:1399, image:"/stylo/bedframe4.jpg", category:"BEDS" },
   ],
   kitchen: [
     { id:"p1", name:"Rattan Bar Stool",      brand:"CB2",         size:"45 x 45 x 75 cm", price:349, image:"/stylo/rattan-stool.jpg",  category:"STOOLS" },
@@ -67,10 +70,10 @@ const ROOM_PRODUCTS: Record<string, Product[]> = {
     { id:"p4", name:"Boucle Cloud Sofa",     brand:"Restoration Hardware", size:"240 x 140 cm", price:2899, image:"/stylo/cloud-sofa.jpg", category:"SOFAS" },
   ],
   industrial: [
-    { id:"p1", name:"Iron Frame Bed",        brand:"West Elm",    size:"200 x 100 cm", price:899,  image:"/stylo/oak-bed.png",        category:"BEDS" },
-    { id:"p2", name:"Steel Platform Bed",    brand:"CB2",         size:"200 x 100 cm", price:1049, image:"/stylo/oak-bed.png",        category:"BEDS" },
-    { id:"p3", name:"Reclaimed Wood Bed",    brand:"Pottery Barn", size:"200 x 100 cm", price:1299, image:"/stylo/oak-bed.png",       category:"BEDS" },
-    { id:"p4", name:"Metal Pipe Bed Frame",  brand:"Article",     size:"180 x 90 cm",  price:749,  image:"/stylo/oak-bed.png",        category:"BEDS" },
+    { id:"p1", name:"Iron Frame Bed",        brand:"West Elm",    size:"200 x 100 cm", price:899,  image:"/stylo/bedframe1.jpg",      category:"BEDS" },
+    { id:"p2", name:"Steel Platform Bed",    brand:"CB2",         size:"200 x 100 cm", price:1049, image:"/stylo/bedframe2.jpg",      category:"BEDS" },
+    { id:"p3", name:"Reclaimed Wood Bed",    brand:"Pottery Barn", size:"200 x 100 cm", price:1299, image:"/stylo/bedframe3.jpg",     category:"BEDS" },
+    { id:"p4", name:"Metal Pipe Bed Frame",  brand:"Article",     size:"180 x 90 cm",  price:749,  image:"/stylo/bedframe4.jpg",      category:"BEDS" },
   ],
 };
 
@@ -115,13 +118,17 @@ export default function StyloPrototype() {
   const [tab, setTab]                     = useState<Tab>("style");
   const [tabDir, setTabDir]               = useState<"left"|"right">("right");
   const [tabMoved, setTabMoved]           = useState(false);
+  const [tabAnimating, setTabAnimating]   = useState(false);
   const [product, setProduct]             = useState<Product|null>(null);
   const [cart, setCart]                   = useState<CartItem[]>([]);
   const [loading, setLoading]             = useState(false);
   const [prev, setPrev]                   = useState<Screen>("home");
   const [showMedia, setShowMedia]         = useState(false);
+  const [showCamera, setShowCamera]       = useState(false);
+  const [showGallery, setShowGallery]     = useState(false);
   const [selectedRoom, setSelectedRoom]   = useState(ROOMS[0]);
   const [activeHotspot, setActiveHotspot] = useState(2);
+  const [uploadedRoom, setUploadedRoom]   = useState<{ id:string; name:string; img:string }|null>(null);
   const [menuRoom, setMenuRoom]           = useState<string|null>(null);
 
   const n = cart.length;
@@ -217,6 +224,23 @@ export default function StyloPrototype() {
             </div>
             <span style={{ fontFamily:SANS, fontSize:12, color:C.muted, fontWeight:500 }}>Add Room</span>
           </div>
+          {uploadedRoom && (
+            <div key={uploadedRoom.id} onClick={() => enterRoom(true, uploadedRoom)} style={{ position:"relative", borderRadius:20, overflow:"hidden", aspectRatio:"1/1", cursor:"pointer", boxShadow:"0 2px 16px rgba(0,0,0,0.1)" }}>
+              <img src={uploadedRoom.img} alt={uploadedRoom.name} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
+              <div style={{ position:"absolute", inset:0, background:"linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 30%)" }}/>
+              <span style={{ position:"absolute", bottom:11, left:12, color:"#fff", fontFamily:SANS, fontSize:12, fontWeight:700, lineHeight:1.3 }}>{uploadedRoom.name}</span>
+              <button onClick={e => { e.stopPropagation(); setMenuRoom(menuRoom === uploadedRoom.id ? null : uploadedRoom.id); }} style={{ position:"absolute", top:8, right:8, width:28, height:28, borderRadius:"50%", background:"rgba(0,0,0,0.3)", border:"none", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer", zIndex:3 }}>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="3" cy="7" r="1.2" fill="#fff"/><circle cx="7" cy="7" r="1.2" fill="#fff"/><circle cx="11" cy="7" r="1.2" fill="#fff"/></svg>
+              </button>
+              {menuRoom === uploadedRoom.id && (
+                <div onClick={e => e.stopPropagation()} style={{ position:"absolute", top:40, right:8, background:"#fff", borderRadius:12, boxShadow:"0 4px 16px rgba(0,0,0,0.15)", overflow:"hidden", zIndex:4, minWidth:120 }}>
+                  <button onClick={() => setMenuRoom(null)} style={{ display:"block", width:"100%", padding:"10px 16px", border:"none", background:"none", fontFamily:SANS, fontSize:13, fontWeight:500, color:C.fg, cursor:"pointer", textAlign:"left" }}>Rename</button>
+                  <div style={{ height:1, background:C.border }}/>
+                  <button onClick={() => { setMenuRoom(null); setUploadedRoom(null); }} style={{ display:"block", width:"100%", padding:"10px 16px", border:"none", background:"none", fontFamily:SANS, fontSize:13, fontWeight:500, color:"#e53e3e", cursor:"pointer", textAlign:"left" }}>Delete</button>
+                </div>
+              )}
+            </div>
+          )}
           {ROOMS.map((r) => (
             <div key={r.id} onClick={() => enterRoom(true, r)} style={{ position:"relative", borderRadius:20, overflow:"hidden", aspectRatio:"1/1", cursor:"pointer", boxShadow:"0 2px 16px rgba(0,0,0,0.1)" }}>
               <img src={r.img} alt={r.name} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
@@ -249,7 +273,7 @@ export default function StyloPrototype() {
     }
 
     return (
-      <div style={{ display:"flex", flexDirection:"column", height:"100%", background: closing ? "rgba(0,0,0,0)" : "rgba(0,0,0,0.5)", justifyContent:"flex-end", animation: closing ? "none" : "media-bg-in 0.3s ease forwards", transition:"background 0.3s ease" }}>
+      <div onClick={dismiss} style={{ display:"flex", flexDirection:"column", height:"100%", background: closing ? "rgba(0,0,0,0)" : "rgba(0,0,0,0.5)", justifyContent:"flex-end", animation: closing ? "none" : "media-bg-in 0.3s ease forwards", transition:"background 0.3s ease" }}>
         <style>{`@keyframes media-bg-in { from { background:rgba(0,0,0,0); } to { background:rgba(0,0,0,0.5); } } @keyframes media-slide-in { from { transform:translateY(100%); } to { transform:translateY(0); } } @keyframes media-slide-out { from { transform:translateY(0); } to { transform:translateY(100%); } }`}</style>
         <div
           onClick={e => e.stopPropagation()}
@@ -262,7 +286,7 @@ export default function StyloPrototype() {
             </button>
           </div>
           {[{ icon:"cam", label:"Take photo from camera" }, { icon:"gal", label:"Choose from gallery" }].map(o => (
-            <button key={o.icon} onClick={e => e.stopPropagation()} style={{ display:"flex", alignItems:"center", gap:14, width:"100%", background:"rgba(255,255,255,0.4)", backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)", border:"1.5px solid rgba(180,175,170,0.45)", borderRadius:20, padding:"14px 16px", cursor:"pointer", marginBottom:10, fontFamily:SANS, fontSize:15, color:C.fg, textAlign:"left", boxShadow:"0 2px 16px rgba(0,0,0,0.05)" }}>
+            <button key={o.icon} onClick={(e) => { e.stopPropagation(); dismiss(); setTimeout(() => { if (o.icon === "cam") setShowCamera(true); else setShowGallery(true); }, 300); }} style={{ display:"flex", alignItems:"center", gap:14, width:"100%", background:"rgba(255,255,255,0.4)", backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)", border:"1.5px solid rgba(180,175,170,0.45)", borderRadius:20, padding:"14px 16px", cursor:"pointer", marginBottom:10, fontFamily:SANS, fontSize:15, color:C.fg, textAlign:"left", boxShadow:"0 2px 16px rgba(0,0,0,0.05)" }}>
               <div style={{ width:42, height:42, background:"rgba(0,0,0,0.25)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
                 {o.icon === "cam"
                   ? <svg width="20" height="18" viewBox="0 0 20 18" fill="none"><rect x="2" y="5" width="16" height="11" rx="2.5" stroke="#fff" strokeWidth="1.3"/><circle cx="10" cy="10.5" r="3" stroke="#fff" strokeWidth="1.3"/><path d="M7 5l1-2h4l1 2" stroke="#fff" strokeWidth="1.3" strokeLinejoin="round"/></svg>
@@ -272,6 +296,83 @@ export default function StyloPrototype() {
               {o.label}
             </button>
           ))}
+        </div>
+      </div>
+    );
+  }
+
+  /* ── CAMERA ── */
+  function Camera() {
+    const [closing, setClosing] = useState(false);
+    function dismiss() { setClosing(true); setTimeout(() => setShowCamera(false), 280); }
+    return (
+      <div style={{ position:"absolute", inset:0, zIndex:25, background:"#000", display:"flex", flexDirection:"column", animation: closing ? "media-slide-out 0.28s cubic-bezier(0.4,0,0.2,1) forwards" : "media-slide-in 0.28s cubic-bezier(0.4,0,0.2,1) forwards" }}>
+        {/* top black bar with status + close */}
+        <div style={{ background:"#000", flexShrink:0, paddingBottom:12 }}>
+          <StatusBar light/>
+          <div style={{ padding:"8px 20px 0", display:"flex", justifyContent:"flex-end" }}>
+            <button onClick={dismiss} style={{ background:"none", border:"none", cursor:"pointer", padding:0, lineHeight:0 }}>
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M5 5l12 12M17 5L5 17" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+        {/* viewfinder */}
+        <div style={{ flex:1, position:"relative", overflow:"hidden" }}>
+          <img src={roomImg} alt="viewfinder" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
+        </div>
+        {/* bottom black bar with shutter + home indicator */}
+        <div style={{ background:"#000", flexShrink:0, display:"flex", flexDirection:"column", alignItems:"center", padding:"28px 0 20px" }}>
+          <button onClick={dismiss} style={{ width:61, height:61, borderRadius:"50%", background:"#fff", border:"none", cursor:"pointer", padding:0 }}/>
+        </div>
+      </div>
+    );
+  }
+
+  /* ── GALLERY ── */
+  function Gallery() {
+    const [closing, setClosing] = useState(false);
+    const [galTab, setGalTab] = useState<"photos"|"albums">("photos");
+    const [selected, setSelected] = useState(false);
+    function dismiss() { setClosing(true); setTimeout(() => setShowGallery(false), 280); }
+    function confirm() {
+      setClosing(true);
+      setTimeout(() => {
+        setShowGallery(false);
+        const newRoom = { id:"gallery", name:"My Room", img:"/stylo/gallery-room.png" };
+        setUploadedRoom(newRoom);
+        setSelectedRoom(newRoom);
+        setSelectedStyle(null);
+        setIsReturning(false);
+        setTab("style");
+        setTabMoved(false);
+        setPrev("home");
+        setScreen("room");
+      }, 280);
+    }
+    return (
+      <div style={{ position:"absolute", inset:0, zIndex:25, background:"#1C1C1E", display:"flex", flexDirection:"column", animation: closing ? "media-slide-out 0.28s cubic-bezier(0.4,0,0.2,1) forwards" : "media-slide-in 0.28s cubic-bezier(0.4,0,0.2,1) forwards" }}>
+        {/* header */}
+        <div style={{ padding:"50px 16px 12px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+          <button onClick={dismiss} style={{ width:42, height:42, borderRadius:21, background:"rgba(70,70,72,0.2)", border:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center" }}>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4l10 10M14 4L4 14" stroke="#fff" strokeWidth="2" strokeLinecap="round"/></svg>
+          </button>
+          {/* tabs */}
+          <div style={{ display:"flex", background:"rgba(74,74,82,0.2)", borderRadius:23, padding:2 }}>
+            <button onClick={() => setGalTab("photos")} style={{ padding:"8px 20px", borderRadius:21, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background: galTab==="photos" ? "#464648" : "transparent", color:"#fff", transition:"background 0.2s" }}>Photos</button>
+            <button onClick={() => setGalTab("albums")} style={{ padding:"8px 20px", borderRadius:21, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background: galTab==="albums" ? "#464648" : "transparent", color:"#fff", transition:"background 0.2s" }}>Albums</button>
+          </div>
+          <button onClick={() => { if (selected) confirm(); }} style={{ width:42, height:42, borderRadius:21, background: selected ? "#0097FF" : "rgba(70,70,72,0.2)", border:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"background 0.2s" }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 6 9-12" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+        </div>
+        {/* single image */}
+        <div style={{ flex:1, overflow:"auto", background:"#000300", padding:1.5 }}>
+          <button onClick={() => setSelected(!selected)} style={{ position:"relative", width:"calc(33.33% - 1px)", aspectRatio:"1/1", border:"none", padding:0, cursor:"pointer", background:"#2a2a2e", overflow:"hidden", display:"block" }}>
+            <img src="/stylo/gallery-room.png" alt="" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
+            {selected && (
+              <div style={{ position:"absolute", bottom:6, right:6, width:23, height:23, borderRadius:12, background:"#0094FF", border:"2px solid #fff", boxSizing:"border-box", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:SANS, fontSize:11, fontWeight:700, color:"#fff", lineHeight:1 }}>1</div>
+            )}
+          </button>
         </div>
       </div>
     );
@@ -330,9 +431,9 @@ export default function StyloPrototype() {
               @keyframes slide-right { 0%{transform:translateX(0) scaleX(1)} 40%{transform:translateX(35%) scaleX(1.3)} 100%{transform:translateX(100%) scaleX(1)} }
               @keyframes slide-left { 0%{transform:translateX(100%) scaleX(1)} 40%{transform:translateX(65%) scaleX(1.3)} 100%{transform:translateX(0) scaleX(1)} }
             `}</style>
-            <div key={tabMoved ? tab : "init"} style={{ position:"absolute", top:3, left:3, width:"calc(50% - 3px)", height:"calc(100% - 6px)", borderRadius:999, background:C.fg, transform: tab==="shop" ? "translateX(100%)" : "translateX(0)", animation: tabMoved ? (tab==="shop" ? "slide-right 0.18s cubic-bezier(0.25,1,0.5,1) forwards" : "slide-left 0.18s cubic-bezier(0.25,1,0.5,1) forwards") : "none" }}/>
-            <button onClick={() => { setTabMoved(true); setTab("style"); }} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="style"?"#fff":C.muted, transition:"color 0.2s" }}>Style</button>
-            <button onClick={() => { setTabMoved(true); setTab("shop"); }} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="shop"?"#fff":C.muted, transition:"color 0.2s" }}>Shop</button>
+            <div key={tabMoved ? tab : "init"} onAnimationEnd={() => setTabAnimating(false)} style={{ position:"absolute", top:3, left:3, width:"calc(50% - 3px)", height:"calc(100% - 6px)", borderRadius:999, background:C.fg, transform: tab==="shop" ? "translateX(100%)" : "translateX(0)", animation: tabAnimating ? (tab==="shop" ? "slide-right 0.18s cubic-bezier(0.25,1,0.5,1) forwards" : "slide-left 0.18s cubic-bezier(0.25,1,0.5,1) forwards") : "none" }}/>
+            <button onClick={() => { setTabMoved(true); setTabAnimating(true); setTab("style"); }} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="style"?"#fff":C.muted, transition:"color 0.2s" }}>Style</button>
+            <button onClick={() => { setTabMoved(true); setTabAnimating(true); setTab("shop"); }} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="shop"?"#fff":C.muted, transition:"color 0.2s" }}>Shop</button>
           </div>
         </div>
 
@@ -398,24 +499,48 @@ export default function StyloPrototype() {
     );
   }
 
+  /* ── 3D MODEL ── */
+  function BedModel() {
+    const { scene } = useGLTF("/stylo/bedframe.glb");
+    return <primitive object={scene} />;
+  }
+
   /* ── PRODUCT ── */
   function ProductDetail() {
     const p = product;
+    const isBed = p?.category === "BEDS";
+    const [showAR, setShowAR] = useState(isBed);
     if (!p) return null;
     return (
       <div style={{ display:"flex", flexDirection:"column", height:"100%", background:C.bg }}>
         <StatusBar/>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"8px 20px 10px", flexShrink:0 }}>
-          <button onClick={() => go("room")} style={{ background:"none", border:"none", cursor:"pointer", padding:0, lineHeight:0 }}><IcoBack/></button>
+          <button onClick={() => { go("room"); setShowAR(false); }} style={{ background:"none", border:"none", cursor:"pointer", padding:0, lineHeight:0 }}><IcoBack/></button>
           <div/>
           <div style={{ display:"flex", gap:12, alignItems:"center" }}><CartBtn/></div>
         </div>
         <div style={{ flex:1, overflowY:"auto" }}>
-          <div style={{ height:250, background:C.cream, overflow:"hidden", position:"relative" }}>
-            <img src={p.image} alt={p.name} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
-            <button style={{ position:"absolute", bottom:12, left:12, background:"rgba(255,255,255,0.25)", backdropFilter:"blur(14px)", WebkitBackdropFilter:"blur(14px)", border:"1px solid rgba(255,255,255,0.4)", borderRadius:100, padding:"6px 14px", fontFamily:SANS, fontSize:11, fontWeight:600, color:"#fff", cursor:"pointer", display:"inline-flex", alignItems:"center", gap:5, boxShadow:"0 2px 10px rgba(0,0,0,0.15)" }}>
-              View in AR
-            </button>
+          <div style={{ height:250, background: showAR ? "#e0e0e0" : C.cream, overflow:"hidden", position:"relative" }}>
+            {showAR ? (
+              <Canvas style={{ width:"100%", height:"100%" }}>
+                <ambientLight intensity={1}/>
+                <directionalLight position={[5,5,5]} intensity={1}/>
+                <directionalLight position={[-5,3,-5]} intensity={0.4}/>
+                <Suspense fallback={null}>
+                  <Stage adjustCamera={1.5} intensity={0.5} environment="city">
+                    <BedModel/>
+                  </Stage>
+                </Suspense>
+                <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} enableDamping={false}/>
+              </Canvas>
+            ) : (
+              <img src={p.image} alt={p.name} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
+            )}
+            {isBed && (
+              <button onClick={() => setShowAR(!showAR)} style={{ position:"absolute", bottom:12, left:12, background:"rgba(0,0,0,0.35)", backdropFilter:"blur(14px)", WebkitBackdropFilter:"blur(14px)", border:"1px solid rgba(255,255,255,0.15)", borderRadius:100, padding:"6px 14px", fontFamily:SANS, fontSize:11, fontWeight:600, color:"#fff", cursor:"pointer", display:"inline-flex", alignItems:"center", gap:5, boxShadow:"0 2px 10px rgba(0,0,0,0.15)", zIndex:2 }}>
+                {showAR ? "View Photo" : "View in AR"}
+              </button>
+            )}
           </div>
           <div style={{ padding:"16px 22px 36px" }}>
             <p style={{ fontFamily:SANS, fontSize:10, fontWeight:700, letterSpacing:"0.1em", color:C.muted, marginBottom:3 }}>{p.category}</p>
@@ -526,6 +651,8 @@ export default function StyloPrototype() {
                 <Media/>
               </div>
             )}
+            {showCamera && <Camera/>}
+            {showGallery && <Gallery/>}
           </div>
           <img src="/stylo/iphone.svg" alt="" style={{ position:"absolute", inset:0, width:"100%", height:"100%", pointerEvents:"none", zIndex:10, display:"block" }}/>
         </div>
