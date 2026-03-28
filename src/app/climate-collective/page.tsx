@@ -59,24 +59,6 @@ export default function ClimateCollective() {
           </div>
         </div>
 
-        {/* Problem / Solution row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 pt-2 mb-10">
-          <div className="md:pr-8">
-            <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Problem</p>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              For a new social ecosystem like Mosambi, the primary hurdle was converting guests into members without losing them to a tedious signup process — especially when users hit a wall trying to access high-value features like event registration.
-            </p>
-          </div>
-          <div className="md:pl-8 mt-6 md:mt-0">
-            <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Solution</p>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: "#444" }}>
-              Design a high-speed, frictionless onboarding sequence with a persistent status indicator to maximize signup conversion and reduce user drop-off.
-            </p>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              We shifted the onboarding philosophy from &ldquo;Ask then Show&rdquo; to <strong>Show then Invite</strong>. Users start on the home or events page and can access some content freely. In order to register for events — or take any action that requires an account — they are sent to my onboarding screens. Users are far more motivated to complete a task when they can see exactly how close they are to the finish line.
-            </p>
-          </div>
-        </div>
 
         {/* User flow */}
         <div className="mb-10">
@@ -89,6 +71,32 @@ export default function ClimateCollective() {
             <source src={imgs.video1} type="video/quicktime" />
             <source src={imgs.video1} type="video/mp4" />
           </video>
+        </div>
+      </section>
+
+      {/* ── The Problem ── */}
+      <section className="mb-16">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>The Problem</p>
+        <div className="grid md:grid-cols-3 gap-10">
+          {[
+            {
+              title: "The \u201cLeap of Faith\u201d Barrier",
+              body: "Forcing a login before showing value creates a high bounce rate; the \u201ccost\u201d of data entry often outweighs the \u201cperceived benefit\u201d of an unproven platform.",
+            },
+            {
+              title: "The Momentum Kill",
+              body: "Hitting a multi-field signup form at the moment of registration creates a jarring experience that kills user intent and lead conversion.",
+            },
+            {
+              title: "The Ambiguity Gap",
+              body: "Without a clear \u201cDigital Host\u201d or status indicator, users feel lost and abandoned, leading to high abandonment rates mid-transition.",
+            },
+          ].map((item, i) => (
+            <div key={i}>
+              <h3 className="font-medium mb-3 text-base">{item.title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: "#444" }}>{item.body}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -133,32 +141,6 @@ export default function ClimateCollective() {
             </div>
           );
         })()}
-      </section>
-
-      {/* ── The Problem ── */}
-      <section className="mb-16">
-        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>The Problem</p>
-        <div className="grid md:grid-cols-3 gap-10">
-          {[
-            {
-              title: "The \u201cLeap of Faith\u201d Barrier",
-              body: "Forcing a login before showing value creates a high bounce rate; the \u201ccost\u201d of data entry often outweighs the \u201cperceived benefit\u201d of an unproven platform.",
-            },
-            {
-              title: "The Momentum Kill",
-              body: "Hitting a multi-field signup form at the moment of registration creates a jarring experience that kills user intent and lead conversion.",
-            },
-            {
-              title: "The Ambiguity Gap",
-              body: "Without a clear \u201cDigital Host\u201d or status indicator, users feel lost and abandoned, leading to high abandonment rates mid-transition.",
-            },
-          ].map((item, i) => (
-            <div key={i}>
-              <h3 className="font-medium mb-3 text-base">{item.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: "#444" }}>{item.body}</p>
-            </div>
-          ))}
-        </div>
       </section>
 
       {/* ── The Solution ── */}

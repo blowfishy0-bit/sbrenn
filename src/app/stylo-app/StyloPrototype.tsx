@@ -1,7 +1,7 @@
 "use client";
 import { useState, Suspense, useMemo, useEffect, useRef } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Stage } from "@react-three/drei";
+import { OrbitControls, useGLTF, Stage, Center } from "@react-three/drei";
 import { Box3, Vector3 } from "three";
 
 type Screen = "splash" | "home" | "media" | "room" | "product" | "cart";
@@ -47,6 +47,11 @@ const STYLE_IMG: Record<string, Record<string, string>> = {
     boho:       "/stylo/living-boho.jpg",
     industrial: "/stylo/living-industrial.jpg",
     scandi:     "/stylo/living-scandi.jpg",
+  },
+  gallery: {
+    boho:       "/stylo/gallery-boho.jpg",
+    industrial: "/stylo/gallery-scandi.jpg",
+    scandi:     "/stylo/gallery-industrial.jpg",
   },
 };
 
@@ -134,8 +139,8 @@ export default function StyloPrototype() {
   const n = cart.length;
   const roomImg = selectedStyle && STYLE_IMG[selectedRoom.id]?.[selectedStyle] ? STYLE_IMG[selectedRoom.id][selectedStyle] : selectedRoom.img;
 
-  function go(s: Screen) { setPrev(screen); setScreen(s); }
-  function back() { setScreen(prev); }
+  function go(s: Screen) { setPrev(screen); setScreen(s); setShowRoomAR(false); }
+  function back() { setScreen(prev); setShowRoomAR(false); }
   function addToCart(p: Product) { setCart(c => [...c, { ...p, uid: Date.now()+Math.random()+"" }]); }
   function removeFromCart(uid: string) { setCart(c => c.filter(i => i.uid !== uid)); }
 
@@ -212,7 +217,7 @@ export default function StyloPrototype() {
         <StatusBar/>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"8px 20px 14px" }}>
           <div style={{ width:22 }}/>
-          <span style={{ fontFamily:SANS, fontSize:22, fontWeight:700, color:C.fg, letterSpacing:"-0.01em" }}>Stylo</span>
+          <span style={{ fontFamily:SANS, fontSize:17, fontWeight:600, color:C.fg }}>Stylo</span>
           <CartBtn/>
         </div>
         {/* grid */}
@@ -318,11 +323,11 @@ export default function StyloPrototype() {
         </div>
         {/* viewfinder */}
         <div style={{ flex:1, position:"relative", overflow:"hidden" }}>
-          <img src={roomImg} alt="viewfinder" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
+          <img src="/stylo/aviv.png" alt="viewfinder" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
         </div>
         {/* bottom black bar with shutter + home indicator */}
         <div style={{ background:"#000", flexShrink:0, display:"flex", flexDirection:"column", alignItems:"center", padding:"28px 0 20px" }}>
-          <button onClick={dismiss} style={{ width:61, height:61, borderRadius:"50%", background:"#fff", border:"none", cursor:"pointer", padding:0 }}/>
+          <button onClick={() => { setClosing(true); setTimeout(() => { setShowCamera(false); const kitchen = ROOMS.find(r => r.id === "kitchen")!; setSelectedRoom(kitchen); setSelectedStyle(null); setIsReturning(false); setTab("style"); setTabMoved(false); setPrev("home"); setScreen("room"); }, 280); }} style={{ width:61, height:61, borderRadius:"50%", background:"#fff", border:"none", cursor:"pointer", padding:0 }}/>
         </div>
       </div>
     );
@@ -379,6 +384,8 @@ export default function StyloPrototype() {
   }
 
   /* ── ROOM ── */
+  const [showRoomAR, setShowRoomAR] = useState(false);
+
   function Room() {
     if (loading) return (
       <div style={{ display:"flex", flexDirection:"column", height:"100%", background:C.bg }}>
@@ -411,6 +418,28 @@ export default function StyloPrototype() {
 
         {/* room image with optional hotspots */}
         <div style={{ height: 210, flexShrink:0, overflow:"hidden", position:"relative" }}>
+          {(() => {
+            const prods = ROOM_PRODUCTS[selectedRoom.id] ?? ROOM_PRODUCTS.master;
+            const cat = prods[activeHotspot]?.category;
+            const camPos: [number,number,number] = cat === "STOOLS" ? [0,3,8] : cat === "SOFAS" ? [0,3,7] : [0,2,5];
+            return showRoomAR && tab === "shop" ? (
+              <div className="ar-canvas-wrap" style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"#e0e0e0" }}>
+                <Canvas camera={{ position:camPos, fov:45 }}>
+                  <ambientLight intensity={1}/>
+                  <directionalLight position={[5,5,5]} intensity={1}/>
+                  <directionalLight position={[-5,3,-5]} intensity={0.4}/>
+                  <Suspense fallback={null}>
+                    <Stage adjustCamera={false} intensity={0.5} environment="city" center={{ disable: true }}>
+                      <Center>
+                        {cat === "STOOLS" ? <StoolModel/> : cat === "SOFAS" ? <CouchModel/> : <BedModel/>}
+                      </Center>
+                    </Stage>
+                  </Suspense>
+                  <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} enableDamping={false} target={[0,0,0]}/>
+                </Canvas>
+              </div>
+            ) : (
+          <>
           <img src={roomImg} alt="room" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
           {tab === "shop" && HOTSPOTS.map((h, i) => {
             const dark = i === activeHotspot;
@@ -422,6 +451,14 @@ export default function StyloPrototype() {
             </div>
             );
           })}
+          </>
+          );
+          })()}
+        </div>
+        <div style={{ position:"relative", zIndex:10, marginTop:-40, marginBottom:16, paddingLeft:12, visibility: tab === "shop" ? "visible" : "hidden" }}>
+          <button onClick={() => setShowRoomAR(!showRoomAR)} style={{ background:"rgba(0,0,0,0.4)", backdropFilter:"blur(14px)", WebkitBackdropFilter:"blur(14px)", border:"1px solid rgba(255,255,255,0.15)", borderRadius:100, padding:"6px 14px", fontFamily:SANS, fontSize:11, fontWeight:600, color:"#fff", cursor:"pointer", display:"inline-flex", alignItems:"center", gap:5, boxShadow:"0 2px 10px rgba(0,0,0,0.15)" }}>
+            {showRoomAR ? "View Photo" : "View in AR"}
+          </button>
         </div>
 
         {/* tabs */}
@@ -432,8 +469,8 @@ export default function StyloPrototype() {
               @keyframes slide-left { 0%{transform:translateX(100%) scaleX(1)} 40%{transform:translateX(65%) scaleX(1.3)} 100%{transform:translateX(0) scaleX(1)} }
             `}</style>
             <div key={tabMoved ? tab : "init"} onAnimationEnd={() => setTabAnimating(false)} style={{ position:"absolute", top:3, left:3, width:"calc(50% - 3px)", height:"calc(100% - 6px)", borderRadius:999, background:C.fg, transform: tab==="shop" ? "translateX(100%)" : "translateX(0)", animation: tabAnimating ? (tab==="shop" ? "slide-right 0.18s cubic-bezier(0.25,1,0.5,1) forwards" : "slide-left 0.18s cubic-bezier(0.25,1,0.5,1) forwards") : "none" }}/>
-            <button onClick={() => { setTabMoved(true); setTabAnimating(true); setTab("style"); }} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="style"?"#fff":C.muted, transition:"color 0.2s" }}>Style</button>
-            <button onClick={() => { setTabMoved(true); setTabAnimating(true); setTab("shop"); }} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="shop"?"#fff":C.muted, transition:"color 0.2s" }}>Shop</button>
+            <button onClick={() => { setTabMoved(true); setTabAnimating(true); setTab("style"); setShowRoomAR(false); }} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="style"?"#fff":C.muted, transition:"color 0.2s" }}>Style</button>
+            <button onClick={() => { setTabMoved(true); setTabAnimating(true); setTab("shop"); setShowRoomAR(false); }} style={{ position:"relative", zIndex:1, padding:"7px 28px", borderRadius:999, border:"none", cursor:"pointer", fontFamily:SANS, fontSize:14, fontWeight:600, background:"transparent", color:tab==="shop"?"#fff":C.muted, transition:"color 0.2s" }}>Shop</button>
           </div>
         </div>
 
@@ -502,14 +539,23 @@ export default function StyloPrototype() {
   /* ── 3D MODEL ── */
   function BedModel() {
     const { scene } = useGLTF("/stylo/bedframe.glb");
-    return <primitive object={scene} />;
+    return <primitive object={scene} scale={1.8} />;
+  }
+
+  function StoolModel() {
+    const { scene } = useGLTF("/stylo/wooden_stool/scene.gltf");
+    return <primitive object={scene} scale={0.08} />;
+  }
+
+  function CouchModel() {
+    const { scene } = useGLTF("/stylo/couch.glb");
+    return <primitive object={scene} scale={1.8} />;
   }
 
   /* ── PRODUCT ── */
   function ProductDetail() {
     const p = product;
-    const isBed = p?.category === "BEDS";
-    const [showAR, setShowAR] = useState(isBed);
+    const [showAR, setShowAR] = useState(true);
     if (!p) return null;
     return (
       <div style={{ display:"flex", flexDirection:"column", height:"100%", background:C.bg }}>
@@ -520,27 +566,31 @@ export default function StyloPrototype() {
           <div style={{ display:"flex", gap:12, alignItems:"center" }}><CartBtn/></div>
         </div>
         <div style={{ flex:1, overflowY:"auto" }}>
-          <div style={{ height:250, background: showAR ? "#e0e0e0" : C.cream, overflow:"hidden", position:"relative" }}>
+          <div style={{ height:250, position:"relative" }}>
             {showAR ? (
-              <Canvas style={{ width:"100%", height:"100%" }}>
-                <ambientLight intensity={1}/>
-                <directionalLight position={[5,5,5]} intensity={1}/>
-                <directionalLight position={[-5,3,-5]} intensity={0.4}/>
-                <Suspense fallback={null}>
-                  <Stage adjustCamera={1.5} intensity={0.5} environment="city">
-                    <BedModel/>
-                  </Stage>
-                </Suspense>
-                <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} enableDamping={false}/>
-              </Canvas>
+              <div className="ar-canvas-wrap" style={{ position:"absolute", top:0, left:0, right:0, bottom:0, background:"#e0e0e0" }}>
+                <Canvas camera={{ position: p.category === "STOOLS" ? [0,3,8] : p.category === "SOFAS" ? [0,3,7] : [0,2,5], fov:45 }}>
+                  <ambientLight intensity={1}/>
+                  <directionalLight position={[5,5,5]} intensity={1}/>
+                  <directionalLight position={[-5,3,-5]} intensity={0.4}/>
+                  <Suspense fallback={null}>
+                    <Stage adjustCamera={false} intensity={0.5} environment="city" center={{ disable: true }}>
+                      <Center>
+                        {p.category === "STOOLS" ? <StoolModel/> : p.category === "SOFAS" ? <CouchModel/> : <BedModel/>}
+                      </Center>
+                    </Stage>
+                  </Suspense>
+                  <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} enableDamping={false} target={[0,0,0]}/>
+                </Canvas>
+              </div>
             ) : (
-              <img src={p.image} alt={p.name} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
+              <img src={p.image} alt={p.name} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block", background:C.cream }}/>
             )}
-            {isBed && (
-              <button onClick={() => setShowAR(!showAR)} style={{ position:"absolute", bottom:12, left:12, background:"rgba(0,0,0,0.35)", backdropFilter:"blur(14px)", WebkitBackdropFilter:"blur(14px)", border:"1px solid rgba(255,255,255,0.15)", borderRadius:100, padding:"6px 14px", fontFamily:SANS, fontSize:11, fontWeight:600, color:"#fff", cursor:"pointer", display:"inline-flex", alignItems:"center", gap:5, boxShadow:"0 2px 10px rgba(0,0,0,0.15)", zIndex:2 }}>
-                {showAR ? "View Photo" : "View in AR"}
-              </button>
-            )}
+          </div>
+          <div style={{ position:"relative", zIndex:10, marginTop:-40, marginBottom:16, paddingLeft:12 }}>
+            <button onClick={() => setShowAR(!showAR)} style={{ background:"rgba(0,0,0,0.4)", backdropFilter:"blur(14px)", WebkitBackdropFilter:"blur(14px)", border:"1px solid rgba(255,255,255,0.15)", borderRadius:100, padding:"6px 14px", fontFamily:SANS, fontSize:11, fontWeight:600, color:"#fff", cursor:"pointer", display:"inline-flex", alignItems:"center", gap:5, boxShadow:"0 2px 10px rgba(0,0,0,0.15)" }}>
+              {showAR ? "View Photo" : "View in AR"}
+            </button>
           </div>
           <div style={{ padding:"16px 22px 36px" }}>
             <p style={{ fontFamily:SANS, fontSize:10, fontWeight:700, letterSpacing:"0.1em", color:C.muted, marginBottom:3 }}>{p.category}</p>
@@ -626,6 +676,7 @@ export default function StyloPrototype() {
       <style>{`
         @keyframes pulse-dot { 0%,100%{transform:scale(1);opacity:0.8} 50%{transform:scale(1.15);opacity:1} }
         @keyframes sspin { to { transform: rotate(360deg); } }
+        .ar-canvas-wrap div, .ar-canvas-wrap canvas { width:100%!important; height:100%!important; }
       `}</style>
       {/* Left label */}
       <div className="stylo-proto-label" style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", gap:6, paddingTop: PH*SCALE*0.4, flexShrink:0, maxWidth:100 }}>

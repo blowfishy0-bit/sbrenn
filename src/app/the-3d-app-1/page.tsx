@@ -1,4 +1,5 @@
 import ProjectLayout from "@/components/ProjectLayout";
+import IterationsGallery from "./IterationsGallery";
 
 export const metadata = {
   title: "The3DApp — Sophie Brenner",
@@ -11,10 +12,9 @@ export default function The3DApp() {
       {/* ── Hero ── */}
       <section className="mb-16">
         {/* Hero video — full bleed, flush to top */}
-        <div style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw", marginTop: "calc(-3rem)" }}>
-          <video autoPlay muted loop playsInline className="w-full block" style={{ marginBottom: "-2px" }}>
-            <source src="/banner.mp4" type="video/mp4" />
-            <source src="/banner.mov" type="video/quicktime" />
+        <div style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw", marginTop: "calc(-1 * (var(--header-h) + 5.5rem))", height: "100vh", overflow: "hidden" }}>
+          <video autoPlay muted loop playsInline className="w-full block" style={{ width: "100%", height: "100%", objectFit: "cover" }}>
+            <source src="/usethis.mp4" type="video/mp4" />
           </video>
         </div>
 
@@ -46,34 +46,45 @@ export default function The3DApp() {
           </div>
         </div>
 
-        {/* Problem / Solution row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 pt-2 mb-10">
-          <div className="md:pr-8">
-            <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Problem</p>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              Real estate agents need high-quality staging, but AI is often a "black box"—unpredictable and hard to control.
-            </p>
-          </div>
-          <div className="md:pl-8 mt-6 md:mt-0">
-            <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Solution</p>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: "#444" }}>
-              I moved away from &ldquo;Open Prompting&rdquo; and toward a <strong>System of Constraints</strong>—
-              a structured set of tools that ensure speed and accuracy without requiring the user to
-              think like a prompt engineer.
-            </p>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              Design a &ldquo;Control Deck&rdquo; that gives agents the ability to guide AI imagery with precision, speed, and creative flexibility.
-            </p>
-          </div>
-        </div>
 
+
+      </section>
+
+      {/* ── The Friction ── */}
+      <section className="mb-16">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>The Problem</p>
+        <div className="grid md:grid-cols-2 gap-10">
+          {[
+            {
+              title: "The \u201cBlank Page\u201d Anxiety",
+              body: "Agents aren\u2019t prompt engineers. Facing a blank text box leads to Analysis Paralysis\u2014they don\u2019t know the \u201cmagic words\u201d to get a professional result.",
+            },
+            {
+              title: "The Reference Problem",
+              body: "Agents often have a specific vision in mind but can\u2019t describe it in words. One agent mentioned wanting to \u201cupload a professional photograph to virtually stage in it.\u201d",
+            },
+            {
+              title: "The Precision Gap",
+              body: "Agents need to fix specific issues like \u201cugly mirrors\u201d or clutter, but text-only prompts are too blunt to handle surgical edits.",
+            },
+            {
+              title: "The Time Crunch",
+              body: "Agents are managing multiple listings, client calls, and showings simultaneously. They don\u2019t have time to learn new software or iterate through trial-and-error workflows\u2014every tool needs to be intuitive and frictionless from the first tap.",
+            },
+          ].map((item, i) => (
+            <div key={i}>
+              <h3 className="font-medium mb-3 text-base">{item.title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: "#444" }}>{item.body}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* ── 01 The Discovery ── */}
       <section className="mb-16 max-w-[700px]">
         <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>Research</p>
         <p className="body-text mb-4">
-          When I began research with listing agents like Brian, I realized the problem wasn't a lack
+          When I began research with listing agents, I realized the problem wasn't a lack
           of images—it was a lack of <em>trust</em> and <em>speed</em>. Industry tools like Matterport
           lacked the high-def photography required for premium listings, while open-ended AI tools
           produced unreliable results.
@@ -85,10 +96,10 @@ export default function The3DApp() {
       </section>
 
       {/* ── User Interview Card ── */}
-      <section className="mb-16">
+      <section className="mb-4">
         <div className="rounded-2xl p-8 md:p-12" style={{ background: "#f5f5f5" }}>
           <p className="text-xs tracking-widest uppercase mb-8" style={{ color: "var(--text-muted)" }}>
-            UX Research — User Interview: Brian
+            UX Research — User Interview: Agent
           </p>
           <div className="grid md:grid-cols-2 gap-10 mb-10">
             <blockquote
@@ -106,44 +117,21 @@ export default function The3DApp() {
             </blockquote>
           </div>
           <div className="grid md:grid-cols-3 gap-6 text-sm" style={{ color: "#444" }}>
-            <p>Brian uses ChatGPT to recreate specific styles (Scandinavian, Mid-Century Modern) using reference photos and exact prompts.</p>
-            <p>Brian uses the Matterport app and is exploring AI to remove "ugly mirrors" or declutter spaces—but finds it lacks precision.</p>
-            <p>Brian wants to stage units based on the likely buyer profile (family vs. single professional, etc.).</p>
+            <p>The agent uses ChatGPT to recreate specific styles (Scandinavian, Mid-Century Modern) using reference photos and exact prompts.</p>
+            <p>The agent uses the Matterport app and is exploring AI to remove "ugly mirrors" or declutter spaces—but finds it lacks precision.</p>
+            <p>The agent wants to stage units based on the likely buyer profile (family vs. single professional, etc.).</p>
           </div>
         </div>
       </section>
 
-      {/* Slide 7 */}
-      <section className="mb-16">
-        <div className="rounded-2xl overflow-hidden" style={{ background: "#f0f0f0" }}>
-          <img src="/slide%207.svg" alt="Research findings" className="w-full block" style={{ clipPath: "inset(3px round 13px)" }} />
-        </div>
+      <section className="mb-4">
+        <img src="/brian-flow.png" alt="Agent Flow" className="block rounded-2xl mx-auto" style={{ maxWidth: "60%" }} />
       </section>
 
-      {/* ── The Friction ── */}
+      {/* Iterations */}
       <section className="mb-16">
-        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>The Problem</p>
-        <div className="grid md:grid-cols-3 gap-10">
-          {[
-            {
-              title: "The \u201cBlank Page\u201d Anxiety",
-              body: "Agents aren\u2019t prompt engineers. Facing a blank text box leads to Analysis Paralysis\u2014they don\u2019t know the \u201cmagic words\u201d to get a professional result.",
-            },
-            {
-              title: "The Reference Problem",
-              body: "Agents often have a specific vision in mind but can\u2019t describe it in words. Brian mentioned wanting to \u201cupload a professional photograph to virtually stage in it.\u201d",
-            },
-            {
-              title: "The Precision Gap",
-              body: "Agents need to fix specific issues like \u201cugly mirrors\u201d or clutter, but text-only prompts are too blunt to handle surgical edits.",
-            },
-          ].map((item, i) => (
-            <div key={i}>
-              <h3 className="font-medium mb-3 text-base">{item.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: "#444" }}>{item.body}</p>
-            </div>
-          ))}
-        </div>
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>Iterations</p>
+        <IterationsGallery />
       </section>
 
       {/* ── 02 The Solutions ── */}
@@ -159,13 +147,20 @@ export default function The3DApp() {
         <div className="grid md:grid-cols-[1fr_2fr] gap-10 mb-10 items-start">
           <div>
             <h3 className="font-medium text-xl mb-4">The Style Gallery</h3>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
+            <p className="text-sm leading-relaxed mb-3" style={{ color: "#444" }}>
               I replaced the empty text box with high-intent Style Tags. By selecting
-              "Scandinavian" or "Mid-Century Modern," the agent feeds the AI a curated data set of
-              high-end design—eliminating the need to write long descriptions.
+              &ldquo;Scandinavian&rdquo; or &ldquo;Mid-Century Modern,&rdquo; the agent feeds the AI a curated data set of
+              high-end design — eliminating the need to write long descriptions.
+            </p>
+            <p className="text-sm leading-relaxed mb-3" style={{ color: "#444" }}>
+              In the final version, we added <strong>Add Furniture</strong> as a dedicated tool because stakeholders wanted to prioritize a virtual 3D staging capability. Through user interviews, we discovered agents also needed <strong>Add People</strong> and <strong>Remove All Furniture</strong> buttons to prepare listings quickly. We prioritized <strong>Declutter</strong> after competitive analysis and the remaining options are curated prompt styles — designed to save agents time and reduce decision fatigue.
             </p>
           </div>
-          <img src="/slide8.svg" alt="The Style Gallery" className="w-full block" style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.10))" }} />
+          <div className="rounded-2xl overflow-hidden">
+            <video autoPlay muted loop playsInline className="w-full block" style={{ marginBottom: "-2px" }}>
+              <source src="/prompting-slow.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
 
         {/* Feature 02 */}
@@ -178,7 +173,11 @@ export default function The3DApp() {
               in this specific area."
             </p>
           </div>
-          <img src="/slide9.svg" alt="The AI Paintbrush" className="w-full block" style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.10))" }} />
+          <div className="rounded-2xl overflow-hidden">
+            <video autoPlay muted loop playsInline className="w-full block" style={{ marginBottom: "-2px" }}>
+              <source src="/paintbrush.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
 
         {/* Feature 03 */}
@@ -192,7 +191,11 @@ export default function The3DApp() {
               visualizations until they're listing-ready.
             </p>
           </div>
-          <img src="/slide10.svg" alt="The Action Bar" className="w-full block" style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.10))" }} />
+          <div className="rounded-2xl overflow-hidden">
+            <video autoPlay muted loop playsInline className="w-full block" style={{ marginBottom: "-2px" }}>
+              <source src="/topbar.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
 
       </section>
@@ -213,9 +216,9 @@ export default function The3DApp() {
               body: "Eliminated the need for $1,000+ staging fees, democratizing high-end marketing for every property—from rentals to luxury condos.",
             },
             {
-              stat: "Secure more",
-              label: "Listings",
-              body: "A pitching asset that demonstrates a custom high-tech marketing suite, showing sellers a staged 3D tour directly on their phone.",
+              stat: "10",
+              label: "Predetermined prompts",
+              body: "Curated 10 style presets — Boho, Japandi, Coastal, Scandinavian, Mid-Century Modern, and more — so agents select a style instead of engineering a prompt.",
             },
           ].map((item, i) => (
             <div key={i}>

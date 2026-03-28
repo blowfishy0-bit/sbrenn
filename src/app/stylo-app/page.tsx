@@ -46,21 +46,6 @@ export default function StyloApp() {
           </div>
         </div>
 
-        {/* Problem / Solution summary */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 pt-2 mb-14">
-          <div className="md:pr-8">
-            <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Problem</p>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              Most people want to redesign their space but can&apos;t visualize how new furniture will look in their actual room — leading to paralysis, abandoned carts, and expensive mistakes.
-            </p>
-          </div>
-          <div className="md:pl-8 mt-6 md:mt-0">
-            <p className="text-sm font-semibold mb-3" style={{ color: "#111" }}>Solution</p>
-            <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              Stylo uses a single phone photo and generative AI to instantly restyle the room in any aesthetic — then surfaces real, shoppable products that match, bundled into one seamless checkout.
-            </p>
-          </div>
-        </div>
 
         {/* Screen gallery */}
         <ScreenCarousel />
