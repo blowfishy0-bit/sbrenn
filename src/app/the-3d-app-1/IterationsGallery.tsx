@@ -8,7 +8,7 @@ export default function IterationsGallery() {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {SLIDES.map((src, i) => (
           <img
             key={i}

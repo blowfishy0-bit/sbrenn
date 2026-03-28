@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ProjectLayout from "@/components/ProjectLayout";
+import ClickableImage from "@/components/ClickableImage";
 import { cargoImg, cargoOriginal } from "@/lib/cargo";
 
 const imgs = {
@@ -27,8 +28,16 @@ export default function ClimateCollective() {
       {/* ── Hero ── */}
       <section className="mb-16">
         {/* Hero image — full bleed, flush to top */}
-        <div style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw", marginTop: "calc(-3rem)" }}>
-          <img src="/mosambi-final.svg" alt="Mosambi overview" className="w-full block" />
+        <div className="hero-banner-cc" style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw", overflow: "hidden" }}>
+          <style>{`
+            .hero-banner-cc { margin-top: calc(-1 * 3rem); }
+            .hero-banner-cc img { width: 100%; height: auto; display: block; }
+            @media (min-width: 768px) {
+              .hero-banner-cc { margin-top: calc(-1 * (var(--header-h) + 3rem)); min-height: 100vh; display: flex; align-items: center; }
+              .hero-banner-cc img { height: 100%; object-fit: cover; }
+            }
+          `}</style>
+          <img src="/mosambi-final.svg" alt="Mosambi overview" />
         </div>
 
         {/* Title row */}
@@ -62,7 +71,7 @@ export default function ClimateCollective() {
 
         {/* User flow */}
         <div className="mb-10">
-          <img src="/userflow.svg" alt="User flow" className="w-full h-auto block" />
+          <ClickableImage src="/userflow.svg" alt="User flow" className="w-full h-auto block" />
         </div>
 
         {/* Hero video */}

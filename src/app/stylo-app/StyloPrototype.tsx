@@ -677,6 +677,9 @@ export default function StyloPrototype() {
         @keyframes pulse-dot { 0%,100%{transform:scale(1);opacity:0.8} 50%{transform:scale(1.15);opacity:1} }
         @keyframes sspin { to { transform: rotate(360deg); } }
         .ar-canvas-wrap div, .ar-canvas-wrap canvas { width:100%!important; height:100%!important; }
+        @media (max-width: 767px) {
+          .stylo-proto-label { padding-left: 10px; }
+        }
       `}</style>
       {/* Left label */}
       <div className="stylo-proto-label" style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", gap:6, paddingTop: PH*SCALE*0.4, flexShrink:0, maxWidth:100 }}>

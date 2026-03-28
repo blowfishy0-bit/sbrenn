@@ -1,5 +1,6 @@
 import ProjectLayout from "@/components/ProjectLayout";
 import IterationsGallery from "./IterationsGallery";
+import ClickableImage from "@/components/ClickableImage";
 
 export const metadata = {
   title: "The3DApp — Sophie Brenner",
@@ -12,8 +13,16 @@ export default function The3DApp() {
       {/* ── Hero ── */}
       <section className="mb-16">
         {/* Hero video — full bleed, flush to top */}
-        <div style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw", marginTop: "calc(-1 * (var(--header-h) + 5.5rem))", height: "100vh", overflow: "hidden" }}>
-          <video autoPlay muted loop playsInline className="w-full block" style={{ width: "100%", height: "100%", objectFit: "cover" }}>
+        <div className="hero-banner-3d" style={{ marginLeft: "calc(-50vw + 50%)", marginRight: "calc(-50vw + 50%)", width: "100vw", marginTop: "calc(-1 * (var(--header-h) + 5.5rem))", overflow: "hidden" }}>
+          <style>{`
+            .hero-banner-3d { height: auto; margin-top: calc(-1 * 3rem) !important; }
+            .hero-banner-3d video { width: 100%; height: auto; display: block; }
+            @media (min-width: 768px) {
+              .hero-banner-3d { height: 100vh; margin-top: calc(-1 * (var(--header-h) + 5.5rem)) !important; }
+              .hero-banner-3d video { height: 100%; object-fit: cover; }
+            }
+          `}</style>
+          <video autoPlay muted loop playsInline>
             <source src="/usethis.mp4" type="video/mp4" />
           </video>
         </div>
@@ -125,7 +134,7 @@ export default function The3DApp() {
       </section>
 
       <section className="mb-4">
-        <img src="/brian-flow.png" alt="Agent Flow" className="block rounded-2xl mx-auto" style={{ maxWidth: "60%" }} />
+        <ClickableImage src="/brian-flow.png" alt="Agent Flow" className="block rounded-2xl mx-auto" style={{ maxWidth: "60%" }} />
       </section>
 
       {/* Iterations */}
