@@ -150,6 +150,20 @@ export default function StyloApp() {
         </div>
       </section>
 
+      {/* ── Next Steps ── */}
+      <section className="mb-16 max-w-[700px]">
+        <p style={{ fontSize: "1.5rem", fontWeight: 700, color: "#111", lineHeight: 1.4, fontFamily: '-apple-system, BlinkMacSystemFont, "DM Sans", "Helvetica Neue", sans-serif', letterSpacing: "-0.01em", marginBottom: "1.5rem" }}>Next Steps</p>
+        <p className="text-sm leading-relaxed mb-4" style={{ color: "#444" }}>
+          Working with developers, I&rsquo;d like to explore whether the AI can reliably swap a single piece of furniture—only the bedframe, for example—without hallucinating its measurements. Right now, generated items can drift in scale and proportion, making a &ldquo;queen&rdquo; look closer to a &ldquo;king&rdquo; once rendered into the room. Grounding the model in the room&rsquo;s real dimensions would make the swap feel accurate and shoppable.
+        </p>
+        <p className="text-sm leading-relaxed mb-4" style={{ color: "#444" }}>
+          I&rsquo;d also like to partner with engineering to speed up the style and room detection step. Since some latency is unavoidable, the next iteration will introduce a loading animation that communicates progress and keeps the experience feeling responsive.
+        </p>
+        <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
+          Finally, I want to add a retry tool so users can quickly regenerate results when the AI hallucinates—turning a dead-end output into a single-tap recovery.
+        </p>
+      </section>
+
     </ProjectLayout>
   );
 }

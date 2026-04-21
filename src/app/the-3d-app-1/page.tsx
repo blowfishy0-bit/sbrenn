@@ -244,6 +244,17 @@ export default function The3DApp() {
         </div>
       </section>
 
+      {/* ── Next Steps ── */}
+      <section className="mb-16 max-w-[700px]">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>Next Steps</p>
+        <p className="body-text mb-4">
+          In the next version, I want to explore adding a video generation button, along with the ability to talk to the AI—or have it act and move on the agent&rsquo;s behalf. For example, an agent could ask the AI how much paint is needed to cover a specific wall, or who is depicted in a painting on the wall, and have a conversation that gives the AI more context before generating image results. Each of these three states would need its own distinct UI.
+        </p>
+        <p className="body-text">
+          Another challenge I&rsquo;d like to revisit is motion behavior on the predetermined prompt buttons. Swiping left and right feels native on iOS, but trackpad and mouse-wheel logic conflict on web viewers, so the animation isn&rsquo;t smooth. I&rsquo;d like to work with developers to fix this—or design around it—to create a more seamless experience across platforms.
+        </p>
+      </section>
+
     </ProjectLayout>
   );
 }

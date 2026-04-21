@@ -223,6 +223,23 @@ export default function ClimateCollective() {
         </div>
       </section>
 
+      {/* ── Next Steps ── */}
+      <section className="mb-16 max-w-[700px]">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>Next Steps</p>
+        <p className="text-sm leading-relaxed mb-4" style={{ color: "#444" }}>
+          I&rsquo;d like to run additional rounds of user testing to surface edge cases the first study didn&rsquo;t catch — especially moments where users fail to log in or get stuck mid-flow. Each new failure pattern is an opportunity to design clearer error messaging and recovery paths so users never feel abandoned.
+        </p>
+        <p className="text-sm leading-relaxed mb-4" style={{ color: "#444" }}>
+          I&rsquo;d also partner with developers to understand how the platform detects bots and spam sign-ups, and whether we need to introduce verification steps — CAPTCHA, email confirmation, or rate limiting — without adding friction to legitimate users.
+        </p>
+        <p className="text-sm leading-relaxed mb-4" style={{ color: "#444" }}>
+          On the authentication side, I want to track emerging patterns like Apple Keychain, passkeys, and facial recognition to see how they could make sign-in faster and more secure. Alongside that, I&rsquo;d align with stakeholders on whether to expand beyond Google sign-in — adding another social provider (LinkedIn, Apple, etc.) to meet users where they already are.
+        </p>
+        <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
+          Finally, I&rsquo;d audit the flow for every error state users might encounter — wrong password, network drop, account already exists — and design consistent, helpful messaging for each one.
+        </p>
+      </section>
+
     </ProjectLayout>
   );
 }
