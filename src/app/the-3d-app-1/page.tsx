@@ -33,7 +33,7 @@ export default function The3DApp() {
             <h1 style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4 }}>
               The3DApp
             </h1>
-            <p className="text-sm mt-1" style={{ color: "#BCBAA9" }}>Figma, UX Research (Ongoing)</p>
+            <p className="text-sm mt-1" style={{ color: "#BCBAA9" }}>AI tools, Figma, UX Research</p>
 
             <div className="flex flex-col gap-3 mt-8">
               {[

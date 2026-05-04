@@ -19,7 +19,7 @@ export const projects: Project[] = [
   {
     slug: "the-3d-app-1",
     title: "The3DApp",
-    subtitle: "Figma, UX Research (Ongoing)",
+    subtitle: "AI tools, Figma, UX Research",
     blurb: "An ongoing product redesign for a 3D marketplace platform. Research-driven UX improvements to core browsing, discovery, and onboarding flows.",
     tags: ["Client", "UX/UI"],
     category: "ux",
