@@ -1,6 +1,8 @@
 import ProjectLayout from "@/components/ProjectLayout";
 import IterationsGallery from "./IterationsGallery";
 import ClickableImage from "@/components/ClickableImage";
+import IOSPrototype from "./ios-prototype/App.jsx";
+import ScaledFrame from "./ScaledFrame";
 
 export const metadata = {
   title: "The3DApp — Sophie Brenner",
@@ -57,6 +59,62 @@ export default function The3DApp() {
 
 
 
+      </section>
+
+      {/* ── iOS Companion ── */}
+      <section className="mb-16">
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>iOS Companion App</p>
+        <p className="text-sm leading-relaxed mb-8 max-w-[700px]" style={{ color: "#444" }}>
+          A native iOS prototype for agents capturing scans in the field — try it live below.
+        </p>
+
+        <div className="flex items-start justify-center" style={{ gap: 16 }}>
+          {/* Interactive prototype label with moving cursor */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 6, paddingTop: 220, flexShrink: 0, maxWidth: 110 }}>
+            <span style={{ fontSize: 10, color: "#999", fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase" }}>Interactive prototype</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ animation: "cursor-float-3d 2s ease-in-out infinite" }}>
+              <style>{`@keyframes cursor-float-3d { 0%,100%{transform:translate(0,0)} 30%{transform:translate(4px,-4px)} 60%{transform:translate(2px,3px)} }`}</style>
+              <path d="M4 2v13l3.5-3.5H14L4 2z" fill="#bbb" stroke="#999" strokeWidth="1" strokeLinejoin="round" />
+            </svg>
+          </div>
+
+          <div
+            style={{
+              position: "relative",
+              width: "min(290px, 80%)",
+              aspectRatio: "450 / 920",
+              filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.25))",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: `${(16 / 920) * 100}%`,
+                left: `${(20 / 450) * 100}%`,
+                width: `${(410 / 450) * 100}%`,
+                height: `${(884 / 920) * 100}%`,
+                borderRadius: "9%",
+                overflow: "hidden",
+                background: "rgb(220, 220, 220)",
+              }}
+            >
+              <ScaledFrame width={360} height={740} background="rgb(220, 220, 220)">
+                <IOSPrototype />
+              </ScaledFrame>
+            </div>
+            <img
+              src="/stylo/iphone.svg"
+              alt=""
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
+        </div>
       </section>
 
       {/* ── The Friction ── */}
