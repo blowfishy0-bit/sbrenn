@@ -69,8 +69,53 @@
 }
 .ios-app-scope.embed .notch,
 .ios-app-scope.embed .statusbar { display: none; }
-.ios-app-scope.embed .screen,
-.ios-app-scope.embed .tour-detail-screen { padding-top: 0; }
+.ios-app-scope.embed .screen { padding-top: 0; }
+.ios-app-scope.embed .tour-detail-screen { padding-top: 55px; }
+
+/* Tour-detail-screen: scale up the top bar + tabs to match the
+   reference (prototype is shown ~77% size inside the iPhone frame). */
+.ios-app-scope.embed .tour-top-bar {
+  padding: 10px 16px;
+  min-height: 44px;
+}
+.ios-app-scope.embed .tour-top-title .tour-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.ios-app-scope.embed .tour-edit-btn .ic { color: var(--ink-3); }
+.ios-app-scope.embed .tour-back .ic { color: var(--ink-5); }
+.ios-app-scope.embed .tour-action-btn {
+  padding: 8px 14px;
+  font-size: 12px;
+  border-radius: 999px;
+  gap: 5px;
+}
+.ios-app-scope.embed .tour-tabs {
+  padding: 0 16px;
+  gap: 4px;
+}
+.ios-app-scope.embed .tour-tab {
+  position: relative;
+  padding: 12px 8px;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: none;
+  margin-bottom: 0;
+}
+.ios-app-scope.embed .tour-tab.active {
+  color: #000;
+}
+.ios-app-scope.embed .tour-tab.active::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 0;
+  height: 2px;
+  background: #000;
+  border-radius: 2px;
+}
 
 /* Sticky opaque screen header inside the iPhone-SVG frame: pinned to top
    while scrolling, padded down so visual content sits below the SVG island. */

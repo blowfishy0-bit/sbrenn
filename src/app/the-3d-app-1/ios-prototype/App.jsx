@@ -68,7 +68,7 @@ export default function AppV3() {
             }
             if (p.status === 'processing' || p.status === 'pro-pending') go('processing', { id, from: 'home' })
             else if (p.status === 'draft') go('hub', { id, from: 'home' })
-            // Tour route disabled for now
+            else go('tour', { id, from: 'home' })
           }}
         />
       )}
@@ -98,7 +98,7 @@ export default function AppV3() {
             if (!p) return
             if (p.status === 'processing' || p.status === 'pro-pending') go('processing', { id, from: 'dashboard' })
             else if (p.status === 'draft') go('hub', { id, from: 'dashboard' })
-            // Tour route disabled for now
+            else go('tour', { id, from: 'dashboard' })
           }}
         />
       )}

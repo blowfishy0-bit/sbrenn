@@ -19,28 +19,6 @@ export function TourDetail({ project, onBack, onRename, onDelete }) {
         </button>
         <div className="tour-top-title">
           <h1 className="tour-title">{p.name}</h1>
-          <div className="tour-edit-wrap">
-            <button className="tour-edit-btn" onClick={() => setShowMenu(!showMenu)}>
-              <Icon name="edit" size={12} />
-            </button>
-            {showMenu && (
-              <div className="folder-action-menu" onClick={e => e.stopPropagation()}>
-                <button className="folder-action-item" onClick={() => {
-                  setShowMenu(false)
-                  setRenameValue(p.name)
-                  setRenaming(true)
-                }}>
-                  <Icon name="edit" size={14} /> Rename
-                </button>
-                <button className="folder-action-item danger" onClick={() => {
-                  setShowMenu(false)
-                  setConfirmDelete(true)
-                }}>
-                  <Icon name="trash" size={14} /> Delete
-                </button>
-              </div>
-            )}
-          </div>
         </div>
         <div className="tour-top-actions">
           <button className="tour-action-btn primary">
