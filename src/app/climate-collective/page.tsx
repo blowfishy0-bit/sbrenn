@@ -37,7 +37,7 @@ export default function ClimateCollective() {
               .hero-banner-cc img { height: 100%; object-fit: cover; }
             }
           `}</style>
-          <img src="/mosambi-final.svg" alt="Mosambi overview" />
+          <img src="/mosambi-final.jpg" alt="Mosambi overview" />
         </div>
 
         {/* Title row */}

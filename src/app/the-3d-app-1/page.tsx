@@ -63,25 +63,22 @@ export default function The3DApp() {
 
       {/* ── iOS Companion ── */}
       <section className="mb-16">
-        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem" }}>iOS Companion App</p>
+        <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4, marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: 8 }}>
+          Interactive Prototypes
+          <svg width="22" height="22" viewBox="0 0 20 20" fill="none" style={{ animation: "cursor-float-3d 2s ease-in-out infinite" }}>
+            <style>{`@keyframes cursor-float-3d { 0%,100%{transform:translate(0,0)} 30%{transform:translate(4px,-4px)} 60%{transform:translate(2px,3px)} }`}</style>
+            <path d="M4 2v13l3.5-3.5H14L4 2z" fill="#bbb" stroke="#999" strokeWidth="1" strokeLinejoin="round" />
+          </svg>
+        </p>
         <p className="text-sm leading-relaxed mb-8 max-w-[700px]" style={{ color: "#444" }}>
-          A native iOS prototype for agents capturing scans in the field — try it live below.
+          Live, interactive prototypes of the iOS app and the 3D building viewer — product design shipped in Claude Code with real-time 3D.
         </p>
 
-        <div className="flex items-start justify-center" style={{ gap: 16 }}>
-          {/* Interactive prototype label with moving cursor */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 6, paddingTop: 220, flexShrink: 0, maxWidth: 110 }}>
-            <span style={{ fontSize: 10, color: "#999", fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase" }}>Interactive prototype</span>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ animation: "cursor-float-3d 2s ease-in-out infinite" }}>
-              <style>{`@keyframes cursor-float-3d { 0%,100%{transform:translate(0,0)} 30%{transform:translate(4px,-4px)} 60%{transform:translate(2px,3px)} }`}</style>
-              <path d="M4 2v13l3.5-3.5H14L4 2z" fill="#bbb" stroke="#999" strokeWidth="1" strokeLinejoin="round" />
-            </svg>
-          </div>
-
+        <div className="flex flex-col items-center md:flex-row md:items-start justify-center relative" style={{ gap: 16 }}>
           <div
+            className="w-[min(250px,68%)] md:w-[min(290px,80%)]"
             style={{
               position: "relative",
-              width: "min(290px, 80%)",
               aspectRatio: "450 / 920",
               filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.25))",
             }}
@@ -105,6 +102,44 @@ export default function The3DApp() {
             <img
               src="/stylo/iphone.svg"
               alt=""
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
+        </div>
+
+        {/* ── Live 3D walkthrough embed ── */}
+        <div className="mt-12 flex justify-center">
+          <div className="relative w-[min(250px,68%)] md:w-full aspect-[450/920] md:aspect-[16/10] [filter:drop-shadow(0_25px_50px_rgba(0,0,0,0.25))] md:[filter:none]">
+            {/* Screen — inset into the phone bezel on mobile, full box on desktop */}
+            <div
+              className="absolute overflow-hidden top-[1.739%] left-[4.444%] w-[91.111%] h-[96.087%] rounded-[9%] md:top-0 md:left-0 md:w-full md:h-full md:rounded-xl md:border md:border-black/10 md:shadow-[0_25px_50px_rgba(0,0,0,0.15)]"
+              style={{ background: "rgb(220, 220, 220)" }}
+            >
+              <iframe
+                src="https://building-directory.the3dapp.com/"
+                title="The3DApp live 3D walkthrough"
+                allow="fullscreen; xr-spatial-tracking; gyroscope; accelerometer"
+                allowFullScreen
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: 0,
+                }}
+              />
+            </div>
+            {/* iPhone bezel overlay — mobile only */}
+            <img
+              src="/stylo/iphone.svg"
+              alt=""
+              className="md:hidden"
               style={{
                 position: "absolute",
                 inset: 0,

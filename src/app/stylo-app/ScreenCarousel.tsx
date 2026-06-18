@@ -3,12 +3,12 @@ import { useState } from "react";
 import Image from "next/image";
 
 const SCREENS = [
-  "/stylo/c2.svg",
-  "/stylo/c3.svg",
-  "/stylo/c4.svg",
-  "/stylo/c5.svg",
-  "/stylo/c6.svg",
-  "/stylo/c7.svg",
+  "/stylo/c2.jpg",
+  "/stylo/c3.jpg",
+  "/stylo/c4.jpg",
+  "/stylo/c5.jpg",
+  "/stylo/c6.jpg",
+  "/stylo/c7.jpg",
 ];
 
 export default function ScreenCarousel() {

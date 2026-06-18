@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-const SLIDES = ["/sketch-2.png", "/sketch-3.png", "/sketch-4.svg"];
+const SLIDES = ["/sketch-2.png", "/sketch-3.png", "/sketch-4.jpg"];
 
 export default function IterationsGallery() {
   const [open, setOpen] = useState<number | null>(null);
