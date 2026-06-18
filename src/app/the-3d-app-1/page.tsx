@@ -115,7 +115,7 @@ export default function The3DApp() {
 
         {/* ── Live 3D walkthrough embed ── */}
         <div className="mt-12 flex justify-center">
-          <div className="relative w-[min(250px,68%)] md:w-full aspect-[450/920] md:aspect-[16/10] [filter:drop-shadow(0_25px_50px_rgba(0,0,0,0.25))] md:[filter:none]">
+          <div className="relative w-[min(250px,68%)] md:w-auto md:h-[75vh] md:max-w-full aspect-[450/920] md:aspect-[16/10] [filter:drop-shadow(0_25px_50px_rgba(0,0,0,0.25))] md:[filter:none]">
             {/* Screen — inset into the phone bezel on mobile, full box on desktop */}
             <div
               className="absolute overflow-hidden top-[1.739%] left-[4.444%] w-[91.111%] h-[96.087%] rounded-[9%] md:top-0 md:left-0 md:w-full md:h-full md:rounded-xl md:border md:border-black/10 md:shadow-[0_25px_50px_rgba(0,0,0,0.15)]"
