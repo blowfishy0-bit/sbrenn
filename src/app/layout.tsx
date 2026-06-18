@@ -7,6 +7,13 @@ export const metadata: Metadata = {
   title: "Sophie Brenner — Product & Immersive Designer",
   description:
     "Portfolio of Sophie Brenner, Product & Immersive Designer with a Pratt BFA in Digital Arts, based in New York.",
+  icons: {
+    icon: [
+      { url: "/favicon-light.png", media: "(prefers-color-scheme: light)" },
+      { url: "/favicon-dark.png", media: "(prefers-color-scheme: dark)" },
+    ],
+    apple: "/favicon-light.png",
+  },
 };
 
 export default function RootLayout({

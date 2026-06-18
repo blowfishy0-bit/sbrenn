@@ -91,17 +91,17 @@ export default function Header() {
           <nav className="hidden md:flex flex-col items-end gap-[6px]">
             <ULine
               href={isHome ? "#work" : "/#work"}
-              className="nav-hover"
+              className="nav-hover group"
               style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.4, textAlign: "right" }}
             >
-              Work ↗
+              Work <span className="arrow-grow">↗</span>
             </ULine>
             <ULine
               href="/about"
-              className="nav-hover"
+              className="nav-hover group"
               style={{ fontSize: "15px", fontWeight: 400, lineHeight: 1.4, textAlign: "right" }}
             >
-              About ↗
+              About <span className="arrow-grow">↗</span>
             </ULine>
           </nav>
 

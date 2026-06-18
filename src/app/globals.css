@@ -35,6 +35,18 @@ a { color: inherit; text-decoration: none; }
 .nav-hover { color: #111; transition: color 0.2s ease; }
 .nav-hover:hover { color: #BCBAA9; }
 
+/* Arrow grows from lower-left to upper-right, replays on hover */
+@keyframes arrow-grow {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.arrow-grow {
+  display: inline-block;
+  transform-origin: bottom left;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+.group:hover .arrow-grow { animation: arrow-grow 0.3s ease-out; }
+
 /* Fade-up animation */
 .fade-up {
   opacity: 0;
@@ -42,6 +54,17 @@ a { color: inherit; text-decoration: none; }
 }
 .fade-up.visible {
   opacity: 1;
+}
+
+/* Reveal content top-down when a <details> opens */
+@keyframes reveal-down {
+  from { opacity: 0; transform: translate3d(0, 6px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+details[open] > .reveal-down {
+  animation: reveal-down 0.4s ease-out both;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
 }
 
 video {

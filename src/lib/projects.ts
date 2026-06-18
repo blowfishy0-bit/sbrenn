@@ -90,7 +90,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const CASE_STUDY_SLUGS = ["stylo-app", "the-3d-app-1", "climate-collective", "holomaid", "nyc", "knit"];
+export const CASE_STUDY_SLUGS = ["the-3d-app-1", "stylo-app", "climate-collective", "holomaid", "nyc", "knit"];
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
