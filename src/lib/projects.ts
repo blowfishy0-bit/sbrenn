@@ -17,6 +17,15 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "holomaid",
+    title: "HoloMaid: Human-AI Holographic Companionship",
+    subtitle: "LLM, Arduino, Blender, Hologram",
+    tags: ["Immersive", "AI", "Hardware"],
+    category: "immersive",
+    thumb: "/holomaid-1.png",
+    hoverThumbs: ["/holomaid-1.png", "/holomaid-2.png", "/holomaid-3.png", "/holomaid-4.png"],
+  },
+  {
     slug: "the-3d-app-1",
     title: "The3DApp",
     subtitle: "AI tools, UX Research",
@@ -33,15 +42,6 @@ export const projects: Project[] = [
     tags: ["UX/UI"],
     category: "ux",
     thumb: "/bannerreal.png",
-  },
-  {
-    slug: "holomaid",
-    title: "HoloMaid: Human-AI Holographic Companionship",
-    subtitle: "LLM, Arduino, Blender, Hologram",
-    tags: ["Immersive", "AI", "Hardware"],
-    category: "immersive",
-    thumb: "/holomaid-1.png",
-    hoverThumbs: ["/holomaid-1.png", "/holomaid-2.png", "/holomaid-3.png", "/holomaid-4.png"],
   },
   {
     slug: "climate-collective",
@@ -90,7 +90,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const CASE_STUDY_SLUGS = ["the-3d-app-1", "stylo-app", "climate-collective", "holomaid", "nyc", "knit"];
+export const CASE_STUDY_SLUGS = ["holomaid", "the-3d-app-1", "stylo-app", "climate-collective", "nyc", "knit"];
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
