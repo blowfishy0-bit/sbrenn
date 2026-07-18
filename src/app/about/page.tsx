@@ -88,7 +88,7 @@ const skillGroups = [
 ];
 
 const contacts = [
-  { label: "sbren156@pratt.edu", href: "mailto:sbren156@pratt.edu" },
+  { label: "sophieabrenn@gmail.com", href: "mailto:sophieabrenn@gmail.com" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/sophiebrenner000/" },
 ];
 
