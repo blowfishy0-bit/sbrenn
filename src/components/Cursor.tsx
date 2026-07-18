@@ -1,9 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Cursor() {
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [view, setView] = useState(false);
+  const pathname = usePathname();
+
+  // Reset to the dot on navigation — otherwise "View" stays stuck until the
+  // next mousemove fires on the new page.
+  useEffect(() => {
+    setView(false);
+  }, [pathname]);
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {

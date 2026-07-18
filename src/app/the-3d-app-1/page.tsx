@@ -5,7 +5,7 @@ import IOSPrototype from "./ios-prototype/App.jsx";
 import ScaledFrame from "./ScaledFrame";
 
 export const metadata = {
-  title: "The3DApp — Sophie Brenner",
+  title: "The3DApp Stager — Sophie Brenner",
 };
 
 export default function The3DApp() {
@@ -33,13 +33,13 @@ export default function The3DApp() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mt-6 mb-10">
           <div className="md:pr-8">
             <h1 style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111", lineHeight: 1.4 }}>
-              The3DApp
+              The3DApp Stager
             </h1>
-            <p className="text-sm mt-1" style={{ color: "#BCBAA9" }}>AI tools, Figma, UX Research</p>
+            <p className="text-sm mt-1" style={{ color: "#BCBAA9" }}>AI Staging Tool, Figma, UX Research</p>
 
             <div className="flex flex-col gap-3 mt-8">
               {[
-                { label: "Timeline", value: "Ongoing" },
+                { label: "Timeline", value: "2025 — Shipped" },
                 { label: "Team", value: "Solo Lead Designer" },
                 { label: "My Role", value: "Lead UX/UI Designer — Research, Interaction Logic, and Prototyping." },
               ].map(({ label, value }) => (
@@ -52,7 +52,7 @@ export default function The3DApp() {
           </div>
           <div className="md:pl-8 mt-6 md:mt-0">
             <p className="text-sm leading-relaxed" style={{ color: "#444" }}>
-              An ongoing redesign for a virtual 3D property viewer. Research-driven UX improvements empowering listing agents to virtually stage and present properties to prospective buyers.
+              A shipped AI staging tool for The3DApp&rsquo;s virtual 3D property viewer. Research-driven UX empowering listing agents to virtually stage and present properties to prospective buyers.
             </p>
           </div>
         </div>

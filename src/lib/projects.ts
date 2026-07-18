@@ -17,6 +17,15 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "the-3d-app-dashboard",
+    title: "The3DApp — B2B Agent Dashboard",
+    subtitle: "Shipped B2B SaaS · Product Design, UX Research, 0→1",
+    blurb: "The first analytics and management dashboard for The3DApp's real-estate agents — a 0→1 product built from user research. Designed the workflow connecting dashboard → tours created → views & shares into a measurable product loop.",
+    tags: ["Shipped", "B2B", "Product", "0→1"],
+    category: "ux",
+    thumb: "/the-3d-app-dashboard/title-card-thumb.png",
+  },
+  {
     slug: "holomaid",
     title: "HoloMaid: Human-AI Holographic Companionship",
     subtitle: "LLM, Arduino, Blender, Hologram",
@@ -27,10 +36,10 @@ export const projects: Project[] = [
   },
   {
     slug: "the-3d-app-1",
-    title: "The3DApp",
-    subtitle: "AI tools, UX Research",
-    blurb: "An ongoing product redesign for a 3D marketplace platform. Research-driven UX improvements to core browsing, discovery, and onboarding flows.",
-    tags: ["Client", "UX/UI"],
+    title: "The3DApp Stager",
+    subtitle: "Shipped feature · AI Staging Tool, UX Research",
+    blurb: "A shipped AI-powered virtual staging tool for The3DApp. Research-driven UX for how listing agents stage, edit, and present properties inside a 3D tour.",
+    tags: ["Shipped", "AI", "UX/UI"],
     category: "ux",
     thumb: "/the3dapp-logo.png",
     thumbWhiteBg: true,
@@ -90,7 +99,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const CASE_STUDY_SLUGS = ["holomaid", "the-3d-app-1", "stylo-app", "climate-collective", "nyc", "knit"];
+export const CASE_STUDY_SLUGS = ["the-3d-app-dashboard", "the-3d-app-1", "stylo-app", "climate-collective", "holomaid", "nyc", "knit"];
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
