@@ -67,6 +67,21 @@ details[open] > .reveal-down {
   backface-visibility: hidden;
 }
 
+/* Intro card — headline and blurb rise in one line at a time */
+.intro-line {
+  display: block;
+  animation: intro-line-in 0.75s var(--ease) var(--delay, 0s) both;
+  will-change: transform, opacity;
+}
+@keyframes intro-line-in {
+  from { opacity: 0; transform: translate3d(0, 0.55em, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-line { animation: none; opacity: 1; transform: none; }
+}
+
 video {
   width: 100%;
   display: block;

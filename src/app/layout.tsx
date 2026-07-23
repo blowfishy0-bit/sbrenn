@@ -4,14 +4,11 @@ import Header from "@/components/Header";
 import Cursor from "@/components/Cursor";
 
 export const metadata: Metadata = {
-  title: "Sophie Brenner — Product Designer",
+  title: "Sophie Brenner Portfolio",
   description:
     "Portfolio of Sophie Brenner, Product Designer with a Pratt BFA in Digital Arts, based in New York.",
   icons: {
-    icon: [
-      { url: "/favicon-light.png", media: "(prefers-color-scheme: light)" },
-      { url: "/favicon-dark.png", media: "(prefers-color-scheme: dark)" },
-    ],
+    icon: [{ url: "/favicon-light.png" }],
     apple: "/favicon-light.png",
   },
 };
