@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { projects, CASE_STUDY_SLUGS } from "@/lib/projects";
@@ -70,6 +70,21 @@ function IntroText({ color }: { color: string }) {
 export default function Home() {
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   const [hoverIndices, setHoverIndices] = useState<Record<string, number>>({});
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  /* iOS only honours autoplay on a video that is muted at the DOM-property
+     level; React renders `muted` as a property, so the server HTML ships
+     without the attribute and Safari falls back to a play button. Set it
+     directly and kick off playback once mounted. */
+  useEffect(() => {
+    const v = heroVideoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.play().catch(() => {
+      /* Blocked anyway (e.g. iOS Low Power Mode) — leave the first frame up. */
+    });
+  }, []);
 
 const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug === s)!);
 
@@ -91,13 +106,18 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
         }}
       >
         <video
+          ref={heroVideoRef}
           src="/climbing.mp4"
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
+          controls={false}
+          disablePictureInPicture
+          disableRemotePlayback
           aria-hidden="true"
-          className="absolute object-cover"
+          className="absolute object-cover pointer-events-none"
           style={{ ...HERO_VIDEO, zIndex: 0 }}
         />
 
