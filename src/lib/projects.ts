@@ -31,8 +31,8 @@ export const projects: Project[] = [
   },
   {
     slug: "holomaid",
-    title: "HoloMaid: Human-AI Holographic Companionship",
-    subtitle: "LLM, Arduino, Blender, Hologram",
+    title: "LLM, Arduino, Blender, Hologram",
+    subtitle: "HoloMaid: Human-AI Holographic Companionship",
     status: "Interactive",
     tags: ["Immersive", "AI", "Hardware"],
     category: "immersive",
@@ -48,8 +48,7 @@ export const projects: Project[] = [
     status: "Shipped",
     tags: ["Shipped", "AI", "UX/UI"],
     category: "ux",
-    thumb: "/the3dapp-logo.png",
-    thumbWhiteBg: true,
+    thumb: "/group-1.png",
   },
   {
     slug: "stylo-app",
@@ -84,8 +83,8 @@ export const projects: Project[] = [
   },
   {
     slug: "nyc",
-    title: "NYC Spatial Design",
-    subtitle: "Interactive Environment Design, Unity (C#)",
+    title: "Interactive Environment Design, Unity (C#)",
+    subtitle: "NYC Spatial Design",
     status: "Interactive",
     tags: ["Spatial", "Unity"],
     category: "immersive",
@@ -102,8 +101,8 @@ export const projects: Project[] = [
   },
   {
     slug: "knit",
-    title: "Knit Design",
-    subtitle: "Domestic Knit Machine",
+    title: "Domestic Knit Machine",
+    subtitle: "Knit Design",
     status: "Interactive",
     tags: ["Textile"],
     category: "art",
@@ -111,7 +110,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const CASE_STUDY_SLUGS = ["the-3d-app-dashboard", "the-3d-app-1", "climate-collective", "stylo-app", "holomaid", "nyc", "knit"];
+export const CASE_STUDY_SLUGS = ["the-3d-app-dashboard", "the-3d-app-1", "climate-collective", "holomaid", "stylo-app", "nyc", "knit"];
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);

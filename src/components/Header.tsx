@@ -80,23 +80,7 @@ export default function Header() {
               Sophie Brenner
             </ULine>
             <ULine href="/" style={{ fontSize: "15px", fontWeight: 400, color: "#111", lineHeight: 1.4 }}>
-              <span className="inline-flex items-center gap-[5px]">
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="#111"
-                  aria-hidden="true"
-                  style={{ flexShrink: 0 }}
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M12 1a9 9 0 0 0-9 9c0 7 9 13 9 13s9-6 9-13a9 9 0 0 0-9-9Zm0 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"
-                  />
-                </svg>
-                NYC
-              </span>
+              NYC
             </ULine>
           </div>
 

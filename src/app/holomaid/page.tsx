@@ -140,6 +140,15 @@ export default function HoloMaid() {
           </ul>
         </div>
       </div>
+
+      {/* Credits */}
+      <div className="mt-10 text-sm leading-loose" style={{ color: "#333" }}>
+        <h3 className="font-semibold text-base mb-3">Credits</h3>
+        <ul className="list-disc pl-5">
+          <li>Role — Concept, design, fabrication, 3D</li>
+          <li>Collaboration — Development support</li>
+        </ul>
+      </div>
     </ProjectLayout>
   );
 }
