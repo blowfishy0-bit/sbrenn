@@ -71,19 +71,19 @@ export default function Home() {
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   const [hoverIndices, setHoverIndices] = useState<Record<string, number>>({});
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [heroVideoBlocked, setHeroVideoBlocked] = useState(false);
 
-  /* iOS only honours autoplay on a video that is muted at the DOM-property
-     level; React renders `muted` as a property, so the server HTML ships
-     without the attribute and Safari falls back to a play button. Set it
-     directly and kick off playback once mounted. */
+  /* iOS only honours autoplay on a video muted at the DOM-property level, so
+     set it directly rather than relying on the rendered attribute. When
+     playback is refused anyway — Low Power Mode always refuses — swap the
+     <video> out for a still. An <img> cannot draw a play affordance, which a
+     paused inline video on iOS otherwise can. */
   useEffect(() => {
     const v = heroVideoRef.current;
     if (!v) return;
     v.muted = true;
     v.defaultMuted = true;
-    v.play().catch(() => {
-      /* Blocked anyway (e.g. iOS Low Power Mode) — leave the first frame up. */
-    });
+    v.play().catch(() => setHeroVideoBlocked(true));
   }, []);
 
 const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug === s)!);
@@ -105,21 +105,35 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
           color: "var(--text)",
         }}
       >
-        <video
-          ref={heroVideoRef}
-          src="/climbing.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          controls={false}
-          disablePictureInPicture
-          disableRemotePlayback
-          aria-hidden="true"
-          className="absolute object-cover pointer-events-none"
-          style={{ ...HERO_VIDEO, zIndex: 0 }}
-        />
+        {heroVideoBlocked ? (
+          <Image
+            src="/climbing-poster.jpg"
+            alt=""
+            aria-hidden="true"
+            width={720}
+            height={1280}
+            priority
+            className="absolute object-cover pointer-events-none"
+            style={{ ...HERO_VIDEO, zIndex: 0 }}
+          />
+        ) : (
+          <video
+            ref={heroVideoRef}
+            src="/climbing.mp4"
+            poster="/climbing-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            controls={false}
+            disablePictureInPicture
+            disableRemotePlayback
+            aria-hidden="true"
+            className="absolute object-cover pointer-events-none"
+            style={{ ...HERO_VIDEO, zIndex: 0 }}
+          />
+        )}
 
         <IntroText color="var(--text)" />
 
