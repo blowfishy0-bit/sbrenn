@@ -33,7 +33,7 @@ export default function HoloMaid() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
               frameBorder="0"
-              src="https://www.youtube.com/embed/WsQl2L97S0Q?autoplay=1&mute=1&start=21&controls=1&rel=0"
+              src="https://www.youtube.com/embed/WsQl2L97S0Q?autoplay=1&mute=1&start=21&controls=1&rel=0&cc_load_policy=0"
               className="absolute top-0 left-0 w-full h-full"
               title="HoloMaid Demo"
             />
