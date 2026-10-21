@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { projects, CASE_STUDY_SLUGS } from "@/lib/projects";
+import { mountChartFlower } from "@/components/yuzuChartFlower";
 
 const FEATURED_SLUGS = CASE_STUDY_SLUGS;
 
@@ -16,22 +17,22 @@ const STATUS_DOT: Record<string, string> = {
 };
 const STATUS_DOT_FALLBACK = "#D6D6D6";
 
-/* The hero video occupies this rect on the right of the intro card. A white
-   copy of the intro text is clipped to the same rect and layered on top, so
-   only the glyphs crossing the video read white. Keep the two in sync: the
-   clip is the inset equivalent of the rect below. */
-const HERO_VIDEO = { top: "18%", left: "60%", width: "40%", height: "64%" };
-const HERO_VIDEO_CLIP = "inset(18% 0% 18% 60%)";
+/* Right of the intro, the flower sits up and to the left, behind the video,
+   overlapping it by about a third of its width. Boxes are % of the pair. */
+const HERO_FLOWER = { left: 0, top: 0, width: "56%", height: "70%" };
+const HERO_VIDEO = { right: 0, bottom: 0, width: "62%", height: "76%" };
+/* Width of the flower's box on a 1470px-wide desktop. */
+const FLOWER_MIN_DRAW = 276;
 
-function IntroText({ color }: { color: string }) {
+function IntroText() {
   return (
-    <>
-      <h1
-        className="relative z-10 text-center font-light leading-snug"
-        style={{ fontSize: "clamp(1.75rem, 4vw, 3.25rem)", color }}
-      >
+    <div className="relative z-10 text-left">
+      {/* The type scales with the room the text has, so each line stays on one
+          row: the full width when stacked (below lg), the column left of the
+          images when side by side. */}
+      <h1 className="font-light leading-snug text-[clamp(1.25rem,6.2vw,2.25rem)] lg:text-[clamp(1.75rem,calc(4.3vw_-_0.9rem),3.25rem)]">
         <span className="intro-line" style={{ "--delay": "0.05s" } as React.CSSProperties}>
-          Sophie Brenner.
+          Sophie Brenner
         </span>
         <span className="intro-line" style={{ "--delay": "0.2s" } as React.CSSProperties}>
           I ship B2B dashboards and
@@ -53,17 +54,14 @@ function IntroText({ color }: { color: string }) {
       </h1>
 
       <p
-        className="relative z-10 mt-6 text-center max-w-[52ch] leading-relaxed"
-        style={{ fontSize: "clamp(0.95rem, 1.3vw, 1.15rem)", color }}
+        className="mt-4 lg:mt-6 max-w-[52ch] leading-relaxed [text-wrap:balance]"
+        style={{ fontSize: "clamp(0.95rem, 1.3vw, 1.15rem)" }}
       >
         <span className="intro-line" style={{ "--delay": "0.5s" } as React.CSSProperties}>
-          Taking AI and 3D products from 0→1.
-        </span>
-        <span className="intro-line" style={{ "--delay": "0.65s" } as React.CSSProperties}>
-          Research to shipped tools I design and build.
+          Product designer working in AI, 3D and spatial UX.
         </span>
       </p>
-    </>
+    </div>
   );
 }
 
@@ -86,6 +84,27 @@ export default function Home() {
     v.play().catch(() => setHeroVideoBlocked(true));
   }, []);
 
+  /* The flower draws at no less than its desktop size and is scaled down to
+     fit smaller boxes, so phones show the same cells and stem as desktop
+     (drawn small, its cells get too coarse for the stem). */
+  const flowerBoxRef = useRef<HTMLDivElement>(null);
+  const flowerRef = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const box = flowerBoxRef.current, cv = flowerRef.current;
+    if (!box || !cv) return;
+    const stage = cv.parentElement!;
+    const ro = new ResizeObserver(([e]) => {
+      const { width, height } = e.contentRect;
+      const k = Math.min(1, width / FLOWER_MIN_DRAW);
+      stage.style.width = `${width / k}px`;
+      stage.style.height = `${height / k}px`;
+      stage.style.transform = `scale(${k})`;
+    });
+    ro.observe(box);
+    const unmount = mountChartFlower(cv, { shiftLeft: 0.07 });
+    return () => { ro.disconnect(); unmount(); };
+  }, []);
+
 const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug === s)!);
 
   return (
@@ -96,54 +115,57 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
         paddingBottom: "4rem",
       }}
     >
-      {/* Intro card — full viewport height, reserved for further development */}
+      {/* Intro card — text on the left, the flower and video overlapping on
+          the right; stacked on smaller screens. */}
       <section
         id="intro"
-        className="relative overflow-hidden flex flex-col items-center justify-center mb-24 -mx-6 md:-mx-[120px] px-6 md:px-[120px]"
+        className="relative overflow-hidden flex flex-col lg:flex-row items-start lg:items-center justify-center lg:justify-between gap-12 mb-24 -mx-6 md:-mx-[120px] px-6 md:px-[120px]"
         style={{
-          height: "calc(100svh - var(--header-h) - 2rem)",
+          minHeight: "calc(100svh - var(--header-h) - 2rem)",
           color: "var(--text)",
         }}
       >
-        {heroVideoBlocked ? (
-          <Image
-            src="/climbing-poster.jpg"
-            alt=""
-            aria-hidden="true"
-            width={720}
-            height={1280}
-            priority
-            className="absolute object-cover pointer-events-none"
-            style={{ ...HERO_VIDEO, zIndex: 0 }}
-          />
-        ) : (
-          <video
-            ref={heroVideoRef}
-            src="/climbing.mp4"
-            poster="/climbing-poster.jpg"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            controls={false}
-            disablePictureInPicture
-            disableRemotePlayback
-            aria-hidden="true"
-            className="absolute object-cover pointer-events-none"
-            style={{ ...HERO_VIDEO, zIndex: 0 }}
-          />
-        )}
+        <IntroText />
 
-        <IntroText color="var(--text)" />
-
-        {/* White copy of the same text, clipped to the video rect. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 md:px-[120px] pointer-events-none"
-          style={{ clipPath: HERO_VIDEO_CLIP }}
+          className="relative shrink-0 w-full max-w-[460px] lg:w-[40%] lg:max-w-none"
+          style={{ aspectRatio: "5 / 4" }}
         >
-          <IntroText color="#fff" />
+          {/* Hat 06 flower from the Sparkling Yuzu archive. */}
+          <div ref={flowerBoxRef} className="absolute" style={{ ...HERO_FLOWER, zIndex: 0 }}>
+            <div className="absolute left-0 top-0" style={{ transformOrigin: "0 0" }}>
+              <canvas ref={flowerRef} className="absolute inset-0 w-full h-full" />
+            </div>
+          </div>
+
+          {heroVideoBlocked ? (
+            <Image
+              src="/climbing-poster.jpg"
+              alt=""
+              width={720}
+              height={1280}
+              priority
+              className="absolute object-cover pointer-events-none"
+              style={{ ...HERO_VIDEO, zIndex: 1 }}
+            />
+          ) : (
+            <video
+              ref={heroVideoRef}
+              src="/climbing.mp4"
+              poster="/climbing-poster.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              controls={false}
+              disablePictureInPicture
+              disableRemotePlayback
+              className="absolute object-cover pointer-events-none"
+              style={{ ...HERO_VIDEO, zIndex: 1 }}
+            />
+          )}
         </div>
       </section>
 

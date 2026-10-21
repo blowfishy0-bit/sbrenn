@@ -29,6 +29,9 @@ body {
 }
 
 html, body, * { cursor: none !important; }
+/* Pages without the custom dot (see Cursor.tsx) get the system cursor back. */
+html[data-native-cursor], html[data-native-cursor] * { cursor: auto !important; }
+html[data-native-cursor] :is(a, button, [role="button"]) { cursor: pointer !important; }
 
 a { color: inherit; text-decoration: none; }
 

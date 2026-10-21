@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
+const NATIVE_CURSOR_PATHS = ["/beadle", "/knit"];
+
 export default function Cursor() {
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [view, setView] = useState(false);
@@ -14,10 +16,10 @@ export default function Cursor() {
   }, [pathname]);
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY });
+    const last = { x: -100, y: -100 };
 
-      const el = (e.target as Element).closest?.("[data-cursor-view]") as HTMLElement | null;
+    const updateView = (target: Element | null, x: number, y: number) => {
+      const el = target?.closest?.("[data-cursor-view]") as HTMLElement | null;
       if (!el) {
         setView(false);
         return;
@@ -26,16 +28,42 @@ export default function Cursor() {
       // the dividing lines (top/bottom edges). Everything else shows "View" fully.
       if (el.hasAttribute("data-cursor-edge")) {
         const rect = el.getBoundingClientRect();
-        const edgeDist = Math.min(e.clientY - rect.top, rect.bottom - e.clientY);
+        const edgeDist = Math.min(y - rect.top, rect.bottom - y);
         setView(edgeDist > 10);
       } else {
         setView(true);
       }
     };
 
+    const onMove = (e: MouseEvent) => {
+      last.x = e.clientX;
+      last.y = e.clientY;
+      setPos({ x: e.clientX, y: e.clientY });
+      updateView(e.target as Element, e.clientX, e.clientY);
+    };
+
+    // Scrolling slides content under a still pointer without firing
+    // mousemove, so recheck what's under it or "View" goes stale.
+    const onScroll = () => {
+      updateView(document.elementFromPoint(last.x, last.y), last.x, last.y);
+    };
+
     document.addEventListener("mousemove", onMove);
-    return () => document.removeEventListener("mousemove", onMove);
+    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+    return () => {
+      document.removeEventListener("mousemove", onMove);
+      window.removeEventListener("scroll", onScroll, { capture: true });
+    };
   }, []);
+
+  // Full-window embeds (Beadle, Sparkling Yuzu) keep the system cursor: the
+  // dot can't follow the pointer inside a cross-origin iframe.
+  const native = NATIVE_CURSOR_PATHS.includes(pathname);
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-native-cursor", native);
+  }, [native]);
+
+  if (native) return null;
 
   return (
     <div

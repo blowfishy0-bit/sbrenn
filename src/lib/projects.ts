@@ -60,6 +60,17 @@ export const projects: Project[] = [
     thumb: "/bannerreal.png",
   },
   {
+    slug: "beadle",
+    title: "Beadle",
+    logo: "/beadle-logo.svg",
+    subtitle: "Bead Pattern App Prototype",
+    blurb: "A fuse-bead pattern app that turns any photo into a pattern made from real bead colors, then guides you through building it. Concept, clickable prototype, and branded screen.",
+    status: "Prototype",
+    tags: ["UX/UI", "Prototype"],
+    category: "ux",
+    thumb: "/beadle-thumb.jpg",
+  },
+  {
     slug: "climate-collective",
     title: "Mosambi",
     logo: "/mosambi%20logo.png",
@@ -101,16 +112,16 @@ export const projects: Project[] = [
   },
   {
     slug: "knit",
-    title: "Domestic Knit Machine",
-    subtitle: "Knit Design",
+    title: "Web Design, Creative Coding, Motion",
+    subtitle: "Interactive Archive for a Crochet Label",
     status: "Interactive",
     tags: ["Textile"],
     category: "art",
-    thumb: cargoImg("S2754783267564378129091610963198", "knit-ezgif.com-crop.png"),
+    thumb: "/knit-archive-thumb.jpg",
   },
 ];
 
-export const CASE_STUDY_SLUGS = ["the-3d-app-dashboard", "holomaid", "the-3d-app-1", "climate-collective", "stylo-app", "nyc", "knit"];
+export const CASE_STUDY_SLUGS = ["the-3d-app-dashboard", "holomaid", "the-3d-app-1", "climate-collective", "stylo-app", "nyc", "beadle", "knit"];
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
