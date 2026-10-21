@@ -1,7 +1,7 @@
 /* The Hat 06 chart flower from the Sparkling Yuzu archive. The body of
    mountChartFlower is copied as-is from chartFlower in ~/sparklingyuzu/main.js
    (only its .stage lookup becomes the canvas's parent, and its palette is
-   black instead of cobalt, and shiftLeft pins the flower to the left edge
+   black instead of cobalt, its second, thinner stem is dropped, and shiftLeft pins the flower to the left edge
    and slides it further left by that fraction of its size); the helpers above it
    are the ones main.js defines, scoped to this one canvas. */
 
@@ -49,7 +49,7 @@ export function mountChartFlower(cv, { shiftLeft = 0 } = {}) {
     }
     const fbm = (x, y) => vnoise(x, y) * 0.55 + vnoise(x * 2.1, y * 2.1) * 0.3 + vnoise(x * 4.3, y * 4.3) * 0.15;
 
-    // the flower, in a 1 × 1.33 design space: lobes of the head, a drooping petal, two stems
+    // the flower, in a 1 × 1.33 design space: lobes of the head, a drooping petal, a stem
     const ELL = [[0.49, 0.3, 0.12, 0.15], [0.47, 0.17, 0.05, 0.07], [0.66, 0.42, 0.23, 0.13], [0.55, 0.45, 0.2, 0.15], [0.25, 0.49, 0.12, 0.075]];
     const segDist = (px, py, ax, ay, bx, by) => {
       const vx = bx - ax, vy = by - ay, t = clamp(((px - ax) * vx + (py - ay) * vy) / (vx * vx + vy * vy), 0, 1);
@@ -67,7 +67,6 @@ export function mountChartFlower(cv, { shiftLeft = 0 } = {}) {
       // drooping petal: a fat capsule that swells toward its end
       d = Math.min(d, segDist(x, y, 0.53, 0.56, 0.69, 0.66) - (0.035 + 0.025 * clamp((x - 0.53) / 0.16, 0, 1)));
       for (let n = 0; n < STEM.length - 1; n++) d = Math.min(d, segDist(x, y, ...STEM[n], ...STEM[n + 1]) - 0.016);
-      d = Math.min(d, segDist(x, y, 0.37, 0.91, 0.42, 1.34) - 0.009 - 0.014 * clamp((y - 0.91) / 0.4, 0, 1));
       // ragged edges, like a photo traced cell by cell
       return d + (fbm(x * 22, y * 22) - 0.5) * 0.024;
     }
