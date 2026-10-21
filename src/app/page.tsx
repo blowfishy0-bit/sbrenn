@@ -58,7 +58,7 @@ function IntroText() {
         style={{ fontSize: "clamp(0.95rem, 1.3vw, 1.15rem)" }}
       >
         <span className="intro-line" style={{ "--delay": "0.5s" } as React.CSSProperties}>
-          Product designer working in AI, 3D and spatial UX.
+          Product designer taking AI and 3D products from idea to shipped.
         </span>
       </p>
     </div>
