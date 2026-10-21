@@ -41,7 +41,7 @@ export default function HoloMaid() {
         </div>
         <div className="md:w-80 text-sm leading-relaxed" style={{ color: "#333" }}>
           <p className="mb-4">
-            HoloMaid is an interactive anime-style holographic maid (green-haired, cat-eared)
+            HoloMaid is an interactive holographic character (green-haired, cat-eared)
             confined in a wooden box, powered by a Raspberry Pi 4 and locally-run Gemma 3. Using
             distance sensors she senses and greets users with a voice and dance, and invites typing
             on a keyboard so viewers can explore her trapped-in-a-box backstory.
