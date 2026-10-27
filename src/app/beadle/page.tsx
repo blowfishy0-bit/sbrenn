@@ -3,7 +3,7 @@ import ProjectLayout, { PROJECT_FOOTER_H } from "@/components/ProjectLayout";
 const BEADLE_URL = "https://beadle-tan.vercel.app/";
 
 export const metadata = {
-  title: "Beadle — Sophie Brenner",
+  title: "Bead Clover — Sophie Brenner",
 };
 
 /* Same full-window embed as /knit: the site fills the space between the

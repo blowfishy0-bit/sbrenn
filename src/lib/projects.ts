@@ -9,6 +9,7 @@ export interface Project {
   logo?: string;          // small mark rendered in front of the card title
   tags: string[];
   category: "ux" | "immersive" | "3d" | "art";
+  href?: string;          // external URL the homepage card opens instead of /slug
   thumb: string;          // URL for homepage card thumbnail
   hoverThumb?: string;    // optional alternate image shown on hover
   hoverThumbs?: string[]; // optional array of images to cycle through on hover
@@ -61,14 +62,15 @@ export const projects: Project[] = [
   },
   {
     slug: "beadle",
-    title: "Beadle",
-    logo: "/beadle-logo.svg",
-    subtitle: "Bead Pattern App Prototype",
+    title: "Bead Clover",
+    logo: "/bead-clover-icon.png",
+    subtitle: "iOS App for Bead Patterns · App Store",
+    href: "https://beadclover.com",
     blurb: "A fuse-bead pattern app that turns any photo into a pattern made from real bead colors, then guides you through building it. Concept, clickable prototype, and branded screen.",
-    status: "Prototype",
+    status: "Coming Soon",
     tags: ["UX/UI", "Prototype"],
     category: "ux",
-    thumb: "/beadle-thumb.jpg",
+    thumb: "/bead-clover-thumb.png",
   },
   {
     slug: "climate-collective",

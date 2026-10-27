@@ -176,7 +176,11 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
               key={p.slug}
             >
               {/* Image — only this is clickable */}
-              <Link href={`/${p.slug}`} data-cursor-view>
+              <Link
+                href={p.href ?? `/${p.slug}`}
+                {...(p.href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                data-cursor-view
+              >
                 <div
                   className="relative overflow-hidden w-full"
                   style={{ aspectRatio: "3/2", background: (p.thumbWhiteBg && !(hoveredSlug === p.slug && p.hoverThumb)) || p.slug === "stylo-app" ? "#fff" : (hoveredSlug === p.slug && p.hoverThumbs && p.hoverThumbs[hoverIndices[p.slug] ?? 0]?.endsWith(".svg") ? "#fff" : "#f0f0f0") }}
