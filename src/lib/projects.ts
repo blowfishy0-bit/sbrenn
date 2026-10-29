@@ -70,7 +70,7 @@ export const projects: Project[] = [
     status: "Coming Soon",
     tags: ["UX/UI", "Prototype"],
     category: "ux",
-    thumb: "/bead-clover-thumb.png",
+    thumb: "/bead-clover-thumb-2.png",
   },
   {
     slug: "climate-collective",
