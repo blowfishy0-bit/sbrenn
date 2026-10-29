@@ -63,14 +63,14 @@ export const projects: Project[] = [
   {
     slug: "beadle",
     title: "Bead Clover",
-    logo: "/bead-clover-icon.png",
+    logo: "/beadclover-cat-pfp.png",
     subtitle: "iOS App for Bead Patterns · App Store",
     href: "https://beadcloverapp.com",
     blurb: "A fuse-bead pattern app that turns any photo into a pattern made from real bead colors, then guides you through building it. Concept, clickable prototype, and branded screen.",
     status: "Coming Soon",
     tags: ["UX/UI", "Prototype"],
     category: "ux",
-    thumb: "/bead-clover-thumb-3.png",
+    thumb: "/bead-clover-thumb-4.png",
   },
   {
     slug: "climate-collective",
