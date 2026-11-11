@@ -7,18 +7,26 @@ const NATIVE_CURSOR_PATHS = ["/beadle", "/knit"];
 export default function Cursor() {
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [view, setView] = useState(false);
+  // Over a dark area marked data-cursor-light (the black homepage hero) the dot
+  // turns white so it stays visible.
+  const [light, setLight] = useState(false);
   const pathname = usePathname();
 
-  // Reset to the dot on navigation — otherwise "View" stays stuck until the
-  // next mousemove fires on the new page.
-  useEffect(() => {
+  // Reset to the plain dot on navigation, otherwise "View" (or the white dot)
+  // stays stuck until the next mousemove fires on the new page. Done while
+  // rendering, the way React recommends resetting state when a value changes.
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (pathname !== prevPath) {
+    setPrevPath(pathname);
     setView(false);
-  }, [pathname]);
+    setLight(false);
+  }
 
   useEffect(() => {
     const last = { x: -100, y: -100 };
 
     const updateView = (target: Element | null, x: number, y: number) => {
+      setLight(!!target?.closest?.("[data-cursor-light]"));
       const el = target?.closest?.("[data-cursor-view]") as HTMLElement | null;
       if (!el) {
         setView(false);
@@ -73,7 +81,7 @@ export default function Cursor() {
         left: pos.x,
         top: pos.y,
         transform: "translate(-50%, -50%)",
-        background: "#000",
+        background: light ? "#fff" : "#000",
         pointerEvents: "none",
         zIndex: 99999,
         overflow: "hidden",
@@ -81,12 +89,12 @@ export default function Cursor() {
         width: view ? 54 : 16,
         height: view ? 26 : 16,
         transition:
-          "width 0.24s cubic-bezier(0.22, 1, 0.36, 1), height 0.24s cubic-bezier(0.22, 1, 0.36, 1)",
+          "width 0.24s cubic-bezier(0.22, 1, 0.36, 1), height 0.24s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease",
       }}
     >
       <span
         style={{
-          color: "#fff",
+          color: light ? "#000" : "#fff",
           fontSize: 11,
           fontWeight: 600,
           lineHeight: 1,

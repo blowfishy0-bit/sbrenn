@@ -15,6 +15,7 @@ export interface Project {
   hoverThumbs?: string[]; // optional array of images to cycle through on hover
   thumbIsGif?: boolean;
   thumbWhiteBg?: boolean;
+  thumbVideo?: string;    // a silent looping clip played in the card in place of thumb (thumb shows until it loads)
   thumbContain?: boolean;
 }
 
@@ -29,6 +30,18 @@ export const projects: Project[] = [
     tags: ["Shipped", "B2B", "Product", "0→1"],
     category: "ux",
     thumb: "/real%20real%20real%20real%20real_.png",
+  },
+  {
+    slug: "signify",
+    title: "FIG AI Makeathon · Prototype · React, TypeScript, iOS",
+    logo: "/signify/icon.png",
+    subtitle: "Signify: AI Agent for Live ASL Conversations",
+    blurb: "An AI agent that translates live between a Deaf signer and a hearing person, and checks with the signer before it speaks anything it isn't sure of.",
+    status: "Prototype",
+    tags: ["AI", "UX/UI", "Prototype"],
+    category: "ux",
+    thumb: "/signify/signify-cafe-demo-poster-hd.jpg",
+    thumbVideo: "/signify/cafe-demo-card-hd.mp4",
   },
   {
     slug: "holomaid",
@@ -123,7 +136,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const CASE_STUDY_SLUGS = ["the-3d-app-dashboard", "beadle", "holomaid", "the-3d-app-1", "climate-collective", "stylo-app", "nyc", "knit"];
+export const CASE_STUDY_SLUGS = ["the-3d-app-dashboard", "signify", "the-3d-app-1", "beadle", "holomaid", "climate-collective", "stylo-app", "nyc", "knit"];
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);

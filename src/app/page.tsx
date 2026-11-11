@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { projects, CASE_STUDY_SLUGS } from "@/lib/projects";
-import { mountChartFlower } from "@/components/yuzuChartFlower";
+import AutoVideo from "@/components/AutoVideo";
 
 const FEATURED_SLUGS = CASE_STUDY_SLUGS;
 
@@ -17,12 +17,11 @@ const STATUS_DOT: Record<string, string> = {
 };
 const STATUS_DOT_FALLBACK = "#D6D6D6";
 
-/* Right of the intro, the flower sits up and to the left, behind the video,
-   overlapping it by about a third of its width. Boxes are % of the pair. */
-const HERO_FLOWER = { left: 0, top: 0, width: "56%", height: "70%" };
-const HERO_VIDEO = { right: 0, bottom: 0, width: "62%", height: "76%" };
-/* Width of the flower's box on a 1470px-wide desktop. */
-const FLOWER_MIN_DRAW = 276;
+/* The hero is a black band: white text on the left, the holomaid climbing up
+   its right side. */
+/* Where the climbing clip is looped (seconds), before she leaves its frame. */
+const CLIMB_END = 2.8;
+
 
 function IntroText() {
   return (
@@ -82,27 +81,15 @@ export default function Home() {
     v.muted = true;
     v.defaultMuted = true;
     v.play().catch(() => setHeroVideoBlocked(true));
-  }, []);
-
-  /* The flower draws at no less than its desktop size and is scaled down to
-     fit smaller boxes, so phones show the same cells and stem as desktop
-     (drawn small, its cells get too coarse for the stem). */
-  const flowerBoxRef = useRef<HTMLDivElement>(null);
-  const flowerRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const box = flowerBoxRef.current, cv = flowerRef.current;
-    if (!box || !cv) return;
-    const stage = cv.parentElement!;
-    const ro = new ResizeObserver(([e]) => {
-      const { width, height } = e.contentRect;
-      const k = Math.min(1, width / FLOWER_MIN_DRAW);
-      stage.style.width = `${width / k}px`;
-      stage.style.height = `${height / k}px`;
-      stage.style.transform = `scale(${k})`;
-    });
-    ro.observe(box);
-    const unmount = mountChartFlower(cv, { shiftLeft: 0.07 });
-    return () => { ro.disconnect(); unmount(); };
+    /* The clip ends with her climbing out of the top of the frame in a white
+       flash; loop it just before, so she climbs from mid-hero up to the top. */
+    let raf = 0;
+    const loop = () => {
+      if (v.currentTime >= CLIMB_END) v.currentTime = 0;
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
   }, []);
 
 const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug === s)!);
@@ -115,30 +102,33 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
         paddingBottom: "4rem",
       }}
     >
-      {/* Intro card — text on the left, the flower and video overlapping on
-          the right; stacked on smaller screens. */}
+      {/* Intro — a black band from the header down: white text on the left, the
+          holomaid climbing up the right side (its black background blends into
+          the band). It ends in a hard edge against the white page. */}
       <section
         id="intro"
-        className="relative overflow-hidden flex flex-col lg:flex-row items-start lg:items-center justify-center lg:justify-between gap-12 mb-24 -mx-6 md:-mx-[120px] px-6 md:px-[120px]"
+        data-cursor-light
+        className="relative overflow-hidden flex flex-col lg:flex-row items-start lg:items-center justify-start lg:justify-between pt-[calc(var(--header-h)+4rem)] lg:pt-[var(--header-h)] mb-24 -mx-6 md:-mx-[120px] px-6 md:px-[120px]"
         style={{
-          minHeight: "calc(100svh - var(--header-h) - 2rem)",
-          color: "var(--text)",
+          /* the band runs up behind the header (past main's top padding), so when
+             the header slides away on scroll the strip it leaves is black too; its
+             content still starts below the header */
+          marginTop: "calc(-1 * (var(--header-h) + 2rem))",
+          minHeight: "100svh",
+          background: "#000",
+          color: "#fff",
         }}
       >
         <IntroText />
 
+        {/* The holomaid on the right, her clip as tall as the hero so she climbs
+            from low in the band right up to its top. Screen blending drops the clip's
+            own black, so no box shows against the band. */}
         <div
           aria-hidden="true"
-          className="relative shrink-0 w-full max-w-[460px] lg:w-[40%] lg:max-w-none"
-          style={{ aspectRatio: "5 / 4" }}
+          className="absolute top-[var(--header-h)] bottom-0 right-[-14%] lg:right-[6%] pointer-events-none"
+          style={{ aspectRatio: "9 / 16", zIndex: 1, mixBlendMode: "screen" }}
         >
-          {/* Hat 06 flower from the Sparkling Yuzu archive. */}
-          <div ref={flowerBoxRef} className="absolute" style={{ ...HERO_FLOWER, zIndex: 0 }}>
-            <div className="absolute left-0 top-0" style={{ transformOrigin: "0 0" }}>
-              <canvas ref={flowerRef} className="absolute inset-0 w-full h-full" />
-            </div>
-          </div>
-
           {heroVideoBlocked ? (
             <Image
               src="/climbing-poster.jpg"
@@ -146,8 +136,7 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
               width={720}
               height={1280}
               priority
-              className="absolute object-cover pointer-events-none"
-              style={{ ...HERO_VIDEO, zIndex: 1 }}
+              className="absolute inset-0 w-full h-full object-cover"
             />
           ) : (
             <video
@@ -162,11 +151,11 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
               controls={false}
               disablePictureInPicture
               disableRemotePlayback
-              className="absolute object-cover pointer-events-none"
-              style={{ ...HERO_VIDEO, zIndex: 1 }}
+              className="absolute inset-0 w-full h-full object-cover"
             />
           )}
         </div>
+
       </section>
 
       <section id="work" style={{ scrollMarginTop: "var(--header-h)" }}>
@@ -199,7 +188,14 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
                     setHoveredSlug(null);
                   }}
                 >
-                  {(() => {
+                  {p.thumbVideo ? (
+                    <AutoVideo
+                      src={p.thumbVideo}
+                      poster={p.thumb}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      style={{}}
+                    />
+                  ) : (() => {
                     const isHovered = hoveredSlug === p.slug;
                     const currentSrc = isHovered && p.hoverThumbs
                       ? p.hoverThumbs[hoverIndices[p.slug] ?? 0]
