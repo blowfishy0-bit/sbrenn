@@ -136,7 +136,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const CASE_STUDY_SLUGS = ["the-3d-app-dashboard", "signify", "the-3d-app-1", "beadle", "holomaid", "climate-collective", "stylo-app", "nyc", "knit"];
+export const CASE_STUDY_SLUGS = ["the-3d-app-dashboard", "the-3d-app-1", "beadle", "holomaid", "climate-collective", "stylo-app", "nyc", "knit"];
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
