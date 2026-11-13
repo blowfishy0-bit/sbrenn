@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { projects, CASE_STUDY_SLUGS } from "@/lib/projects";
 import AutoVideo from "@/components/AutoVideo";
+import StagerThumb from "@/components/StagerThumb";
+import MosambiThumb from "@/components/MosambiThumb";
+import FadeThumb from "@/components/FadeThumb";
 
 const FEATURED_SLUGS = CASE_STUDY_SLUGS;
 
@@ -68,19 +71,20 @@ export default function Home() {
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
   const [hoverIndices, setHoverIndices] = useState<Record<string, number>>({});
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const [heroVideoBlocked, setHeroVideoBlocked] = useState(false);
+  const [heroPlaying, setHeroPlaying] = useState(false);
 
   /* iOS only honours autoplay on a video muted at the DOM-property level, so
-     set it directly rather than relying on the rendered attribute. When
-     playback is refused anyway — Low Power Mode always refuses — swap the
-     <video> out for a still. An <img> cannot draw a play affordance, which a
-     paused inline video on iOS otherwise can. */
+     set it directly rather than relying on the rendered attribute. A still of
+     the holomaid always sits underneath, and the video only fades in once it is
+     actually playing: in Low Power Mode iOS may refuse playback or leave it
+     hanging without saying so, and either way the still stays (with the video
+     invisible, iOS can't show its play button over it either). */
   useEffect(() => {
     const v = heroVideoRef.current;
     if (!v) return;
     v.muted = true;
     v.defaultMuted = true;
-    v.play().catch(() => setHeroVideoBlocked(true));
+    v.play().catch(() => {});
     /* The clip ends with her climbing out of the top of the frame in a white
        flash; loop it just before, so she climbs from mid-hero up to the top. */
     let raf = 0;
@@ -129,31 +133,29 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
           className="absolute top-[var(--header-h)] bottom-0 right-[-14%] lg:right-[6%] pointer-events-none"
           style={{ aspectRatio: "9 / 16", zIndex: 1, mixBlendMode: "screen" }}
         >
-          {heroVideoBlocked ? (
-            <Image
-              src="/climbing-poster.jpg"
-              alt=""
-              width={720}
-              height={1280}
-              priority
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          ) : (
-            <video
-              ref={heroVideoRef}
-              src="/climbing.mp4"
-              poster="/climbing-poster.jpg"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              controls={false}
-              disablePictureInPicture
-              disableRemotePlayback
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          )}
+          <Image
+            src="/climbing-poster.jpg"
+            alt=""
+            width={720}
+            height={1280}
+            priority
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <video
+            ref={heroVideoRef}
+            src="/climbing.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            controls={false}
+            disablePictureInPicture
+            disableRemotePlayback
+            onPlaying={() => setHeroPlaying(true)}
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ opacity: heroPlaying ? 1 : 0, transition: "opacity 0.3s ease" }}
+          />
         </div>
 
       </section>
@@ -188,7 +190,13 @@ const featuredProjects = FEATURED_SLUGS.map((s) => projects.find((p) => p.slug =
                     setHoveredSlug(null);
                   }}
                 >
-                  {p.thumbVideo ? (
+                  {p.thumbAnimation === "stager" ? (
+                    <StagerThumb src={p.thumb} alt={p.title} />
+                  ) : p.thumbAnimation === "mosambi" ? (
+                    <MosambiThumb alt={p.title} />
+                  ) : p.thumbFade ? (
+                    <FadeThumb srcs={p.thumbFade} alt={p.title} />
+                  ) : p.thumbVideo ? (
                     <AutoVideo
                       src={p.thumbVideo}
                       poster={p.thumb}

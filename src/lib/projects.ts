@@ -15,6 +15,8 @@ export interface Project {
   hoverThumbs?: string[]; // optional array of images to cycle through on hover
   thumbIsGif?: boolean;
   thumbWhiteBg?: boolean;
+  thumbAnimation?: "stager" | "mosambi"; // an animated card thumbnail built over thumb
+  thumbFade?: string[];      // images the card crossfades between on its own
   thumbVideo?: string;    // a silent looping clip played in the card in place of thumb (thumb shows until it loads)
   thumbContain?: boolean;
 }
@@ -50,8 +52,8 @@ export const projects: Project[] = [
     status: "Interactive",
     tags: ["Immersive", "AI", "Hardware"],
     category: "immersive",
-    thumb: "/holomaid-1.png",
-    hoverThumbs: ["/holomaid-1.png", "/holomaid-2.png", "/holomaid-3.png", "/holomaid-4.png"],
+    thumb: "/holomaid-card-poster.jpg",
+    thumbVideo: "/holomaid-card.mp4",
   },
   {
     slug: "the-3d-app-1",
@@ -63,6 +65,7 @@ export const projects: Project[] = [
     tags: ["Shipped", "AI", "UX/UI"],
     category: "ux",
     thumb: "/group-1.png",
+    thumbAnimation: "stager",
   },
   {
     slug: "stylo-app",
@@ -71,7 +74,8 @@ export const projects: Project[] = [
     status: "Prototype",
     tags: ["UX/UI"],
     category: "ux",
-    thumb: "/bannerreal.png",
+    thumb: "/stylo-card-poster.jpg",
+    thumbVideo: "/stylo-card.mp4",
   },
   {
     slug: "beadle",
@@ -95,7 +99,7 @@ export const projects: Project[] = [
     tags: ["Client", "Onboarding"],
     category: "ux",
     thumb: "/group-20.jpg",
-    hoverThumb: "/mosambi.jpg",
+    thumbAnimation: "mosambi",
     thumbWhiteBg: true,
   },
   {
@@ -115,7 +119,7 @@ export const projects: Project[] = [
     tags: ["Spatial", "Unity"],
     category: "immersive",
     thumb: cargoImg("K2721659513700584660664435764478", "3_sophie_interaction.jpg"),
-    hoverThumbs: [cargoImg("K2721659513700584660664435764478", "3_sophie_interaction.jpg"), "/nyc-hover.png"],
+    thumbFade: [cargoImg("K2721659513700584660664435764478", "3_sophie_interaction.jpg"), "/nyc-hover.png"],
   },
   {
     slug: "sketches",
@@ -132,11 +136,12 @@ export const projects: Project[] = [
     status: "Interactive",
     tags: ["Textile"],
     category: "art",
-    thumb: "/knit-archive-thumb.jpg",
+    thumb: "/knit-card-poster.jpg",
+    thumbVideo: "/knit-card.mp4",
   },
 ];
 
-export const CASE_STUDY_SLUGS = ["the-3d-app-dashboard", "the-3d-app-1", "beadle", "holomaid", "climate-collective", "stylo-app", "nyc", "knit"];
+export const CASE_STUDY_SLUGS = ["the-3d-app-dashboard", "signify", "the-3d-app-1", "beadle", "holomaid", "climate-collective", "stylo-app", "nyc", "knit"];
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);

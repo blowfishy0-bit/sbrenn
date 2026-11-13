@@ -1,7 +1,7 @@
 import Image from "next/image";
 import ProjectLayout from "@/components/ProjectLayout";
 import AutoVideo from "@/components/AutoVideo";
-import ScreensRow from "./ScreensRow";
+import ScreensRow, { FINAL_FLOW, FINAL_STATES } from "./ScreensRow";
 
 export const metadata = {
   title: "Signify — Sophie Brenner",
@@ -43,11 +43,11 @@ export default function Signify() {
   return (
     <ProjectLayout slug="signify">
 
-      {/* ── Hero video: the café demo ──
-          The full window width, as tall as the screen allows. The video's own
-          background is white like the page, so it's centred in the band without
-          cropping the phone. (A 1080p copy: three 4K clips plus a CSS mask ran Chrome
-          short of graphics memory and blanked the fixed header and footer.) */}
+      {/* ── Hero video: the makeathon demo ──
+          The full walkthrough (65s, no sound, captioned in the frame), the full
+          window width and as tall as the screen allows, on a band matching the
+          video's own light grey. It plays muted on its own; the controls let
+          people pause, scrub or restart it. */}
       <section
         className="mb-12"
         style={{
@@ -55,17 +55,26 @@ export default function Signify() {
           marginLeft: "calc(50% - 50vw)",
           marginRight: "calc(50% - 50vw)",
           height: "min(56.25vw, calc(100svh - var(--header-h) - 45px))",
-          background: "#fff",
+          background: "#ededed",
         }}
       >
-        <AutoVideo
-          src="/signify/signify-cafe-demo-1080.mp4"
-          poster="/signify/signify-cafe-demo-poster-white.jpg"
-          label="Signify demo: ordering an iced oat milk latte, the agent checks a sign it isn't sure of, then recaps the order"
+        <video
+          src="/signify/signify-makeathon-demo.mp4"
+          poster="/signify/signify-makeathon-demo-poster.jpg"
+          aria-label="Signify makeathon demo: starting a conversation, the barista's speech captioned, Sam signing, the agent checking a sign it isn't sure of, Memory, Learn ASL and Community"
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls
+          preload="metadata"
+          disablePictureInPicture
           className="block w-full h-full object-contain"
-          style={{}}
         />
       </section>
+      <p className="text-sm -mt-9 mb-12" style={{ color: "var(--text-muted)" }}>
+        Final demo by Tania Cortez, showing the team&rsquo;s final UI.
+      </p>
 
       {/* ── Title + Meta ──
           TODO(Sophie): add the outcome once the makeathon results are out. */}
@@ -79,7 +88,7 @@ export default function Signify() {
             <div className="flex flex-col gap-3 mt-8">
               {[
                 { label: "Event",    value: "FIG AI Makeathon" },
-                { label: "Timeline", value: "4-day sprint" },
+                { label: "Timeline", value: "5-day sprint" },
                 { label: "Team",    value: "Sophie Brenner, Gus Sun, Tania Cortez, Venus Li" },
                 { label: "My Role", value: "Product design and prototyping. Designed the agent experience (the checkpoint before speaking, the repair card, the agent panel, the recap) and built the React prototype that runs inside the native iOS app." },
               ].map(({ label, value }) => (
@@ -118,12 +127,15 @@ export default function Signify() {
         />
       </section>
 
-      {/* ── Research ── */}
+      {/* ── Research ──
+          Desk research only. The team's design rationale also has a teammate's
+          firsthand story; that's hers to tell, so it isn't retold here. */}
       <section className="mb-16">
         <div className="rounded-2xl p-8 md:p-12 mb-12" style={{ background: "#f5f5f5" }}>
           <p className="text-xs tracking-widest uppercase mb-4" style={{ color: "var(--text-muted)" }}>Research</p>
           <p className={`${BODY} mb-8`} style={BODY_COLOR}>
-            Desk research: public forum discussions from Deaf people and people who communicate with them.
+            Desk research: published reporting, a 2025 healthcare review, and public forum
+            discussions from Deaf people and people who communicate with them.
           </p>
           <blockquote
             className="font-light leading-snug"
@@ -143,25 +155,55 @@ export default function Signify() {
           </p>
         </div>
 
+        <h3 className="font-medium mb-6 text-lg">How Deaf People Talk to Non-Signers Today</h3>
         <div className="mb-12">
           <Items items={[
-            { title: "Writing Is the Default",              body: "Notes, texting, or typing on a phone is one of the most common ways Deaf people talk with hearing people who don’t sign." },
-            { title: "Simple Settings, Simple Tools",       body: "At restaurants, pointing and gesturing is often enough." },
-            { title: "A Trusted Go-Between Comes First",    body: "One Deaf man’s ranked choices: an interpreter, then writing or texting, then lipreading, then his cochlear implant." },
+            { title: "Writing Is the Default",  body: "Notes, texting, or typing on a phone is one of the most common ways Deaf people talk with hearing people who don’t sign. Stephanie Cawthon, director of the National Deaf Center, recommends writing it out in a phone’s notes or on paper." },
+            { title: "Simple Settings, Simple Tools", body: "At restaurants, pointing and gesturing is often enough." },
+            { title: "People Rank Their Options", body: "One Deaf man’s ranked choices: an interpreter, then writing or texting, then lipreading, then his cochlear implant. A Deaf Quora contributor described grabbing a nearby hearing signer to interpret, but “there’s usually never one around when you really want one.”" },
           ]} />
         </div>
 
+        <h3 className="font-medium mb-6 text-lg">There&rsquo;s Often a Third Person in the Room</h3>
+        <div className="mb-12">
+          <Items items={[
+            { title: "Even Private Conversations",  body: "Appointments with doctors and therapists often run through a video relay service, where a third person signs and speaks for the patient." },
+            { title: "Staff Don’t Know the Tools",  body: "A 2025 scoping review found online relay interpreting could remove barriers, but many health staff didn’t know how to use it or were unwilling to. One patient’s appointment was canceled because the doctor didn’t know how to call through a relay service." },
+            { title: "Still Reported in 2026",      body: "In August 2026, Deaf people and advocates were still reporting communication barriers in medical settings, even after asking for accommodations." },
+          ]} />
+        </div>
+
+        <h3 className="font-medium mb-6 text-lg">Why Past Sign-Translation Tools Failed</h3>
+        <p className={`${BODY} mb-8 max-w-[700px]`} style={BODY_COLOR}>
+          The Deaf community has rejected a decade of &ldquo;sign language gloves&rdquo; and similar
+          tools, and the critique is specific.
+        </p>
+        <div className="mb-8">
+          <Items cols={2} items={[
+            { title: "They Serve the Wrong Person",        body: "Rachel Kolb, a Rhodes Scholar and Ph.D. student at Emory University who has been deaf from birth: “ASL gloves are mainly created/designed to serve hearing people.”" },
+            { title: "They Were Built Without Deaf People", body: "Carol Padden, a sign-language linguist who is Deaf, said she felt betrayed that one project never checked with the Deaf community or with ASL teachers." },
+            { title: "The Signer Does All the Work",        body: "An open letter from the University of Washington’s linguistics department pointed out that the signer has to wear and set up the equipment, while the hearing person only has to listen." },
+            { title: "They Reduce ASL to Hands",            body: "The same letter argued these tools misunderstand sign languages by looking only at what the hands do." },
+          ]} />
+        </div>
+        <p className={`${BODY} mb-12 max-w-[700px]`} style={BODY_COLOR}>
+          Speech-to-text apps have the mirror problem: the other person has to install the app before
+          the conversation can start.
+        </p>
+
         <h3 className="font-medium mb-6 text-lg">What This Means for Signify</h3>
         <div className="mb-10">
-          <Items items={[
-            { title: "Typing Is the Bar to Beat",   body: "If Signify is less reliable than a notes app, people will just type. So the agent asks instead of guessing, and Type is always one tap away." },
-            { title: "Act Like a Good Interpreter", body: "Check when unsure. Never put words in the signer’s mouth." },
-            { title: "Win on Specific Requests",    body: "Pointing works for “a coffee.” Signify matters for “a medium iced oat milk latte” or a pharmacy question." },
+          <Items cols={2} items={[
+            { title: "Typing Is the Bar to Beat",        body: "If Signify is less reliable than a notes app, people will just type. So the agent asks instead of guessing, and Type is always one tap away." },
+            { title: "Never Put Words in Their Mouth",   body: "Past tools acted as if they were always right. Signify checks when unsure, and the signer approves before anything is spoken." },
+            { title: "Both Sides Do the Work",           body: "The hearing person’s speech is captioned too, and tap-to-share means they don’t need the app." },
+            { title: "Win on Specific Requests",         body: "Pointing works for “a coffee.” Signify matters for “a medium iced oat milk latte” or a pharmacy question." },
           ]} />
         </div>
 
         <p className="text-sm italic" style={{ color: "var(--text-muted)" }}>
-          Limit: this is desk research, not interviews. Next step is testing with Deaf signers.
+          Limit: this is desk research, not interviews. After seeing how past tools went wrong,
+          testing with Deaf signers is the first next step.
         </p>
       </section>
 
@@ -313,6 +355,12 @@ export default function Signify() {
         <p className={`${BODY} mb-10 max-w-[700px]`} style={BODY_COLOR}>
           One coffee order, start to finish: the moment the agent is unsure is the heart of the demo.
         </p>
+        <AutoVideo
+          src="/signify/signify-cafe-demo-1080.mp4"
+          poster="/signify/signify-cafe-demo-poster-white.jpg"
+          label="Signify demo: ordering an iced oat milk latte, the agent checks a sign it isn't sure of, then recaps the order"
+          className="block w-full h-auto mb-12"
+        />
         <div className="grid md:grid-cols-4 gap-10">
           {[
             { step: "01", title: "Start",   body: "Sam starts a conversation. The camera opens, each speaker on their own side." },
@@ -347,8 +395,30 @@ export default function Signify() {
 
       {/* ── Screens: the static screens ── */}
       <section className="mb-16">
-        <SectionTitle>Screens</SectionTitle>
+        <SectionTitle>My Screens</SectionTitle>
+        <p className={`${BODY} mb-10 max-w-[700px]`} style={BODY_COLOR}>
+          The first version I designed in Figma: the conversation, the agent panel, the recap,
+          and the screens around them.
+        </p>
         <ScreensRow />
+      </section>
+
+      {/* ── The final UI: Tania's redesign, credited ── */}
+      <section className="mb-16">
+        <SectionTitle>The Final UI</SectionTitle>
+        <p className={`${BODY} mb-10 max-w-[700px]`} style={BODY_COLOR}>
+          For the final prototype, Tania Cortez redesigned the UI around the same agent flow and
+          handed it off to Lovable. Her screens add sharing with the other person, Learn ASL, and
+          consent for contributing practice signs. UI design by Tania Cortez.
+        </p>
+        <ScreensRow screens={FINAL_FLOW} cols={4} />
+
+        <h3 className="font-medium mt-16 mb-3 text-lg">When Something Goes Wrong</h3>
+        <p className={`${BODY} mb-10 max-w-[700px]`} style={BODY_COLOR}>
+          Every failure has its own plain-language state, and each one keeps the conversation
+          going, usually by offering Type. Designed by Tania Cortez.
+        </p>
+        <ScreensRow screens={FINAL_STATES} cols={4} />
       </section>
 
       {/* ── How it's built ── */}
@@ -358,6 +428,20 @@ export default function Signify() {
           A React prototype built with Lovable, wrapped in a native iOS app. Swift handles the camera,
           hand tracking and speech recognition, connected to the web app through a typed bridge. In
           the web demo, the camera and AI are simulated.
+        </p>
+      </section>
+
+      {/* ── Accessibility ── */}
+      <section className="mb-16">
+        <SectionTitle>Accessibility Built In</SectionTitle>
+        <Items items={[
+          { title: "Cues Without Sound",           body: "A haptic when spoken playback starts, finishes, or stops, an edge flash on devices without haptics, a waveform that follows the real mic level, and the spoken word highlighted in the caption." },
+          { title: "It Never Captions Itself",     body: "The mic is muted while the app speaks, and only text the signer has reviewed is ever spoken. The written transcript stays the source of truth." },
+          { title: "Asks Only When Needed",        body: "Camera and microphone access are asked for only when that mode starts, with a plain reason first, and typing always works if access is denied." },
+        ]} />
+        <p className={`${BODY} mt-10 max-w-[700px]`} style={BODY_COLOR}>
+          Design rules across the app: VoiceOver reading order, 44 × 44 pt touch targets, WCAG AA
+          contrast, Dynamic Type, Reduce Motion, and no state shown by color alone.
         </p>
       </section>
 
@@ -379,6 +463,23 @@ export default function Signify() {
           { title: "Facial Grammar Next",          body: "Version 1 reads hands. ASL meaning also lives in the face and body." },
           { title: "What I’d Do Differently",      body: "Bring Deaf users in on day one, and test the checkpoint against plain typing to prove it’s worth it." },
         ]} />
+      </section>
+
+      {/* ── Sources ── */}
+      <section className="mb-16">
+        <SectionTitle>Sources</SectionTitle>
+        <ul className="flex flex-col gap-2 text-sm" style={{ color: "var(--text-muted)" }}>
+          {[
+            "Michael Erard, “Why Sign-Language Gloves Don’t Help Deaf People,” The Atlantic, November 2017 (Rachel Kolb, Carol Padden)",
+            "Open letter on SignAloud, University of Washington Department of Linguistics, 2016",
+            "Rogers et al., “What are Deaf sign language users’ experiences as patients in healthcare services? A scoping review,” PLOS Global Public Health, 2025",
+            "“Deaf community advocates raise concerns about virtual interpreters in healthcare,” News 12, August 10, 2026",
+            "“Challenges with telehealth persist for deaf patients and others,” TMJ4 National News (the canceled appointment)",
+            "“How To Communicate With The Deaf Community Behind A Mask,” mindbodygreen (Stephanie Cawthon)",
+            "“Communicating with Deaf Individuals,” National Deaf Center on Postsecondary Outcomes, 2017",
+            "“How do Deaf people talk to others who don’t know sign language?,” Quora",
+          ].map((s) => <li key={s}>{s}</li>)}
+        </ul>
       </section>
 
     </ProjectLayout>
