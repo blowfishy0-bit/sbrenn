@@ -34,6 +34,15 @@ export const FINAL_STATES: Screen[] = [
   "Recognition unavailable", "Review your message", "Speaking", "Captions unavailable",
 ].map((alt, i) => ({ src: `/signify/final/state-${String(i + 1).padStart(2, "0")}.jpg`, alt }));
 
+export const FINAL_DARK: Screen[] = [
+  "Launch", "Home: who is talking?", "Share with a nearby person", "Share: what they get",
+  "Live: signing", "Live: the agent checks a sign", "Speech: start", "Speech: conversation",
+  "Agent settings", "Recap from Memory", "Memory", "Messages", "Chat", "Community",
+].map((alt, i) => ({ src: `/signify/final/dark-${String(i + 1).padStart(2, "0")}.jpg`, alt: `${alt}, dark mode` }));
+
+/* The first eight (launch through a spoken conversation), to keep the page light. */
+export const FINAL_DARK_SHORT = FINAL_DARK.slice(0, 8);
+
 /* Screens in rows (two to a row on phones). The first time they come into view
    they slide in one after another, alternately from below and from above; with
    reduced motion they're simply there. */
